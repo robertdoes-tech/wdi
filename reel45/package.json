@@ -1,0 +1,10 @@
+{
+  "name": "wdi-showreel-45",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.0.0",
+    "gsap": "^3.12.5",
+    "playwright-core": "^1.47.2"
+  }
+}

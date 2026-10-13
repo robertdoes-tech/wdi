@@ -1,0 +1,163 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>WDI Showreel</title>
+<style>
+@font-face{font-family:DM;src:url(fonts/dm-sans-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:DM;src:url(fonts/dm-sans-latin-500-normal.woff2);font-weight:500}
+@font-face{font-family:DM;src:url(fonts/dm-sans-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:DM;src:url(fonts/dm-sans-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:DM;src:url(fonts/dm-sans-latin-800-normal.woff2);font-weight:800}
+@font-face{font-family:DM;src:url(fonts/dm-sans-latin-900-normal.woff2);font-weight:900}
+:root{--bg:#0A1628;--deep:#050C18;--panel:#12233D;--blue:#3B82F6;--sky:#0B87E3;--indigo:#4549D9;--ice:#A9C4FF;--white:#F4F7FC;--green:#34D399;--red:#F87171;--navy:#032C57}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--deep);font-family:DM,sans-serif;color:var(--white);-webkit-font-smoothing:antialiased}
+#stage{position:absolute;inset:0;overflow:hidden}
+#cam{position:absolute;inset:0;transform-origin:50% 50%}
+#bg{position:absolute;inset:-200px;background:radial-gradient(ellipse 60% 55% at 50% 45%,#13305A 0%,#0A1628 55%,#050C18 100%)}
+#grid{position:absolute;inset:-400px;opacity:.35;background-image:linear-gradient(rgba(147,180,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(147,180,255,.07) 1px,transparent 1px);background-size:80px 80px;transform:perspective(900px) rotateX(58deg) translateY(var(--gy,0px));transform-origin:50% 100%;top:300px}
+#glow{position:absolute;width:1400px;height:1400px;left:260px;top:-160px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,.28),rgba(69,73,217,.08) 40%,transparent 65%);filter:blur(10px)}
+.scene{position:absolute;inset:0;visibility:hidden;perspective:1800px}
+.abs{position:absolute}
+.center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.h1{font-weight:800;letter-spacing:-.035em;line-height:.98}
+.w{display:inline-block;will-change:transform}
+.chip{display:inline-flex;align-items:center;gap:14px;padding:14px 26px;border-radius:999px;background:rgba(59,130,246,.14);border:1.5px solid rgba(147,180,255,.35);font-weight:700;font-size:30px;letter-spacing:.14em;text-transform:uppercase;color:var(--ice)}
+.chip i{width:12px;height:12px;border-radius:50%;background:var(--blue);box-shadow:0 0 18px var(--blue)}
+.browser{position:absolute;border-radius:18px;overflow:hidden;background:#0d1a2e;box-shadow:0 60px 140px rgba(0,0,0,.6),0 0 0 1.5px rgba(147,180,255,.18);transform-style:preserve-3d}
+.browser .bar{height:44px;background:#0F1E35;display:flex;align-items:center;padding:0 18px;gap:9px;border-bottom:1px solid rgba(147,180,255,.12)}
+.browser .bar b{width:13px;height:13px;border-radius:50%;background:#2A3B57}
+.browser .bar span{margin-left:22px;flex:1;max-width:520px;height:26px;border-radius:13px;background:#0A1628;font-size:15px;color:#7F95B8;display:flex;align-items:center;padding-left:16px;font-weight:500}
+.browser img{display:block;width:100%}
+.shot{position:absolute;border-radius:16px;overflow:hidden;box-shadow:0 50px 120px rgba(0,0,0,.55),0 0 0 1.5px rgba(147,180,255,.16)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover}
+.card{position:absolute;border-radius:22px;overflow:hidden;box-shadow:0 40px 110px rgba(0,0,0,.6),0 0 0 1.5px rgba(147,180,255,.25);background:#13284A}
+.card img{display:block;width:100%}
+.outline{font-weight:900;color:transparent;-webkit-text-stroke:2.5px rgba(147,180,255,.32);letter-spacing:-.04em;white-space:nowrap}
+.grad{background:linear-gradient(100deg,#7FB2FF 0%,#3B82F6 45%,#6F6CFF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+#wipe{position:absolute;inset:0;pointer-events:none;z-index:50}
+#wipe div{position:absolute;left:-15%;width:130%;height:38%;transform:skewY(-8deg) translateX(-130%)}
+#grain{position:absolute;inset:0;width:1920px;height:1080px;opacity:.07;mix-blend-mode:overlay;z-index:60;image-rendering:pixelated}
+#vig{position:absolute;inset:0;z-index:59;background:radial-gradient(ellipse 75% 70% at 50% 50%,transparent 55%,rgba(0,0,0,.55) 100%);pointer-events:none}
+#flash{position:absolute;inset:0;background:#fff;opacity:0;z-index:58;mix-blend-mode:screen}
+.logoWord{font-weight:800;letter-spacing:-.02em}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <linearGradient id="lg" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="55" y2="100"><stop offset="0" stop-color="#0B8BE6"/><stop offset=".55" stop-color="#3A5ADE"/><stop offset="1" stop-color="#4848D8"/></linearGradient>
+  <symbol id="mark" viewBox="0 0 100 100">
+   <defs>
+    <path id="mshape" d="M6 40 Q6 28 18 28 L52 28 L74 14 L66 8 L96 2 L92 32 L84 24 L80 27 L80 82 Q80 94 68 94 L18 94 Q6 94 6 82 Z"/>
+    <clipPath id="c0"><polygon points="-10,-10 110,-10 110,34 62,34 34,49 -10,49"/></clipPath>
+    <clipPath id="c1"><polygon points="-10,55 36,55 64,40 110,40 110,58 62,58 34,73 -10,73"/></clipPath>
+    <clipPath id="c2"><polygon points="-10,79 36,79 64,64 110,64 110,110 -10,110"/></clipPath>
+   </defs>
+   <g class="mb mb0" clip-path="url(#c0)"><use href="#mshape" fill="url(#lg)"/></g>
+   <g class="mb mb1" clip-path="url(#c1)"><use href="#mshape" fill="url(#lg)"/></g>
+   <g class="mb mb2" clip-path="url(#c2)"><use href="#mshape" fill="url(#lg)"/></g>
+  </symbol>
+ </defs>
+</svg>
+<div id="stage"><div id="cam">
+ <div id="bg"></div><div id="glow"></div><div id="grid"></div>
+ <!-- S1 referrals -->
+ <section class="scene" id="s1">
+  <svg class="abs" id="chart" style="left:260px;top:360px" width="1400" height="520" viewBox="0 0 1400 520">
+   <defs><linearGradient id="cg" x1="0" x2="1"><stop offset="0" stop-color="#3B82F6"/><stop offset="1" stop-color="#7FB2FF"/></linearGradient>
+   <linearGradient id="cf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(59,130,246,.35)"/><stop offset="1" stop-color="rgba(59,130,246,0)"/></linearGradient></defs>
+   <g stroke="rgba(147,180,255,.1)" stroke-width="1"><line x1="0" y1="130" x2="1400" y2="130"/><line x1="0" y1="260" x2="1400" y2="260"/><line x1="0" y1="390" x2="1400" y2="390"/><line x1="0" y1="510" x2="1400" y2="510"/></g>
+   <path id="cfill" d="M0 500 L120 470 L260 430 L400 360 L540 300 L680 230 L800 190 L800 520 L0 520Z" fill="url(#cf)"/>
+   <path id="cline" d="M0 500 L120 470 L260 430 L400 360 L540 300 L680 230 L800 190" fill="none" stroke="url(#cg)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+   <path id="cflat" d="M800 190 L930 200 L1060 205 L1190 214 L1340 222" fill="none" stroke="#F87171" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 22"/>
+   <circle id="cdot" cx="800" cy="190" r="13" fill="#7FB2FF"/>
+  </svg>
+  <div class="abs h1" id="s1a" style="left:260px;top:170px;font-size:104px">Referrals built your business.</div>
+  <div class="abs h1" id="s1b" style="left:260px;top:170px;font-size:104px">But referrals <span class="w" id="noscale" style="color:#F87171">don't scale.</span></div>
+ </section>
+ <!-- S2 logo + hero -->
+ <section class="scene" id="s2">
+  <div class="center" id="lockup" style="display:flex;align-items:center;gap:46px">
+   <svg id="bigmark" width="300" height="300" viewBox="0 0 100 100" style="overflow:visible"><g class="mb mb0" clip-path="url(#c0)"><use href="#mshape" fill="url(#lg)"/></g><g class="mb mb1" clip-path="url(#c1)"><use href="#mshape" fill="url(#lg)"/></g><g class="mb mb2" clip-path="url(#c2)"><use href="#mshape" fill="url(#lg)"/></g></svg>
+   <div class="logoWord" id="bigword" style="color:#fff;font-size:250px;line-height:1;display:flex"><span class="w">W</span><span class="w">D</span><span class="w">I</span></div>
+  </div>
+  <div class="abs" id="ring" style="left:960px;top:540px;width:10px;height:10px;border-radius:50%;border:3px solid rgba(127,178,255,.8);transform:translate(-50%,-50%)"></div>
+  <div class="browser" id="hero" style="left:860px;top:210px;width:1000px"><div class="bar"><b></b><b></b><b></b><span>thisiswdi.com</span></div><img src="img/home-hero.jpg"></div>
+  <div class="abs h1" id="s2cap" style="left:120px;top:560px;font-size:92px;width:760px">
+   <div><span class="w">Outbound</span> <span class="w grad">sales</span></div>
+   <div style="font-size:60px;font-weight:600;margin-top:18px;color:var(--ice)"><span class="w">for</span> <span class="w">Irish</span> <span class="w">B2B</span> <span class="w">firms.</span></div>
+  </div>
+  <div class="abs" id="s2chip" style="left:120px;top:440px"><span class="chip"><i></i>Sales outreach</span></div>
+ </section>
+ <!-- S3 stats -->
+ <section class="scene" id="s3">
+  <div class="abs" id="bars3" style="left:0;right:0;bottom:0;height:640px;display:flex;align-items:flex-end;gap:22px;padding:0 60px;opacity:.55"></div>
+  <div class="center" id="st1" style="text-align:center">
+   <div class="h1 grad" style="font-size:330px"><span id="n100">€0m</span></div>
+   <div style="font-size:46px;font-weight:600;color:var(--ice);margin-top:10px">lifetime value secured for clients in Ireland</div>
+  </div>
+  <div class="center" id="st2" style="text-align:center;top:46%">
+   <div class="h1 grad" style="font-size:330px"><span id="n1000">0</span></div>
+   <div style="font-size:46px;font-weight:600;color:var(--ice);margin-top:10px">meetings booked</div>
+  </div>
+  <div class="abs" id="cal" style="left:50%;top:790px;transform:translateX(-50%);display:grid;grid-template-columns:repeat(50,18px);gap:6px"></div>
+ </section>
+ <!-- S4 sectors -->
+ <section class="scene" id="s4">
+  <div class="abs outline" id="bigword4" style="left:0;top:300px;font-size:330px;width:1920px;text-align:center"></div>
+  <div class="card" id="k-steel" style="width:760px"><img src="img/card-steel.png"></div>
+  <div class="card" id="k-pharma" style="width:640px"><img src="img/card-pharma.png"></div>
+  <div class="card" id="k-plant" style="width:760px"><img src="img/card-plant.png"></div>
+  <div class="card" id="k-security" style="width:760px"><img src="img/card-security.png"></div>
+  <div class="card" id="k-coatings" style="width:560px"><img src="img/card-coatings.png"></div>
+  <div class="card" id="k-scaffold" style="width:560px"><img src="img/card-scaffold.png"></div>
+  <div class="card" id="k-insulation" style="width:560px"><img src="img/card-insulation.png"></div>
+  <div class="abs h1" id="s4t" style="left:0;width:1920px;text-align:center;top:780px;font-size:112px;text-shadow:0 10px 60px rgba(0,0,0,.7)">
+   <span class="w">Real</span> <span class="w grad">pipeline.</span>
+   <div style="font-size:64px;font-weight:700;margin-top:10px;color:var(--white)"><span class="w">In</span> <span class="w" style="color:#7FB2FF">months,</span> <span class="w" id="notyears" style="position:relative;color:#7F95B8">not years.<i id="strike" style="position:absolute;left:-4%;top:52%;height:7px;width:108%;background:#F87171;transform-origin:0 50%;border-radius:4px"></i></span></div>
+  </div>
+ </section>
+ <!-- S5 automation -->
+ <section class="scene" id="s5">
+  <div class="shot" id="svc" style="left:760px;top:180px;width:1100px;height:574px"><img src="img/services.jpg"></div>
+  <div class="abs h1" id="s5t" style="left:110px;top:330px;font-size:104px;width:680px"><div><span class="w">Then</span> <span class="w">we</span></div><div><span class="w grad">automate</span></div><div style="font-size:70px;color:var(--ice)"><span class="w">the</span> <span class="w">admin.</span></div></div>
+  <div class="shot" id="sh-dock" style="left:330px;top:150px;width:1260px;height:860px"><img src="img/docketpro.jpg" style="object-position:top"></div>
+  <div class="shot" id="sh-crm" style="left:180px;top:200px;width:1560px;height:512px"><img src="img/crm-hero.jpg"></div>
+  <div class="shot" id="sh-ts" style="left:240px;top:140px;width:1440px;height:800px"><img src="img/what-we-automate.jpg"></div>
+  <div class="abs" id="tag5" style="left:0;width:1920px;text-align:center;top:930px"><span class="chip" style="font-size:44px;padding:18px 40px;background:rgba(10,22,40,.85)"><i></i><b id="tag5t" style="font-weight:800">Dockets</b></span></div>
+  <div id="papers" class="abs" style="inset:0"></div>
+  <div class="center" id="h500" style="text-align:center;top:47%">
+   <div class="h1 grad" style="font-size:380px"><span id="n500">0</span></div>
+   <div style="font-size:58px;font-weight:700;margin-top:4px">hours of admin <span id="gone" style="color:#7FB2FF">removed</span></div>
+   <div style="font-size:36px;font-weight:500;color:var(--ice);margin-top:14px">for Irish construction and trade businesses</div>
+  </div>
+ </section>
+ <!-- S6 showcase -->
+ <section class="scene" id="s6">
+  <div id="carousel" class="abs" style="left:960px;top:540px;transform-style:preserve-3d"></div>
+  <div class="shot" id="impact" style="left:290px;top:110px;width:1340px;height:693px"><img src="img/impact.jpg"><div id="impbars"></div></div>
+  <div id="cuts" class="abs" style="inset:0"></div>
+  <div class="abs" id="tag6" style="left:0;width:1920px;text-align:center;top:900px"><span class="chip" style="font-size:40px;padding:16px 36px;background:rgba(10,22,40,.88)"><i></i><b id="tag6t" style="font-weight:800">Product showcase</b></span></div>
+ </section>
+ <!-- S6b clients -->
+ <section class="scene" id="s7">
+  <div class="abs" style="left:0;width:1920px;text-align:center;top:150px"><span class="chip" id="trusted"><i></i>Trusted by Irish industry</span></div>
+  <div class="abs" id="clients" style="left:160px;right:160px;top:300px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px"></div>
+ </section>
+ <!-- S7 end -->
+ <section class="scene" id="s8">
+  <div class="center" id="endlock" style="top:36%;display:flex;align-items:center;gap:40px">
+   <svg id="endmark" width="230" height="230" viewBox="0 0 100 100" style="overflow:visible"><g class="mb mb0" clip-path="url(#c0)"><use href="#mshape" fill="url(#lg)"/></g><g class="mb mb1" clip-path="url(#c1)"><use href="#mshape" fill="url(#lg)"/></g><g class="mb mb2" clip-path="url(#c2)"><use href="#mshape" fill="url(#lg)"/></g></svg>
+   <div class="logoWord" id="endword" style="font-size:200px;line-height:1">WDI</div>
+  </div>
+  <div class="abs" id="endtag" style="left:0;width:1920px;text-align:center;top:560px;font-size:44px;font-weight:600;color:var(--ice)">Outbound sales &amp; automation for Irish B2B firms</div>
+  <div class="abs" id="cta" style="left:50%;top:680px;transform:translateX(-50%);padding:30px 56px;border-radius:16px;background:#3B82F6;font-size:42px;font-weight:700;box-shadow:0 20px 60px rgba(59,130,246,.45);white-space:nowrap">Book your free sales audit &nbsp;→</div>
+  <div class="abs" id="ripple" style="width:40px;height:40px;border-radius:50%;border:4px solid #fff;left:1180px;top:745px;transform:translate(-50%,-50%) scale(0);opacity:0"></div>
+  <svg class="abs" id="cursor" width="54" height="54" viewBox="0 0 24 24" style="left:1500px;top:1000px"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.6 L12 14.3 L19 14.3 Z" fill="#fff" stroke="#0A1628" stroke-width="1.4" stroke-linejoin="round"/></svg>
+  <div class="abs" id="url" style="left:0;width:1920px;text-align:center;top:860px;font-size:60px;font-weight:800;letter-spacing:-.01em"><span id="urlt"></span><span id="caret" style="color:#3B82F6">|</span></div>
+ </section>
+
+</div>
+ <div id="wipe"><div style="top:-6%;background:linear-gradient(90deg,#0B87E3,#3B82F6)"></div><div style="top:31%;background:linear-gradient(90deg,#3B82F6,#3A5ADE)"></div><div style="top:68%;background:linear-gradient(90deg,#3A5ADE,#4549D9)"></div></div>
+ <div id="flash"></div><div id="vig"></div><canvas id="grain" width="480" height="270"></canvas>
+</div>
+<script src="gsap.min.js"></script>
+<script src="reel.js"></script>
+</body></html>
