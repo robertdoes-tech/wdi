@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ireland Network Loop</title>
+<style>
+@font-face{font-family:"Inter";font-weight:500;src:url(fonts/inter-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:"Inter";font-weight:600;src:url(fonts/inter-latin-600-normal.woff2) format("woff2")}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#05070a}
+#stage{position:absolute;inset:0;overflow:hidden;
+  background:radial-gradient(ellipse 60% 70% at 50% 52%,#0c1420 0%,#070a10 55%,#04060a 100%)}
+#rig{position:absolute;inset:0;perspective:2200px;perspective-origin:50% 30%}
+#map{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:50% 55%;will-change:transform}
+#vig{position:absolute;inset:0;background:radial-gradient(ellipse 70% 65% at 50% 50%,transparent 50%,rgba(2,3,5,.75) 100%)}
+#grain{position:absolute;inset:0;width:100%;height:100%;mix-blend-mode:overlay;opacity:.22}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="rig"><canvas id="map" width="1920" height="1080"></canvas></div>
+  <div id="vig"></div>
+  <canvas id="grain" width="960" height="540"></canvas>
+</div>
+<script src="ireland-geo.js"></script>
+<script>
+const FPS = 30, DUR = 10, TAU = Math.PI * 2;
+const { polys, cities } = window.IRELAND;
+const HUB = cities.Hub;
+const LINE = [127, 212, 255];                     // ice-blue light
+const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a})`;
+const wrap = x => ((x % 1) + 1) % 1;
+const cv = document.getElementById('map'), ctx = cv.getContext('2d');
+
+// ---------- static geometry ----------
+const island = new Path2D();
+for (const r of polys) { island.moveTo(r[0][0], r[0][1]); for (const p of r) island.lineTo(p[0], p[1]); island.closePath(); }
+
+// dot matrix inside the island
+const dots = [], GAP = 11;
+for (let y = 100; y < 1000; y += GAP)
+  for (let x = 500; x < 1420; x += GAP)
+    if (ctx.isPointInPath(island, x, y)) dots.push([x, y, Math.hypot(x - HUB[0], y - HUB[1]), Math.random()]);
+
+// routes: bowed quadratic curves city → hub, sampled
+const ROUTES = [
+  { name: 'DUBLIN',   from: cities.Dublin,   bow: -0.32, label: [18, -14] },
+  { name: 'CORK',     from: cities.Cork,     bow:  0.28, label: [18, 6] },
+  { name: 'LIMERICK', from: cities.Limerick, bow: -0.30, label: [-18, 8], right: true },
+  { name: 'GALWAY',   from: cities.Galway,   bow:  0.45, label: [-18, -12], right: true },
+];
+const N = 240;
+for (const r of ROUTES) {
+  const [ax, ay] = r.from, [bx, by] = HUB;
+  const mx = (ax + bx) / 2, my = (ay + by) / 2, dx = bx - ax, dy = by - ay;
+  const cx = mx - dy * r.bow, cy = my + dx * r.bow;
+  r.pts = [];
+  for (let i = 0; i <= N; i++) {
+    const s = i / N, u = 1 - s;
+    r.pts.push([u * u * ax + 2 * u * s * cx + s * s * bx, u * u * ay + 2 * u * s * cy + s * s * by]);
+  }
+}
+// pulses: each route fires twice per loop, staggered so arrivals are spread out
+const TRAVEL = 3.2;                               // seconds from city to hub
+const PULSES = [];
+ROUTES.forEach((r, i) => [0, 5].forEach(o => PULSES.push({ r, start: (i * 1.25 + o + 0.3) % DUR })));
+
+// ---------- drawing ----------
+function glowStroke(path, width, color, blur) {
+  ctx.save(); ctx.shadowColor = color; ctx.shadowBlur = blur; ctx.lineWidth = width; ctx.strokeStyle = color;
+  ctx.stroke(path); ctx.restore();
+}
+
+function drawTrail(r, head) {
+  // head in 0..1 along route; trail behind it fades out
+  const TL = 0.32, hi = Math.round(head * N), lo = Math.max(0, Math.round((head - TL) * N));
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
+  for (let i = lo; i < hi; i++) {
+    const a = (i - lo) / Math.max(1, hi - lo);
+    ctx.strokeStyle = rgba(LINE, (a * a * 0.9).toFixed(3));
+    ctx.lineWidth = 1 + a * 1.6;
+    ctx.beginPath(); ctx.moveTo(...r.pts[i]); ctx.lineTo(...r.pts[i + 1]); ctx.stroke();
+  }
+  const p = r.pts[hi];
+  const g = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], 22);
+  g.addColorStop(0, 'rgba(255,255,255,.95)'); g.addColorStop(.25, rgba(LINE, .55)); g.addColorStop(1, rgba(LINE, 0));
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p[0], p[1], 22, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+
+function node(p, r, strength) {
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const g = ctx.createRadialGradient(p[0], p[1], 0, p[0], p[1], r * 5);
+  g.addColorStop(0, rgba(LINE, .35 * strength)); g.addColorStop(1, rgba(LINE, 0));
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p[0], p[1], r * 5, 0, TAU); ctx.fill();
+  ctx.fillStyle = `rgba(235,248,255,${.85 * strength})`; ctx.beginPath(); ctx.arc(p[0], p[1], r, 0, TAU); ctx.fill();
+  ctx.restore();
+}
+
+function draw(t) {
+  ctx.clearRect(0, 0, 1920, 1080);
+  const ph = t / DUR;
+
+  // island: faint fill + thin glowing coastline
+  ctx.fillStyle = 'rgba(120,170,220,.035)'; ctx.fill(island);
+  glowStroke(island, 1.1, 'rgba(150,200,240,.28)', 8);
+
+  // dot matrix with a slow wave rolling out from the hub (one wave per loop)
+  for (const [x, y, d, rnd] of dots) {
+    const w = Math.exp(-Math.pow((wrap(d / 900 - ph) - 0.5) * 7, 2));
+    const tw = 0.5 + 0.5 * Math.sin(TAU * (ph * 2 + rnd));
+    const a = 0.10 + 0.06 * tw + 0.26 * w;
+    ctx.fillStyle = rgba(LINE, a.toFixed(3));
+    ctx.fillRect(x - 1, y - 1, 2, 2);
+  }
+
+  // faint base routes
+  for (const r of ROUTES) {
+    ctx.save(); ctx.strokeStyle = rgba(LINE, .26); ctx.lineWidth = 1; ctx.setLineDash([3, 5]);
+    ctx.beginPath(); ctx.moveTo(...r.pts[0]); for (const p of r.pts) ctx.lineTo(...p); ctx.stroke(); ctx.restore();
+  }
+
+  // pulses + arrival ripples at the hub
+  let hubGlow = 0;
+  for (const P of PULSES) {
+    const k = ((t - P.start) % DUR + DUR) % DUR;            // seconds since this pulse left its city
+    if (k < TRAVEL) {
+      const s = k / TRAVEL, e = s < .5 ? 2 * s * s : 1 - Math.pow(-2 * s + 2, 2) / 2;  // ease in-out: slow, weighty
+      drawTrail(P.r, Math.max(0.004, e));
+    }
+    const since = k - TRAVEL;                               // seconds since arrival
+    if (since >= 0 && since < 2.4) {
+      const q = since / 2.4;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      ctx.strokeStyle = rgba(LINE, (0.55 * (1 - q) * (1 - q)).toFixed(3)); ctx.lineWidth = 1.4;
+      ctx.beginPath(); ctx.arc(HUB[0], HUB[1], 8 + q * 90, 0, TAU); ctx.stroke(); ctx.restore();
+      hubGlow = Math.max(hubGlow, 1 - q);
+    }
+    if (since >= -0.4 && since < 0) hubGlow = Math.max(hubGlow, 1 + since / 0.4);
+  }
+
+  // city nodes + labels
+  ctx.font = '600 15px Inter'; ctx.textBaseline = 'middle';
+  for (const r of ROUTES) {
+    node(r.from, 3.2, 1);
+    ctx.fillStyle = 'rgba(205,222,238,.78)'; ctx.textAlign = r.right ? 'right' : 'left';
+    ctx.letterSpacing = '3px';
+    ctx.fillText(r.name, r.from[0] + r.label[0], r.from[1] + r.label[1]);
+  }
+
+  // hub: steady core, breathing ring, flare on arrivals
+  const breathe = 0.5 + 0.5 * Math.sin(TAU * ph * 4);
+  node(HUB, 4.5, 1);
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const g = ctx.createRadialGradient(HUB[0], HUB[1], 0, HUB[0], HUB[1], 70);
+  g.addColorStop(0, rgba(LINE, (.18 + .35 * hubGlow).toFixed(3))); g.addColorStop(1, rgba(LINE, 0));
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(HUB[0], HUB[1], 70, 0, TAU); ctx.fill();
+  ctx.strokeStyle = rgba(LINE, (.25 + .2 * breathe).toFixed(3)); ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(HUB[0], HUB[1], 16 + 3 * breathe, 0, TAU); ctx.stroke();
+  ctx.restore();
+}
+
+// slow aerial drift: tilted plane, gentle periodic orbit
+function camera(t) {
+  const ph = TAU * t / DUR;
+  const rz = 1.6 * Math.sin(ph), rx = 30 + 2 * Math.cos(ph);
+  const s = 1.24 + 0.025 * Math.sin(ph + 1), x = 10 * Math.cos(ph), y = 30 + 8 * Math.sin(ph);
+  cv.style.transform = `translate(${x.toFixed(2)}px,${y.toFixed(2)}px) rotateX(${rx.toFixed(3)}deg) rotateZ(${rz.toFixed(3)}deg) scale(${s.toFixed(4)})`;
+}
+
+// deterministic grain, 12 tiles (divides 300 frames)
+const gcv = document.getElementById('grain'), gx = gcv.getContext('2d'), tiles = [];
+let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+for (let i = 0; i < 12; i++) {
+  const img = gx.createImageData(960, 540);
+  for (let j = 0; j < img.data.length; j += 4) { const v = 128 + (rnd() - .5) * 110; img.data[j] = img.data[j+1] = img.data[j+2] = v; img.data[j+3] = 255; }
+  tiles.push(img);
+}
+
+window.renderFrame = f => {
+  const t = (f % (DUR * FPS)) / FPS;
+  camera(t); draw(t);
+  gx.putImageData(tiles[f % tiles.length], 0, 0);
+};
+window.ready = document.fonts.load('600 15px Inter').then(() => window.renderFrame(0));
+
+if (!navigator.webdriver) {
+  const t0 = performance.now();
+  const tick = () => { window.renderFrame(Math.floor((performance.now() - t0) / 1000 * FPS)); requestAnimationFrame(tick); };
+  window.ready.then(tick);
+}
+</script>
+</body>
+</html>

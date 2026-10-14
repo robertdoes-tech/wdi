@@ -50,3 +50,12 @@ ffmpeg -i build/loop.mp4 -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -an 
 ```
 
 Open `public/loop.html` in a browser for a real-time preview.
+
+## Ireland network loop — 10s
+
+`ireland-network-loop-10s.mp4`: 1920×1080, 30 fps, 10 s, silent, seamless loop. Dark tilted aerial map of Ireland (Natural Earth 1:10m coastline via `world-atlas`, pre-projected into `public/ireland-geo.js`), dot-matrix fill with a slow wave rolling out from the centre, dashed route arcs from Dublin, Cork, Limerick and Galway, light pulses travelling each route into a central hub (Athlone) with a ripple on every arrival, gentle orbiting camera, subtle grain. All motion is periodic in 10 s.
+
+```sh
+node render.mjs --page=ireland.html --seconds=10 --out=build/ireland.mp4
+ffmpeg -i build/ireland.mp4 -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -an -movflags +faststart ireland-network-loop-10s.mp4
+```
