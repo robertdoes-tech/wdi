@@ -2,13 +2,13 @@ import { chromium } from 'playwright-core';
 import { spawn } from 'node:child_process';
 import path from 'node:path';
 const args = Object.fromEntries(process.argv.slice(2).map(a => a.replace(/^--/, '').split('=')));
-const fps = 30, total = 30 * fps;
+const fps = 30, total = +(args.seconds || 30) * fps;
 const exe = process.env.CHROME || '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
 const browser = await chromium.launch({ executablePath: exe, args: ['--disable-web-security','--allow-file-access-from-files','--force-color-profile=srgb','--hide-scrollbars'] });
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });
 page.on('console', m => console.log('[page]', m.text()));
 page.on('pageerror', e => console.log('[pageerror]', e.message));
-await page.goto('file://' + path.resolve('public/index.html'));
+await page.goto('file://' + path.resolve('public/' + (args.page || 'index.html')));
 await page.evaluate(() => window.ready);
 if (args.stills) {
   for (const t of args.stills.split(',')) {

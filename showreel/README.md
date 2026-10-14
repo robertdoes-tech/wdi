@@ -37,3 +37,16 @@ ffmpeg -i build/video.mp4 -i build/mix.wav -map 0:v -map 1:a -c:v copy \
 ```
 
 Open `public/index.html` in a browser for a real-time looping preview.
+
+## Site loop — 10s hero background
+
+`site-loop-10s.mp4`: 1920×1080, 30 fps, 10 s, silent, seamless loop. Slow push-in/dolly on the Leopardstown site photo (`img/hero-site-2400.jpg`, a Lanczos upscale of `hero-site.jpg`), warm desaturated golden-hour grade, faked shallow depth of field (blurred copy masked above and below the working deck), bokeh, looping film grain, and translucent glass cards for email replies and calendar confirmations.
+
+The camera move runs 11.5 s; the first 1.5 s crossfades the tail of the move over the head, so the last frame flows into the first. Cards, flare, bokeh and grain are all periodic in 10 s.
+
+```sh
+node render.mjs --page=loop.html --seconds=10 --out=build/loop.mp4
+ffmpeg -i build/loop.mp4 -c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p -an -movflags +faststart site-loop-10s.mp4
+```
+
+Open `public/loop.html` in a browser for a real-time preview.
