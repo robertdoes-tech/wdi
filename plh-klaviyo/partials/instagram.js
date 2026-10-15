@@ -5,6 +5,6 @@ module.exports = (c) => {
   return `<div class="insta" data-block="instagram">
     <div style="display:flex;justify-content:center;gap:10px;align-items:center">${icons.sprig(46, true)}${icons.heart(22)}${icons.sprig(46)}</div>
     <div class="insta-text">${t(ig.text)}</div>
-    <div class="btn-wrap"><a class="btn" href="${t(ig.url)}">${t(ig.button)}</a></div>
+    <div class="btn-wrap"><a class="btn" href="${t(ig.url)}"><span>${t(ig.button)}</span></a></div>
   </div>`;
 };

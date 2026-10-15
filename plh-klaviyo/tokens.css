@@ -58,10 +58,11 @@ svg { display: block; }
 .btn {
   display: inline-block; background: var(--pink); color: var(--white); text-decoration: none;
   font-weight: 700; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 0 36px; height: 48px; line-height: 48px; border-radius: 2px; white-space: nowrap;
+  padding: 0 36px; height: 48px; border-radius: 2px; white-space: nowrap;
+  display: inline-flex; align-items: center; justify-content: center; vertical-align: top;
 }
 .btn.pill { border-radius: 999px; }
-.btn.ghost { background: var(--white); color: var(--pink); border: 2px solid var(--pink); padding: 0 34px; line-height: 44px; }
+.btn.ghost { background: var(--white); color: var(--pink); border: 2px solid var(--pink); padding: 0 34px; }
 
 /* Code box (standard) */
 .codebox {

@@ -14,7 +14,7 @@ const review = require('./partials/review');
 
 const P = '#C76363';
 const gap = (h = 40) => `<div style="height:${h}px"></div>`;
-const btn = (c, b, cls = '') => `<div class="btn-wrap"><a class="btn ${cls}" href="${t(href(c.site, b.url))}">${t(b.text)}</a></div>`;
+const btn = (c, b, cls = '') => `<div class="btn-wrap"><a class="btn ${cls}" href="${t(href(c.site, b.url))}"><span>${t(b.text)}</span></a></div>`;
 const h1 = (text, { cls = '', style = '' } = {}) => `<div class="h1 ${cls}" style="${style}">${t(text)}</div>`;
 const p = (text, style = '') => `<div class="body" style="${style}">${t(text)}</div>`;
 const sec = (inner, style = '') => `<div class="sec" style="${style}">${inner}</div>`;
