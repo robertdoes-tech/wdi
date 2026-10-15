@@ -1,0 +1,164 @@
+[
+  {
+    "id": "W1",
+    "file": "PLH_W1_Welcome",
+    "codes": [
+      "NEWSLETTER10"
+    ],
+    "dynamic_px": [],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "W2",
+    "file": "PLH_W2_Story",
+    "codes": [
+      "NEWSLETTER10"
+    ],
+    "dynamic_px": [],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "W3",
+    "file": "PLH_W3_Extras",
+    "codes": [],
+    "dynamic_px": [],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "W4",
+    "file": "PLH_W4_Reminder",
+    "codes": [
+      "NEWSLETTER10"
+    ],
+    "dynamic_px": [],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "AC1",
+    "file": "PLH_AC1_Checkout",
+    "codes": [],
+    "dynamic_px": [
+      640
+    ],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "AC2",
+    "file": "PLH_AC2_Checkout",
+    "codes": [],
+    "dynamic_px": [
+      560
+    ],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "AC3",
+    "file": "PLH_AC3_Checkout",
+    "codes": [
+      "PRETTY10"
+    ],
+    "dynamic_px": [
+      580
+    ],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "AC4",
+    "file": "PLH_AC4_Checkout",
+    "codes": [
+      "PRETTY10"
+    ],
+    "dynamic_px": [
+      580
+    ],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "BA1",
+    "file": "PLH_BA1_Browse",
+    "codes": [],
+    "dynamic_px": [
+      700
+    ],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "BA2",
+    "file": "PLH_BA2_Browse",
+    "codes": [],
+    "dynamic_px": [
+      640
+    ],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "BA3",
+    "file": "PLH_BA3_Browse",
+    "codes": [
+      "GIFT10"
+    ],
+    "dynamic_px": [
+      500
+    ],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "BA4",
+    "file": "PLH_BA4_Browse",
+    "codes": [
+      "GIFT10"
+    ],
+    "dynamic_px": [
+      600
+    ],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "PP1",
+    "file": "PLH_PP1_FirstTime",
+    "codes": [],
+    "dynamic_px": [],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "PP2",
+    "file": "PLH_PP2_FirstTime",
+    "codes": [
+      "SPECIAL10"
+    ],
+    "dynamic_px": [],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "PP3",
+    "file": "PLH_PP3_Repeat",
+    "codes": [],
+    "dynamic_px": [],
+    "ok": true,
+    "errs": []
+  },
+  {
+    "id": "PP4",
+    "file": "PLH_PP4_Repeat",
+    "codes": [
+      "FAMILY10"
+    ],
+    "dynamic_px": [],
+    "ok": true,
+    "errs": []
+  }
+]

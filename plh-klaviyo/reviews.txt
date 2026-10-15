@@ -1,0 +1,36 @@
+PLH | REAL GOOGLE REVIEWS
+Source: Google Business Profile, Pretty Little Homewares, Arklow
+Rule: copy exactly as written below. Do not fix spelling, grammar, punctuation or capitals. Do not shorten unless Rory approves.
+Review card: Google logo, 5 gold stars, reviewer name, review text, date. Keep emojis as shown.
+
+----------------------------------------
+REVIEW 1
+Name: Sarah Kennedy
+Stars: 5
+Date: a month ago
+Text:
+I did quite a large order and it came perfectly packaged and wrapped with care and detail. It arrived super quick too!! I'm delighted with my new bits for autumn and cannot get over how reasonably priced everything was! Would highly recommend and will definitely purchase from Pretty Little Homewears again 🤩 thanks so much 💗
+
+----------------------------------------
+REVIEW 2
+Name: lisa richardson
+Stars: 5
+Date: 8 months ago
+Text:
+From start to finish what a pleasure. Easy website to navigate. After much hassle with An Post my parcel arrived this morning. I felt like it was my birthday when I opened the box. Beautifully packaged with tissue and ribbon and padded so no breakages. Once I got over the stunning way they were presented i was blown away by what was inside. Totally outweighed my expectations. To say I'm thrilled is an understatement. Each piece I feel in love with. Sarah went beyond customer care when the parcel hadn't arrived but has been posted, kept in contact all along. I'll definitely be dropping in for my next purchase to avoid An Post delays! Highly recommended this small irish business. Really happy I found them. Lovely cute unique pieces of high quality and affordable. Will definitely shop with Sarah again. Delighted
+
+----------------------------------------
+REVIEW 3
+Name: lorraine flynn
+Stars: 5
+Date: a month ago
+Text:
+I stumbled across this fabulous shop by accident but I was so happy I did. I bought a few teapot burners for myself and for gifts. I have mine lighting since I got it, it is so cute. Everything came beautifully wrapped. I would have no hesitation recommending or buying again.
+
+----------------------------------------
+PLACEMENT
+W3 (Welcome day 4, gifting):        Review 3 (lorraine flynn)
+AC3 (Checkout 48h, 2 reviews):      Review 1 (Sarah Kennedy) + Review 3 (lorraine flynn)
+BA3 (Browse 48h, bestsellers):      Review 2 (lisa richardson)
+
+Remove the Instagram-block fallback in W3, AC3 and BA3 and use these review cards instead.
