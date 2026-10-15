@@ -190,12 +190,14 @@ ${topbar(e.topbar)}${header(c)}${gap(52)}
   </div>
 </div>
 ${gap(48)}${sec(dyn(c, e.dynamic_note, { height: 290 }))}${gap(40)}
-<div data-block="code" style="position:relative;width:440px;height:150px;margin:24px auto 0">
+<div style="position:relative;width:520px;margin:0 auto;padding:36px 0 0 80px">
+<div data-block="code" style="position:relative;width:440px;height:150px">
   <svg style="position:absolute;left:0;top:0" width="440" height="150" viewBox="0 0 440 150"><path d="M2 75L52 2H438V148H52z" fill="#FFE8E8" stroke="${P}" stroke-width="2" stroke-linejoin="round"/><circle cx="38" cy="75" r="9" fill="#fff" stroke="${P}" stroke-width="2"/></svg>
   <svg style="position:absolute;left:-70px;top:-36px" width="120" height="130" viewBox="0 0 120 130" fill="none" stroke="${P}" stroke-width="2" stroke-linecap="round"><path d="M108 111C80 104 40 92 26 58 16 32 30 8 52 4"/></svg>
   <div style="position:absolute;left:70px;right:10px;top:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
     <div class="code-label">${t(e.code[0])}</div><div class="code-code">${t(e.code[1])}</div><div class="code-desc">${t(e.code[2])}</div>
   </div>
+</div>
 </div>
 ${gap(18)}${sec(p(e.code_line, 'text-align:center'))}
 ${gap(30)}${btn(c, e.button)}${gap(48)}

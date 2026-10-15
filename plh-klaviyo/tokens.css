@@ -118,8 +118,9 @@ svg { display: block; }
 .footer {
   background: var(--pink); color: var(--white); text-align: center; padding: 22px 24px;
   font-size: 11px; letter-spacing: 0.06em; line-height: 1.6;
+  display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;
 }
-.footer .sep { opacity: 0.7; margin: 0 8px; }
+.footer .sep { opacity: 0.7; }
 .footer .unsub { text-decoration: underline; }
 
 /* Review card */
