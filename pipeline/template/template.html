@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Demo video template</title>
+<!--
+  The reusable template. Only the data passed to setup() changes per company:
+  logo, brand colour, intro line, home screenshot. render.mjs drives it frame by frame.
+  Modes: intro | outro | thumbnail | caption. Formats: landscape (1920x1080) | square (1080x1080).
+-->
+<style>
+@font-face{font-family:Inter;font-weight:500;src:url(fonts/inter-latin-500-normal.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:600;src:url(fonts/inter-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:700;src:url(fonts/inter-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Inter;font-weight:800;src:url(fonts/inter-latin-800-normal.woff2) format("woff2")}
+:root{--brand:#1f6feb;--ink:#0d1117;--on-brand:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow:hidden;background:transparent;font-family:Inter,system-ui,sans-serif}
+#stage{position:absolute;left:0;top:0;overflow:hidden}
+.scene{position:absolute;inset:0;display:none}
+.abs{position:absolute}
+
+/* intro */
+#intro{background:var(--ink)}
+#intro .bg{position:absolute;inset:-10%;background:radial-gradient(ellipse at 30% 30%,color-mix(in srgb,var(--brand) 85%,#fff 15%) 0%,var(--brand) 45%,color-mix(in srgb,var(--brand) 60%,#000 40%) 100%)}
+#intro .lines{position:absolute;inset:0;background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.05) 0 2px,transparent 2px 46px)}
+#intro .card{position:absolute;left:50%;background:#fff;border-radius:28px;box-shadow:0 40px 90px -20px rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+#intro .card img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+#intro .card .fallback{font-weight:800;color:var(--ink);text-align:center;line-height:1.05}
+#intro .line{position:absolute;left:0;right:0;text-align:center;color:var(--on-brand);font-weight:800;letter-spacing:-.01em;line-height:1.1}
+#intro .line .m{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+#intro .line .m span{display:inline-block}
+#intro .bar{position:absolute;left:50%;height:6px;border-radius:3px;background:var(--on-brand);opacity:.85;transform-origin:50% 50%}
+
+/* outro */
+#outro{background:var(--ink);color:#fff}
+#outro .glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,color-mix(in srgb,var(--brand) 40%,transparent) 0%,transparent 60%)}
+#outro .h{position:absolute;left:0;right:0;text-align:center;font-weight:800;letter-spacing:-.015em;line-height:1.05}
+#outro .pill{position:absolute;left:50%;transform:translateX(-50%);background:var(--brand);color:var(--on-brand);font-weight:700;border-radius:999px;white-space:nowrap;display:flex;align-items:center;gap:.6em;box-shadow:0 20px 50px -14px color-mix(in srgb,var(--brand) 70%,transparent)}
+#outro .pill svg{width:1.1em;height:1.1em}
+#outro .sign{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:28px}
+#outro .sign .who{font-weight:700;color:#e6e9ee}
+#outro .sign .sep{width:2px;background:rgba(255,255,255,.25);align-self:stretch}
+#outro .sign img{display:block;object-fit:contain}
+#outro .sign .wdi{font-weight:800;letter-spacing:.06em;color:#fff}
+
+/* thumbnail */
+#thumbnail{background:#111}
+#thumbnail .shot{position:absolute;inset:0;background-size:cover;background-position:top center;filter:saturate(1.05)}
+#thumbnail .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,12,16,.9) 0%,rgba(10,12,16,.72) 38%,rgba(10,12,16,.15) 70%,rgba(10,12,16,0) 100%)}
+#thumbnail .card{position:absolute;background:#fff;border-radius:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 30px 70px -20px rgba(0,0,0,.6)}
+#thumbnail .card img{max-width:100%;max-height:100%;object-fit:contain}
+#thumbnail .t{position:absolute;color:#fff;font-weight:800;line-height:1.04;letter-spacing:-.015em}
+#thumbnail .k{position:absolute;color:#fff;font-weight:700;background:var(--brand);border-radius:999px}
+#thumbnail .play{position:absolute;border-radius:50%;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+
+/* caption: white bold sans in a dark box, bottom third, max two lines */
+#caption{background:transparent}
+#caption .wrap{position:absolute;left:0;right:0;display:flex;justify-content:center}
+#caption .box{background:rgba(8,10,14,.82);color:#fff;font-weight:800;text-align:center;border-radius:14px;
+  text-shadow:0 0 2px #000,0 2px 3px rgba(0,0,0,.9);-webkit-text-stroke:.5px rgba(0,0,0,.6);paint-order:stroke fill;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;letter-spacing:-.005em}
+.dry{position:absolute;right:18px;top:14px;font:700 22px Inter;color:#ff4d4f;background:rgba(0,0,0,.6);padding:6px 12px;border-radius:6px;display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="scene" id="intro"><div class="bg"></div><div class="lines"></div><div class="card"></div><div class="bar"></div><div class="line"></div></div>
+  <div class="scene" id="outro"><div class="glow"></div><div class="h"></div>
+    <div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg><span></span></div>
+    <div class="sign"></div></div>
+  <div class="scene" id="thumbnail"><div class="shot"></div><div class="shade"></div><div class="card"></div><div class="k"></div><div class="t"></div><div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#111"/></svg></div></div>
+  <div class="scene" id="caption"><div class="wrap"><div class="box"></div></div></div>
+  <div class="dry">DRY RUN · NO VOICE</div>
+</div>
+<script src="gsap.min.js"></script>
+<script>
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+let tl, FPS = 30, D;
+
+function luminance(hex) {
+  const n = parseInt(hex.replace('#', ''), 16), c = [n >> 16, n >> 8 & 255, n & 255].map(v => { v /= 255; return v <= .03928 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; });
+  return .2126 * c[0] + .7152 * c[1] + .0722 * c[2];
+}
+function logoHTML(src, name, fs) {
+  return src ? `<img src="${esc(src)}" alt="">` : `<div class="fallback" style="font-size:${fs}px">${esc(name)}</div>`;
+}
+const whenImages = () => Promise.all([...document.images].map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; })));
+
+// data: { mode, format, fps, brand, company, intro_line, logo, wdi_logo, outro:{headline,subline,signoff}, seconds, home, text, dry }
+window.setup = async (data) => {
+  D = data; FPS = data.fps || 30;
+  const sq = data.format === 'square', W = sq ? 1080 : 1920, H = 1080;
+  Object.assign($('#stage').style, { width: W + 'px', height: H + 'px' });
+  document.body.style.width = W + 'px'; document.body.style.height = H + 'px';
+  const brand = data.brand || '#1f6feb';
+  document.documentElement.style.setProperty('--brand', brand);
+  document.documentElement.style.setProperty('--on-brand', luminance(brand) > .55 ? '#0d1117' : '#fff');
+  document.querySelectorAll('.scene').forEach(s => s.style.display = 'none');
+  const sc = $('#' + data.mode); sc.style.display = 'block';
+  $('.dry').style.display = data.dry && data.mode !== 'caption' ? 'block' : 'none';
+  tl = gsap.timeline({ paused: true });
+
+  if (data.mode === 'intro') {
+    const cw = sq ? 620 : 760, ch = sq ? 300 : 340;
+    Object.assign($('.card', sc).style, { width: cw + 'px', height: ch + 'px', top: (sq ? 250 : 210) + 'px', marginLeft: -cw / 2 + 'px', padding: '44px 60px' });
+    $('.card', sc).innerHTML = logoHTML(data.logo, data.company, sq ? 64 : 76);
+    const line = $('.line', sc);
+    line.style.top = (sq ? 640 : 640) + 'px'; line.style.fontSize = (sq ? 58 : 72) + 'px'; line.style.padding = '0 70px';
+    line.innerHTML = data.intro_line.split(' ').map(w => `<span class="m"><span>${esc(w)}&nbsp;</span></span>`).join('');
+    Object.assign($('.bar', sc).style, { top: (sq ? 600 : 596) + 'px', width: '120px', marginLeft: '-60px' });
+    tl.fromTo($('.bg', sc), { scale: 1.08 }, { scale: 1, duration: data.seconds, ease: 'none' }, 0)
+      .fromTo($('.lines', sc), { x: 0 }, { x: -60, duration: data.seconds, ease: 'none' }, 0)
+      .fromTo($('.card', sc), { y: 40, scale: .92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: .7, ease: 'power3.out' }, .05)
+      .fromTo($('.bar', sc), { scaleX: 0 }, { scaleX: 1, duration: .5, ease: 'power2.out' }, .45)
+      .fromTo(line.querySelectorAll('.m>span'), { yPercent: 110 }, { yPercent: 0, duration: .55, ease: 'power3.out', stagger: .045 }, .55)
+      .to({}, { duration: Math.max(0, data.seconds - tl.duration()) });
+  }
+
+  if (data.mode === 'outro') {
+    const h = $('.h', sc);
+    h.textContent = data.outro.headline; h.style.top = (sq ? 170 : 190) + 'px'; h.style.fontSize = (sq ? 76 : 92) + 'px'; h.style.padding = '0 80px';
+    const pill = $('.pill', sc); $('span', pill).textContent = data.outro.subline;
+    Object.assign(pill.style, { top: (sq ? 450 : 400) + 'px', fontSize: (sq ? 40 : 44) + 'px', padding: '26px 48px' });
+    const sign = $('.sign', sc); sign.style.top = (sq ? 630 : 590) + 'px';
+    sign.innerHTML = `<div class="who" style="font-size:${sq ? 40 : 44}px">${esc(data.outro.signoff)}</div><div class="sep"></div>` +
+      (data.wdi_logo ? `<img src="${esc(data.wdi_logo)}" style="height:${sq ? 90 : 96}px;max-width:360px">` : `<div class="wdi" style="font-size:${sq ? 64 : 70}px">WDI</div>`);
+    tl.fromTo(h, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: 'power3.out' }, .1)
+      .fromTo(pill, { scale: .85, opacity: 0 }, { scale: 1, opacity: 1, duration: .6, ease: 'back.out(1.8)' }, .45)
+      .fromTo(sign, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .6, ease: 'power2.out' }, .8)
+      .to(pill, { scale: 1.04, duration: .5, ease: 'sine.inOut', yoyo: true, repeat: 1 }, 1.8)
+      .to({}, { duration: Math.max(0, data.seconds - tl.duration()) });
+  }
+
+  if (data.mode === 'thumbnail') {
+    $('.shot', sc).style.backgroundImage = data.home ? `url("${data.home}")` : 'none';
+    const card = $('.card', sc);
+    Object.assign(card.style, { left: '110px', top: '170px', width: '640px', height: '300px', padding: '40px 56px' });
+    card.innerHTML = logoHTML(data.logo, data.company, 64);
+    const k = $('.k', sc); k.textContent = 'Trade account demo'; Object.assign(k.style, { left: '110px', top: '540px', fontSize: '30px', padding: '12px 26px' });
+    const t = $('.t', sc); t.textContent = data.intro_line; Object.assign(t.style, { left: '110px', top: '620px', width: '980px', fontSize: '64px' });
+    Object.assign($('.play', sc).style, { left: '1330px', top: '400px', width: '170px', height: '170px' });
+    $('.play svg', sc).style.width = '80px';
+  }
+
+  if (data.mode === 'caption') {
+    const box = $('.box', sc), wrap = $('.wrap', sc);
+    wrap.style.bottom = (sq ? 120 : 110) + 'px';
+    let fs = sq ? 50 : 60;
+    box.style.maxWidth = (sq ? 960 : 1500) + 'px';
+    box.textContent = data.text;
+    const fit = () => { box.style.fontSize = fs + 'px'; box.style.lineHeight = '1.22'; box.style.padding = `${fs * .28}px ${fs * .55}px`; return Math.round((box.clientHeight - fs * .56) / (fs * 1.22)); };
+    let lines = fit();
+    while (lines > 2 && fs > 34) { fs -= 2; lines = fit(); }
+    window.captionInfo = { lines, fontSize: fs };
+  }
+
+  await document.fonts.ready; await whenImages();
+  const logoImg = $('.card img', sc);
+  window.cardInfo = { logoLoaded: !!(logoImg && logoImg.naturalWidth), logoBox: logoImg ? logoImg.getBoundingClientRect().toJSON() : null };
+  return { frames: Math.round(tl.duration() * FPS) || 1 };
+};
+window.renderFrame = f => { tl.time(f / FPS, false); };
+</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+{
+  "_status": "PLACEHOLDER: fill live_url, demo_login, logo_path, brand_colour. Step selectors are first guesses; fix them after the audit (see NOTES.md).",
+  "company_name": "The Traditional Lime Company",
+  "slug": "traditional-lime-company",
+  "live_url": "[live URL]",
+  "demo_login": {
+    "user": "[login]",
+    "password": "[password]"
+  },
+  "logo_path": "assets/traditional-lime-company/logo.png",
+  "brand_colour": "#1f6feb",
+  "voice_id": "yWs0htDxddBoX2qwSDfZ",
+  "pronunciations": {},
+  "audit": {
+    "approved": false,
+    "confirmed": [],
+    "dropped_steps": []
+  },
+  "file_name": "TheTraditionalLimeCompany",
+  "audit_search_term": "lime",
+  "_pronunciation_check": "Run: python3 pipeline/voice.py traditional-lime-company --names \"Rosanna\". Only add a respelling if it comes out wrong.",
+  "script": [
+    "Hi Rosanna, it's Joe from WDI. I wanted to show you something rather than just tell you about it.",
+    "This is a trade account built for The Traditional Lime Company.",
+    "Your trade customers, the builders, plasterers and conservation specialists, log in and see their own pricing.",
+    "They browse your lime products, add what they need and place the order online, any time of day.",
+    "Reordering their regular products takes one click, and they can see their full order history.",
+    "It takes the pressure off the phones and makes it easy for trade customers to keep buying from you. It's live and ready to look at."
+  ],
+  "steps": [
+    {
+      "name": "welcome",
+      "requires": [],
+      "actions": [
+        {
+          "wait": 400
+        }
+      ]
+    },
+    {
+      "name": "intro-portal",
+      "requires": [],
+      "actions": [
+        {
+          "wait": 400
+        }
+      ],
+      "zoom_target": "form"
+    },
+    {
+      "name": "login-pricing",
+      "requires": [
+        "login",
+        "pricing"
+      ],
+      "thumbnail": true,
+      "actions": [
+        {
+          "login": true
+        },
+        {
+          "focus": ":text-matches('£\\\\s?\\\\d', 'i') >> nth=0"
+        }
+      ]
+    },
+    {
+      "name": "browse-order",
+      "requires": [
+        "search_browse",
+        "basket",
+        "submit_order"
+      ],
+      "actions": [
+        {
+          "scroll": 500
+        },
+        {
+          "click": "button:has-text('Add to basket'), button:has-text('Add to cart'), button:has-text('Add')",
+          "zoom": true
+        },
+        {
+          "click": "a:has-text('Basket'), a:has-text('Cart'), button:has-text('Basket')"
+        },
+        {
+          "click": "button:has-text('Place order'), button:has-text('Submit order'), button:has-text('Send order')",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "name": "reorder-history",
+      "requires": [
+        "reorder",
+        "past_orders"
+      ],
+      "actions": [
+        {
+          "click": "a:has-text('Orders'), a:has-text('Order history'), a:has-text('My orders')"
+        },
+        {
+          "click": "button:has-text('Reorder'), button:has-text('Order again'), a:has-text('Reorder')",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "name": "wrap-up",
+      "requires": [],
+      "start_url": "/",
+      "actions": [
+        {
+          "scroll": 300
+        },
+        {
+          "scroll": -300
+        }
+      ]
+    }
+  ],
+  "outro_script": "Have a click through and let me know what you think."
+}

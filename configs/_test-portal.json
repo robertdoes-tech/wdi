@@ -1,0 +1,39 @@
+{
+  "_comment": "Pipeline self-test against the local fixture in pipeline/test/portal (serve it on :8765). Not a client.",
+  "company_name": "Acme Trade Supplies",
+  "slug": "_test-portal",
+  "live_url": "http://127.0.0.1:8765/",
+  "demo_login": { "user": "orders@hillside-heating.co.uk", "password": "demo-pass-2026" },
+  "logo_path": "pipeline/test/acme-logo.svg",
+  "brand_colour": "#0f4c81",
+  "audit": { "approved": true, "confirmed": ["login", "pricing", "search_browse", "basket", "delivery_collection", "submit_order", "past_orders", "reorder", "invoices_balance"] },
+  "script": [
+    "Hi, it's Joe from WDI. We put together something for Acme Trade Supplies that I think you'll like.",
+    "Your customer logs in to their own trade account.",
+    "They see their own pricing straight away.",
+    "They pick what they need, choose delivery or collection, and send the order.",
+    "Next week, they hit reorder and it's done in seconds.",
+    "And their invoices and account balance are always there to check."
+  ],
+  "outro_script": "If you want to see it working for your customers, just reply to this message.",
+  "steps": [
+    { "name": "welcome", "requires": [], "actions": [{ "hover": "input[type=email]" }] },
+    { "name": "login", "requires": ["login"], "actions": [{ "login": true }] },
+    { "name": "pricing", "requires": ["pricing"], "thumbnail": true, "actions": [{ "hover": ".prod >> nth=0" }], "zoom_target": ".prod >> nth=0" },
+    { "name": "order", "requires": ["basket", "delivery_collection", "submit_order"], "actions": [
+      { "click": ".prod:has-text('47kg') button" },
+      { "click": ".prod:has-text('Regulator') button" },
+      { "click": "header a[href='#/basket']" },
+      { "click": ".opt:has-text('Collection')", "zoom": true },
+      { "click": "button:has-text('Place order')", "zoom": true }
+    ], "zoom_target": ".ok" },
+    { "name": "reorder", "requires": ["reorder", "past_orders"], "actions": [
+      { "click": "header a[href='#/orders']" },
+      { "click": "tr:nth-child(3) button:has-text('Reorder')", "zoom": true },
+      { "click": "button:has-text('Place order')" }
+    ] },
+    { "name": "account", "requires": ["invoices_balance"], "actions": [
+      { "click": "header a[href='#/account']" }
+    ], "zoom_target": ".bal" }
+  ]
+}

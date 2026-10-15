@@ -1,0 +1,5 @@
+build/
+pipeline/node_modules/
+__pycache__/
+# pipeline self-test output (local fixture portal, not a client)
+output/AcmeTradeSupplies/

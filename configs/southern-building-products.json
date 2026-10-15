@@ -1,0 +1,153 @@
+{
+  "_status": "PLACEHOLDER: fill live_url, demo_login, logo_path, brand_colour. Step selectors are first guesses; fix them after the audit (see NOTES.md).",
+  "company_name": "Southern Building Products",
+  "slug": "southern-building-products",
+  "live_url": "[live URL]",
+  "demo_login": {
+    "user": "[login]",
+    "password": "[password]"
+  },
+  "logo_path": "assets/southern-building-products/logo.png",
+  "brand_colour": "#1f6feb",
+  "voice_id": "yWs0htDxddBoX2qwSDfZ",
+  "pronunciations": {},
+  "audit": {
+    "approved": false,
+    "confirmed": [],
+    "dropped_steps": []
+  },
+  "_portal_name": "SBP Trade Portal",
+  "audit_search_term": "plasterboard",
+  "script": [
+    "Hi, it's Joe from WDI. We built a demo trade account for Southern Building Products.",
+    "Your contractors and builders are busy people. They don't want to wait on the phone to check a price or place an order.",
+    "With this, they log in, see their trade pricing,",
+    "search your full range and order in a couple of clicks,",
+    "whether that's delivery to site or collection from the yard.",
+    "Repeat orders take seconds",
+    "and they can see every past order and invoice in one place.",
+    "Fewer calls for your counter staff, faster orders, and customers who keep coming back. It's built and ready."
+  ],
+  "steps": [
+    {
+      "name": "welcome",
+      "requires": [],
+      "actions": [
+        {
+          "wait": 400
+        }
+      ]
+    },
+    {
+      "name": "the-problem",
+      "requires": [],
+      "actions": [
+        {
+          "wait": 400
+        }
+      ],
+      "zoom_target": "form"
+    },
+    {
+      "name": "login-pricing",
+      "requires": [
+        "login",
+        "pricing"
+      ],
+      "thumbnail": true,
+      "actions": [
+        {
+          "login": true
+        },
+        {
+          "focus": ":text-matches('£\\\\s?\\\\d', 'i') >> nth=0"
+        }
+      ]
+    },
+    {
+      "name": "search-order",
+      "requires": [
+        "search_browse",
+        "basket",
+        "submit_order"
+      ],
+      "actions": [
+        {
+          "type": "input[type=search], input[placeholder*=earch]",
+          "text": "plasterboard"
+        },
+        {
+          "press": "Enter"
+        },
+        {
+          "click": "button:has-text('Add to basket'), button:has-text('Add to cart'), button:has-text('Add')",
+          "zoom": true
+        },
+        {
+          "click": "a:has-text('Basket'), a:has-text('Cart'), button:has-text('Basket')"
+        }
+      ]
+    },
+    {
+      "name": "delivery-collection",
+      "requires": [
+        "delivery_collection"
+      ],
+      "actions": [
+        {
+          "hover": "label:has-text('Delivery'), button:has-text('Delivery')",
+          "zoom": true
+        },
+        {
+          "click": "label:has-text('Collection'), button:has-text('Collection'), :text('Collect')"
+        },
+        {
+          "click": "button:has-text('Place order'), button:has-text('Submit order'), button:has-text('Send order')",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "name": "reorder",
+      "requires": [
+        "reorder",
+        "past_orders"
+      ],
+      "actions": [
+        {
+          "click": "a:has-text('Orders'), a:has-text('Order history'), a:has-text('My orders')"
+        },
+        {
+          "click": "button:has-text('Reorder'), button:has-text('Order again'), a:has-text('Reorder')",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "name": "history-invoices",
+      "requires": [
+        "past_orders",
+        "invoices_balance"
+      ],
+      "actions": [
+        {
+          "click": "a:has-text('Invoices'), a:has-text('Account'), a:has-text('Statement')"
+        }
+      ]
+    },
+    {
+      "name": "wrap-up",
+      "requires": [],
+      "start_url": "/",
+      "actions": [
+        {
+          "scroll": 300
+        },
+        {
+          "scroll": -300
+        }
+      ]
+    }
+  ],
+  "outro_script": "Reply here and I'll show you how we'd get it live."
+}

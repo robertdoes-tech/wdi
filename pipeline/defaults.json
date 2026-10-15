@@ -1,0 +1,33 @@
+{
+  "fps": 30,
+  "viewport": { "width": 1920, "height": 1080 },
+  "record_scale": 2,
+  "voice": {
+    "voice_id": "yWs0htDxddBoX2qwSDfZ",
+    "model_id": "eleven_v4",
+    "stability": 0.5,
+    "similarity_boost": 0.75,
+    "style": 0,
+    "output_format": "mp3_44100_128"
+  },
+  "intro": { "seconds": 3, "line_template": "Your trade account, built for {company_name}" },
+  "outro": {
+    "min_seconds": 4,
+    "headline": "Want this live for your customers?",
+    "subline": "Reply to this message",
+    "signoff": "Joe, WDI",
+    "logo_path": "assets/wdi/wdi-logo.png"
+  },
+  "music": { "path": null, "gain_db": -18, "duck_db": -12 },
+  "captions": { "max_chars_per_line": 30, "max_lines": 2 },
+  "timing": {
+    "first_line_over_intro": true,
+    "first_line_start": 0.6,
+    "vo_lead": 0.3,
+    "vo_tail": 0.5,
+    "action_pause_ms": 650,
+    "target_seconds": 90,
+    "hard_cap_seconds": 120
+  },
+  "pronunciations": {}
+}

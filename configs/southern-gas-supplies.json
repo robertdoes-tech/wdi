@@ -1,0 +1,141 @@
+{
+  "_status": "PLACEHOLDER: fill live_url, demo_login, logo_path, brand_colour. Step selectors are first guesses; fix them after the audit (see NOTES.md).",
+  "company_name": "Southern Gas Supplies",
+  "slug": "southern-gas-supplies",
+  "live_url": "[live URL]",
+  "demo_login": {
+    "user": "[login]",
+    "password": "[password]"
+  },
+  "logo_path": "assets/southern-gas-supplies/logo.png",
+  "brand_colour": "#1f6feb",
+  "voice_id": "yWs0htDxddBoX2qwSDfZ",
+  "pronunciations": {},
+  "audit": {
+    "approved": false,
+    "confirmed": [],
+    "dropped_steps": []
+  },
+  "audit_search_term": "propane",
+  "script": [
+    "Hi, it's Joe from WDI. We put together something for Southern Gas Supplies that I think you'll like.",
+    "Right now your trade customers are probably ringing or texting in orders for cylinders and supplies. Here's what it looks like when they can do it themselves.",
+    "Your customer logs in to their own trade account.",
+    "They see their own pricing straight away.",
+    "They pick what they need, choose delivery or collection, and send the order.",
+    "Next week, they hit reorder and it's done in seconds.",
+    "Every order lands with you clean. No missed calls, no scribbled notes.",
+    "This is your portal, with your branding, ready to go live."
+  ],
+  "steps": [
+    {
+      "name": "welcome",
+      "requires": [],
+      "actions": [
+        {
+          "wait": 400
+        }
+      ]
+    },
+    {
+      "name": "the-problem",
+      "requires": [],
+      "actions": [
+        {
+          "wait": 400
+        }
+      ],
+      "zoom_target": "form"
+    },
+    {
+      "name": "login",
+      "requires": [
+        "login"
+      ],
+      "actions": [
+        {
+          "login": true
+        }
+      ]
+    },
+    {
+      "name": "pricing",
+      "requires": [
+        "pricing"
+      ],
+      "thumbnail": true,
+      "actions": [
+        {
+          "hover": ":text-matches('£\\\\s?\\\\d', 'i') >> nth=0"
+        }
+      ],
+      "zoom_target": ":text-matches('£\\\\s?\\\\d', 'i') >> nth=0"
+    },
+    {
+      "name": "order",
+      "requires": [
+        "basket",
+        "delivery_collection",
+        "submit_order"
+      ],
+      "actions": [
+        {
+          "click": "button:has-text('Add to basket'), button:has-text('Add to cart'), button:has-text('Add')"
+        },
+        {
+          "click": "a:has-text('Basket'), a:has-text('Cart'), button:has-text('Basket')"
+        },
+        {
+          "click": "label:has-text('Collection'), button:has-text('Collection'), :text('Collect')",
+          "zoom": true
+        },
+        {
+          "click": "button:has-text('Place order'), button:has-text('Submit order'), button:has-text('Send order')",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "name": "reorder",
+      "requires": [
+        "reorder",
+        "past_orders"
+      ],
+      "actions": [
+        {
+          "click": "a:has-text('Orders'), a:has-text('Order history'), a:has-text('My orders')"
+        },
+        {
+          "click": "button:has-text('Reorder'), button:has-text('Order again'), a:has-text('Reorder')",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "name": "orders-land-clean",
+      "requires": [
+        "past_orders"
+      ],
+      "actions": [
+        {
+          "click": "a:has-text('Orders'), a:has-text('Order history'), a:has-text('My orders')"
+        }
+      ],
+      "zoom_target": "table, [role=table], main"
+    },
+    {
+      "name": "your-portal",
+      "requires": [],
+      "start_url": "/",
+      "actions": [
+        {
+          "scroll": 300
+        },
+        {
+          "scroll": -300
+        }
+      ]
+    }
+  ],
+  "outro_script": "If you want to see it working for your customers, just reply to this message."
+}

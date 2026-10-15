@@ -1,0 +1,125 @@
+{
+  "_status": "PLACEHOLDER: fill live_url, demo_login, logo_path, brand_colour. Step selectors are first guesses; fix them after the audit (see NOTES.md).",
+  "company_name": "Michael Quinlan Motors",
+  "slug": "michael-quinlan-motors",
+  "live_url": "[live URL]",
+  "demo_login": {
+    "user": "[login]",
+    "password": "[password]"
+  },
+  "logo_path": "assets/michael-quinlan-motors/logo.png",
+  "brand_colour": "#1f6feb",
+  "voice_id": "yWs0htDxddBoX2qwSDfZ",
+  "pronunciations": {},
+  "audit": {
+    "approved": false,
+    "confirmed": [],
+    "dropped_steps": []
+  },
+  "audit_search_term": "brake",
+  "_pronunciation_check": "Run: python3 pipeline/voice.py michael-quinlan-motors --names \"Quinlan\". Only add a respelling if it comes out wrong.",
+  "script": [
+    "Hi, it's Joe from WDI. We built a demo trade portal for Michael Quinlan Motors.",
+    "Garages and mechanics need parts fast, and they don't want to be on hold to get them.",
+    "With this, a garage logs in to its own trade account,",
+    "searches by part, sees its trade price and orders straight away.",
+    "Regular parts can be reordered in one click, and every order and invoice is there to check.",
+    "Your counter gets fewer calls, orders come in accurate, and your trade customers find it easier to buy from you than anyone else."
+  ],
+  "steps": [
+    {
+      "name": "welcome",
+      "requires": [],
+      "actions": [
+        {
+          "wait": 400
+        }
+      ]
+    },
+    {
+      "name": "the-problem",
+      "requires": [],
+      "actions": [
+        {
+          "wait": 400
+        }
+      ],
+      "zoom_target": "form"
+    },
+    {
+      "name": "login",
+      "requires": [
+        "login"
+      ],
+      "actions": [
+        {
+          "login": true
+        }
+      ]
+    },
+    {
+      "name": "search-price-order",
+      "requires": [
+        "search_browse",
+        "pricing",
+        "basket",
+        "submit_order"
+      ],
+      "thumbnail": true,
+      "actions": [
+        {
+          "type": "input[type=search], input[placeholder*=earch]",
+          "text": "brake pads"
+        },
+        {
+          "press": "Enter"
+        },
+        {
+          "focus": ":text-matches('£\\\\s?\\\\d', 'i') >> nth=0"
+        },
+        {
+          "click": "button:has-text('Add to basket'), button:has-text('Add to cart'), button:has-text('Add')",
+          "zoom": true
+        },
+        {
+          "click": "a:has-text('Basket'), a:has-text('Cart'), button:has-text('Basket')"
+        },
+        {
+          "click": "button:has-text('Place order'), button:has-text('Submit order'), button:has-text('Send order')",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "name": "reorder-invoices",
+      "requires": [
+        "reorder",
+        "past_orders",
+        "invoices_balance"
+      ],
+      "actions": [
+        {
+          "click": "a:has-text('Orders'), a:has-text('Order history'), a:has-text('My orders')"
+        },
+        {
+          "click": "button:has-text('Reorder'), button:has-text('Order again'), a:has-text('Reorder')",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "name": "wrap-up",
+      "requires": [],
+      "start_url": "/",
+      "actions": [
+        {
+          "scroll": 300
+        },
+        {
+          "scroll": -300
+        }
+      ]
+    }
+  ],
+  "outro_script": "Have a look through the demo, and reply here if you want it live."
+}

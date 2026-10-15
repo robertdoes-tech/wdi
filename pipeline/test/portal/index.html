@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Acme Trade Supplies · Trade Portal (pipeline test fixture)</title>
+<!-- Local stand-in portal used only to test the video pipeline. Not a client app. -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#f4f6f8;color:#16202a}
+header{background:#0f4c81;color:#fff;display:flex;align-items:center;gap:32px;padding:0 48px;height:72px}
+header .brand{font-weight:800;font-size:22px;letter-spacing:.01em}
+header nav{display:flex;gap:6px;flex:1}
+header nav a{color:#dbe7f3;text-decoration:none;padding:10px 16px;border-radius:8px;font-weight:600}
+header nav a.on,header nav a:hover{background:rgba(255,255,255,.14);color:#fff}
+header .acct{font-size:14px;color:#cfe0f0}
+main{max-width:1500px;margin:0 auto;padding:40px 48px}
+h1{font-size:30px;margin-bottom:22px}
+.card{background:#fff;border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);padding:28px}
+.login{max-width:440px;margin:110px auto}
+.login label{display:block;font-weight:600;margin:16px 0 6px}
+input,select{font:inherit;padding:12px 14px;border:1px solid #c8d1da;border-radius:8px;width:100%}
+button{font:inherit;font-weight:700;background:#0f4c81;color:#fff;border:0;border-radius:8px;padding:12px 20px;cursor:pointer}
+button.alt{background:#e8eef4;color:#0f4c81}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.prod .img{height:140px;border-radius:10px;background:linear-gradient(135deg,#dfe8f1,#c3d3e3);margin-bottom:14px;display:flex;align-items:center;justify-content:center;font-size:44px}
+.prod h3{font-size:17px;margin-bottom:4px}
+.prod .sku{font-size:13px;color:#677684}
+.prod .price{font-size:22px;font-weight:800;color:#0f4c81;margin:10px 0 2px}
+.prod .rrp{font-size:13px;color:#8a97a3;text-decoration:line-through}
+.prod .yours{font-size:12px;font-weight:700;color:#16833a;text-transform:uppercase;letter-spacing:.06em}
+.row{display:flex;gap:14px;align-items:center}
+.search{margin-bottom:24px;max-width:520px}
+table{width:100%;border-collapse:collapse}
+td,th{text-align:left;padding:14px 10px;border-bottom:1px solid #e6ebf0}
+.opts{display:flex;gap:16px;margin:20px 0}
+.opt{flex:1;border:2px solid #d5dde5;border-radius:12px;padding:18px;cursor:pointer}
+.opt.on{border-color:#0f4c81;background:#eef4fa}
+.ok{background:#e7f6ec;color:#16833a;padding:18px;border-radius:10px;font-weight:600}
+.bal{display:flex;gap:22px;margin-bottom:24px}.bal .card{flex:1}.bal b{display:block;font-size:30px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const P = [
+  ['Propane 47kg cylinder', 'PR-47', 68.5, 82.0, '🛢️'], ['Propane 19kg cylinder', 'PR-19', 31.2, 38.0, '🛢️'],
+  ['Butane 15kg cylinder', 'BU-15', 29.9, 35.5, '🛢️'], ['Regulator 37mbar', 'RG-37', 12.4, 16.0, '⚙️'],
+  ['Pigtail hose 450mm', 'PH-45', 9.8, 12.5, '🔧'], ['Leak detection spray', 'LD-40', 6.1, 8.0, '🧴'],
+  ['Changeover valve kit', 'CV-02', 44.0, 55.0, '⚙️'], ['Cylinder trolley', 'CT-10', 58.0, 72.0, '🛒'],
+];
+const S = JSON.parse(sessionStorage.s || '{"in":false,"basket":{},"orders":[{"no":"10482","date":"03/10/2026","items":{"PR-47":4,"RG-37":2},"total":298.8},{"no":"10391","date":"19/09/2026","items":{"PR-19":6},"total":187.2}],"mode":"delivery"}');
+const save = () => sessionStorage.s = JSON.stringify(S);
+const gbp = n => '£' + n.toFixed(2);
+const by = sku => P.find(p => p[1] === sku);
+const total = items => Object.entries(items).reduce((a, [k, q]) => a + by(k)[2] * q, 0);
+function nav(on) {
+  const l = [['#/products', 'Products'], ['#/basket', `Basket (${Object.values(S.basket).reduce((a, b) => a + b, 0)})`], ['#/orders', 'My orders'], ['#/account', 'Account']];
+  return `<header><div class="brand">Acme Trade Supplies</div><nav>${l.map(([h, t]) => `<a href="${h}" class="${on === h ? 'on' : ''}">${t}</a>`).join('')}</nav><div class="acct">Hillside Heating Ltd · Acc 40211</div></header>`;
+}
+const V = {
+  login: () => `<div class="login card"><h1>Trade account login</h1><form onsubmit="event.preventDefault();if(email.value&&pw.value){S.in=true;save();location.hash='#/products'}">
+    <label for="email">Email</label><input id="email" type="email" autocomplete="username"><label for="pw">Password</label><input id="pw" type="password">
+    <div style="margin-top:22px"><button type="submit">Log in</button></div></form></div>`,
+  products: q => nav('#/products') + `<main><h1>Products</h1><input class="search" type="search" placeholder="Search products" value="${q || ''}" onkeydown="if(event.key==='Enter')location.hash='#/products?'+encodeURIComponent(this.value)">
+    <div class="grid">${P.filter(p => !q || p[0].toLowerCase().includes(q.toLowerCase())).map(p => `<div class="card prod"><div class="img">${p[4]}</div><h3>${p[0]}</h3><div class="sku">${p[1]}</div>
+    <div class="yours">Your price</div><div class="price">${gbp(p[2])}</div><div class="rrp">List ${gbp(p[3])}</div>
+    <div class="row" style="margin-top:12px"><button onclick="S.basket['${p[1]}']=(S.basket['${p[1]}']||0)+1;save();render()">Add to basket</button></div></div>`).join('')}</div></main>`,
+  basket: () => nav('#/basket') + `<main><h1>Basket</h1><div class="card"><table><tr><th>Item</th><th>Qty</th><th>Price</th></tr>${Object.entries(S.basket).map(([k, q]) => `<tr><td>${by(k)[0]}</td><td>${q}</td><td>${gbp(by(k)[2] * q)}</td></tr>`).join('') || '<tr><td colspan=3>Your basket is empty</td></tr>'}</table>
+    <div class="opts"><div class="opt ${S.mode === 'delivery' ? 'on' : ''}" onclick="S.mode='delivery';save();render()"><b>Delivery</b><br>Next working day to your site</div>
+    <div class="opt ${S.mode === 'collection' ? 'on' : ''}" onclick="S.mode='collection';save();render()"><b>Collection</b><br>Ready at the depot from 7am</div></div>
+    <div class="row" style="justify-content:space-between"><b style="font-size:24px">Total ${gbp(total(S.basket))}</b><button onclick="if(Object.keys(S.basket).length){S.orders.unshift({no:String(10500+S.orders.length),date:'15/10/2026',items:S.basket,total:total(S.basket)});S.basket={};save();location.hash='#/done'}">Place order</button></div></div></main>`,
+  done: () => nav('') + `<main><h1>Order placed</h1><div class="ok">Thanks — order ${S.orders[0].no} is with the team. ${S.mode === 'delivery' ? 'Delivery' : 'Collection'} confirmed.</div></main>`,
+  orders: () => nav('#/orders') + `<main><h1>My orders</h1><div class="card"><table><tr><th>Order</th><th>Date</th><th>Items</th><th>Total</th><th></th></tr>${S.orders.map((o, i) => `<tr><td>#${o.no}</td><td>${o.date}</td><td>${Object.entries(o.items).map(([k, q]) => `${q} × ${by(k)[0]}`).join(', ')}</td><td>${gbp(o.total)}</td>
+    <td><button class="alt" onclick="S.basket={...S.orders[${i}].items};save();location.hash='#/basket'">Reorder</button></td></tr>`).join('')}</table></div></main>`,
+  account: () => nav('#/account') + `<main><h1>Account</h1><div class="bal"><div class="card">Account balance<b>£1,284.60</b></div><div class="card">Credit limit<b>£5,000.00</b></div><div class="card">Next statement<b>31/10/2026</b></div></div>
+    <div class="card"><h3 style="margin-bottom:12px">Invoices</h3><table><tr><th>Invoice</th><th>Date</th><th>Amount</th></tr><tr><td>INV-22817</td><td>03/10/2026</td><td>£298.80</td></tr><tr><td>INV-22702</td><td>19/09/2026</td><td>£187.20</td></tr></table></div></main>`,
+};
+function render() {
+  const [r, q] = location.hash.replace('#/', '').split('?');
+  const view = S.in ? (V[r] ? r : 'products') : 'login';
+  document.getElementById('app').innerHTML = V[view](q && decodeURIComponent(q));
+}
+addEventListener('hashchange', render); render();
+</script>
+</body>
+</html>
