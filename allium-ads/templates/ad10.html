@@ -1,0 +1,44 @@
+<style>
+/* Ad 10: range. Purus raised on a plain platform, Motus on the ground beside it. */
+.safe { display: flex; flex-direction: column; }
+.h1 { margin-top: 44px; max-width: var(--hw); }
+.lines { margin-top: var(--lines-top); display: flex; flex-direction: column; gap: 10px; width: var(--col); }
+.lines p { font-family: var(--serif); font-size: var(--lead); line-height: 1.2; color: var(--ink); }
+.lines .prod { font-size: .62em; margin-right: .5em; color: var(--ink); vertical-align: .12em; }
+.proof { margin-top: var(--proof-top); width: var(--col); padding-top: 22px; border-top: 1.5px solid var(--panel-line); }
+.proof .source { color: var(--ink); font-weight: 500; margin-bottom: 10px; }
+.proof ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.proof li { font-size: var(--body); line-height: 1.3; color: var(--ink-2); }
+.end { margin-top: auto; width: var(--end-w); }
+.stage { position: absolute; z-index: 2; right: var(--sr); bottom: var(--sb); display: flex; align-items: flex-end; gap: var(--gap); }
+.raised { display: flex; flex-direction: column; align-items: center; width: var(--pw); }
+.raised .bottle, .ground .bottle { position: relative; z-index: 3; }
+.raised .bottle { height: var(--bh); }
+.raised .plinth { position: relative; width: 100%; height: var(--ph); margin-top: -30px; }
+.ground .bottle { height: var(--bh2); }
+
+body[data-size="1350"] { --hw: 820px; --col: 470px; --lines-top: 44px; --proof-top: 44px; --end-w: 470px; --sr: 50px; --sb: 90px; --gap: 0px; --pw: 300px; --ph: 220px; --bh: 470px; --bh2: 470px; }
+body[data-size="1080"] { --hw: 940px; --col: 480px; --lines-top: 30px; --proof-top: 30px; --end-w: 470px; --sr: 50px; --sb: 50px; --gap: 0px; --pw: 250px; --ph: 160px; --bh: 390px; --bh2: 390px; }
+body[data-size="1080"] .h1 { margin-top: 30px; }
+body[data-size="1080"] .proof { padding-top: 16px; }
+body[data-size="1920"] { --hw: 860px; --col: 560px; --lines-top: 56px; --proof-top: 56px; --end-w: 360px; --sr: 50px; --sb: 130px; --gap: 0px; --pw: 330px; --ph: 300px; --bh: 520px; --bh2: 520px; }
+</style>
+<div class="safe">
+  <div class="mark">{{g.wordmark}}</div>
+  <h1 class="h1">{{copy.headline}}</h1>
+  <div class="lines">
+    {{#each copy.lines}}<p><span class="prod">{{.product}}</span>{{.text}}</p>{{/each}}
+  </div>
+  <div class="proof">
+    <p class="source">{{copy.proofLabel}}</p>
+    <ul>{{#each copy.pharmacies}}<li>{{.}}</li>{{/each}}</ul>
+  </div>
+  <div class="end"><p class="legal">{{g.legal}}</p></div>
+</div>
+<div class="stage">
+  <div class="raised">
+    {{bottle bottle raised}}
+    <div class="plinth" data-visual><div class="top"></div><div class="face"></div></div>
+  </div>
+  <div class="ground">{{bottle bottle2 ground}}</div>
+</div>

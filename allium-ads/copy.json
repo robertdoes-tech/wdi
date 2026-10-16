@@ -1,0 +1,333 @@
+{
+  "global": {
+    "wordmark": "allium.",
+    "legal": "Food supplement. Not a substitute for a varied, balanced diet and healthy lifestyle.",
+    "sourcePrefix": "Source: ",
+    "trustpilot": {
+      "name": "Trustpilot",
+      "rating": 4.5,
+      "text": "TrustScore 4.5 | 15 reviews"
+    }
+  },
+  "ads": [
+    {
+      "id": "01",
+      "template": "ad01",
+      "title": "Purus, stat hook",
+      "variants": [
+        {
+          "product": "purus",
+          "bottle": "purus",
+          "colourways": [
+            "forest",
+            "pink",
+            "cream"
+          ],
+          "copy": {
+            "headline": "You look tired. Let’s build a better foundation.",
+            "stat": "1 in 8 Britons feel tired all the time.",
+            "sub": "Purus contains Iron and Vitamin C, which contribute to the reduction of tiredness and fatigue.",
+            "source": "YouGov, January 2022",
+            "footer": "Purus. 2 capsules a day with food."
+          }
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "template": "ad02",
+      "title": "Purus, ingredient callouts",
+      "variants": [
+        {
+          "product": "purus",
+          "bottle": "purus",
+          "colourways": [
+            "forest",
+            "cream"
+          ],
+          "copy": {
+            "headline": "Aged black garlic, plus the nutrients that matter.",
+            "chips": [
+              {
+                "icon": "Fe",
+                "name": "Iron",
+                "line": "Contributes to the reduction of tiredness and fatigue"
+              },
+              {
+                "icon": "Zn",
+                "name": "Zinc",
+                "line": "Contributes to normal cognitive function"
+              },
+              {
+                "icon": "C",
+                "name": "Vitamin C",
+                "line": "Contributes to normal immune function"
+              }
+            ],
+            "more": "plus more inside",
+            "footer": "Multi-ingredient formula. 2 capsules a day with food."
+          }
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "template": "ad03",
+      "title": "Motus, stat hook",
+      "variants": [
+        {
+          "product": "motus",
+          "bottle": "motus",
+          "colourways": [
+            "terracotta",
+            "stone"
+          ],
+          "copy": {
+            "headline": "Sat down all day? Your joints notice.",
+            "stat": "Almost 3 in 10 UK adults get knee stiffness in the morning or after inactivity.",
+            "sub": "Manganese contributes to the normal formation of connective tissue, and Copper to its maintenance.",
+            "source": "AXA Health Joint Pain Report, 2025",
+            "footer": "Motus. 2 capsules a day with food."
+          }
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "template": "ad04",
+      "title": "Motus, ingredient callouts",
+      "variants": [
+        {
+          "product": "motus",
+          "bottle": "motus",
+          "colourways": [
+            "terracotta",
+            "cream"
+          ],
+          "copy": {
+            "headline": "Aged black garlic, plus minerals for connective tissue.",
+            "chips": [
+              {
+                "icon": "Mn",
+                "name": "Manganese",
+                "line": "Contributes to the normal formation of connective tissue"
+              },
+              {
+                "icon": "Cu",
+                "name": "Copper",
+                "line": "Contributes to the maintenance of normal connective tissue"
+              }
+            ],
+            "alsoLabel": "Also inside",
+            "tags": [
+              "Aged black garlic",
+              "Rosehip",
+              "MSM",
+              "Hyaluronic acid",
+              "Turmeric"
+            ],
+            "footer": "Multi-ingredient formula. 2 capsules a day with food."
+          }
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "template": "ad05",
+      "title": "Brand, quality against typical",
+      "variants": [
+        {
+          "product": "range",
+          "bottle": "purus_and_motus",
+          "colourways": [
+            "espresso",
+            "stone"
+          ],
+          "copy": {
+            "headline": "Not every supplement is built the same.",
+            "typicalLabel": "Typical supplements",
+            "rows": [
+              {
+                "label": "Minerals",
+                "typical": "often oxide forms",
+                "allium": "chelated forms"
+              },
+              {
+                "label": "Capsule",
+                "typical": "often gelatine",
+                "allium": "HPMC, vegetarian and vegan"
+              },
+              {
+                "label": "Label",
+                "typical": "often fillers",
+                "allium": "clean label, no artificial fillers, colours or preservatives"
+              }
+            ],
+            "footer": "Made in the UK, MHRA-registered facility, GMP standards."
+          }
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "template": "ad06",
+      "title": "Brand, clean label",
+      "variants": [
+        {
+          "product": "range",
+          "bottle": "purus_and_motus",
+          "colourways": [
+            "sage",
+            "cream"
+          ],
+          "copy": {
+            "headline": "What’s not in it matters too.",
+            "badges": [
+              "Non-GMO",
+              "Vegan and vegetarian, Vegetarian Society certified",
+              "No artificial fillers, colours or preservatives",
+              "Free from the 14 major allergens",
+              "Made in the UK"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "template": "ad07",
+      "title": "Brand, Nourish Fund",
+      "variants": [
+        {
+          "product": "range",
+          "bottle": "purus_and_motus",
+          "colourways": [
+            "stone",
+            "cream"
+          ],
+          "copy": {
+            "headline": "Every purchase feeds a child for a week.",
+            "sub": "Through our partnership with Nourish Fund, supporting children in Malawi.",
+            "source": "nourishfund.org"
+          }
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "template": "ad08",
+      "title": "Review, Purus and Motus",
+      "variants": [
+        {
+          "product": "range",
+          "bottle": "purus_and_motus",
+          "colourways": [
+            "forest",
+            "cream"
+          ],
+          "copy": {
+            "quote": "Definitely worth while for office-based professionals!",
+            "author": "Tom Parker",
+            "platform": "Trustpilot review",
+            "about": "Purus and Motus"
+          }
+        },
+        {
+          "product": "purus",
+          "bottle": "purus",
+          "colourways": [
+            "forest",
+            "cream"
+          ],
+          "copy": {
+            "quote": "highly recommend taking this supplement!",
+            "author": "Siména",
+            "platform": "Trustpilot review",
+            "about": "Purus"
+          }
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "template": "ad09",
+      "title": "Offer and risk-free",
+      "variants": [
+        {
+          "product": "motus",
+          "bottle": "motus",
+          "colourways": [
+            "terracotta",
+            "cream"
+          ],
+          "copy": {
+            "headline": "Try it risk-free.",
+            "points": [
+              "30-day satisfaction guarantee on first orders, no return obligation.",
+              "Subscribe and save 20%. Cancel anytime.",
+              "Free UK shipping."
+            ],
+            "quote": "Great packaging quality and ingredient formula",
+            "author": "T Digital",
+            "platform": "Trustpilot review"
+          }
+        },
+        {
+          "product": "purus",
+          "bottle": "purus",
+          "colourways": [
+            "forest",
+            "cream"
+          ],
+          "copy": {
+            "headline": "Try it risk-free.",
+            "points": [
+              "30-day satisfaction guarantee on first orders, no return obligation.",
+              "Subscribe and save 20%. Cancel anytime.",
+              "Free UK shipping."
+            ],
+            "quote": "highly recommend taking this supplement!",
+            "author": "Siména",
+            "platform": "Trustpilot review"
+          }
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "template": "ad10",
+      "title": "Range",
+      "variants": [
+        {
+          "product": "range",
+          "bottle": "purus",
+          "bottle2": "motus",
+          "colourways": [
+            "espresso",
+            "stone",
+            "cream"
+          ],
+          "copy": {
+            "headline": "One foundation. Every formula.",
+            "lines": [
+              {
+                "product": "Purus",
+                "text": "for daily resilience."
+              },
+              {
+                "product": "Motus",
+                "text": "for everyday movement."
+              }
+            ],
+            "proofLabel": "Stocked in London pharmacies:",
+            "pharmacies": [
+              "D.R. Evans (Notting Hill)",
+              "Keats Pharmacy (Hampstead)",
+              "C Goode Pharmacy (Twickenham)"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

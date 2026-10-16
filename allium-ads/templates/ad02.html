@@ -1,0 +1,54 @@
+<style>
+/* Ad 2: Purus ingredient callouts. Glass chips left, tilted bottle and split black garlic right. */
+.safe { display: flex; flex-direction: column; }
+.h1 { margin-top: 44px; max-width: var(--hw); }
+.chips { display: flex; flex-direction: column; gap: 16px; width: var(--col); margin-top: var(--chips-top); }
+.more { align-self: flex-start; margin-top: 4px; }
+.end { margin-top: auto; display: flex; flex-direction: column; gap: 16px; width: var(--end-w); }
+.b-main { height: var(--bh); right: var(--br); top: var(--bt); transform: rotate(7deg); transform-origin: 50% 100%; }
+.garlic { position: absolute; z-index: 3; width: var(--gw); left: var(--gl); top: var(--gt); }
+.garlic svg { width: 100%; display: block; }
+
+body[data-size="1350"] { --hw: 900px; --col: 540px; --chips-top: 56px; --end-w: 560px; --bh: 760px; --br: 70px; --bt: 360px; --gw: 250px; --gl: 540px; --gt: 900px; }
+body[data-size="1080"] { --hw: 940px; --col: 520px; --chips-top: 36px; --end-w: 520px; --bh: 600px; --br: 80px; --bt: 290px; --gw: 190px; --gl: 600px; --gt: 740px; }
+body[data-size="1080"] .h1 { margin-top: 30px; }
+body[data-size="1080"] .chip { padding: 14px 20px 14px 14px; }
+body[data-size="1080"] .chip .ico { width: 58px; height: 58px; }
+body[data-size="1080"] .chips { gap: 12px; }
+body[data-size="1920"] { --hw: 900px; --col: 500px; --chips-top: 64px; --end-w: 480px; --bh: 860px; --br: 50px; --bt: 880px; --gw: 260px; --gl: 470px; --gt: 1560px; }
+</style>
+<div class="safe">
+  <div class="mark">{{g.wordmark}}</div>
+  <h1 class="h1">{{copy.headline}}</h1>
+  <div class="chips">
+    {{#each copy.chips}}
+    <div class="chip glass">
+      <div class="ico"><svg viewBox="0 0 72 72"><path d="M36 4l27.7 16v32L36 68 8.3 52V20z" fill="none" stroke="currentColor" stroke-width="2"/><text x="36" y="44" text-anchor="middle" font-size="22">{{.icon}}</text></svg></div>
+      <div><div class="name">{{.name}}</div><div class="line">{{.line}}</div></div>
+    </div>
+    {{/each}}
+    <div class="tag more">{{copy.more}}</div>
+  </div>
+  <div class="end">
+    <p class="foot">{{copy.footer}}</p>
+    <p class="legal">{{g.legal}}</p>
+  </div>
+</div>
+{{bottle bottle main}}
+<div class="garlic" data-visual>
+  <svg viewBox="0 0 300 260" aria-hidden="true">
+    <!-- split aged black garlic bulb: papery skin, dark cloves -->
+    <path d="M150 8c-14 18-30 30-58 40C38 68 12 112 16 160c4 50 50 88 134 92 84-4 130-42 134-92 4-48-22-92-76-112-28-10-44-22-58-40z" fill="#efe6d6"/>
+    <path d="M150 8c-14 18-30 30-58 40C38 68 12 112 16 160c4 50 50 88 134 92 84-4 130-42 134-92 4-48-22-92-76-112-28-10-44-22-58-40z" fill="none" stroke="#cdbfa6" stroke-width="2"/>
+    <path d="M150 30c-10 14-22 24-44 32-40 16-62 52-60 92 2 40 40 72 104 76 64-4 102-36 104-76 2-40-20-76-60-92-22-8-34-18-44-32z" fill="#e2d6c1"/>
+    <g fill="#1d130d" stroke="#e9dfcd" stroke-width="3" stroke-linejoin="round">
+      <path d="M150 58c-18 30-26 70-22 112 4 30 12 46 22 56 10-10 18-26 22-56 4-42-4-82-22-112z"/>
+      <path d="M124 74c-30 18-50 48-54 84-2 28 10 50 32 62 6-24 10-50 10-78 0-26 4-48 12-68z"/>
+      <path d="M176 74c30 18 50 48 54 84 2 28-10 50-32 62-6-24-10-50-10-78 0-26-4-48-12-68z"/>
+      <path d="M92 104c-22 18-32 40-30 64 2 18 12 32 28 40-6-20-8-44-6-66 2-16 4-28 8-38z"/>
+      <path d="M208 104c22 18 32 40 30 64-2 18-12 32-28 40 6-20 8-44 6-66-2-16-4-28-8-38z"/>
+    </g>
+    <g fill="#4a3426" opacity=".55"><ellipse cx="146" cy="120" rx="5" ry="22"/><ellipse cx="104" cy="140" rx="4" ry="16"/><ellipse cx="196" cy="140" rx="4" ry="16"/></g>
+    <path d="M120 250c10 4 50 6 60 0" stroke="#cdbfa6" stroke-width="3" fill="none"/>
+  </svg>
+</div>

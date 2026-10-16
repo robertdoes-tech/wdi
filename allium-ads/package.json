@@ -1,0 +1,18 @@
+{
+  "name": "allium-ads",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Allium Supplements static Meta ads: HTML/CSS templates rendered to PNG with headless Chromium",
+  "scripts": {
+    "assets": "node scripts/placeholder-bottles.mjs && python3 scripts/prep_assets.py",
+    "build": "node build.mjs",
+    "qa": "node build.mjs --qa-only"
+  },
+  "dependencies": {
+    "@fontsource/eb-garamond": "^5.0.0",
+    "@fontsource/montserrat": "^5.0.0",
+    "@fontsource/roboto": "^5.0.0",
+    "playwright-core": "^1.47.2"
+  }
+}

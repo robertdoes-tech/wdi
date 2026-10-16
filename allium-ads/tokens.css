@@ -1,0 +1,109 @@
+/* Allium ads: shared design tokens. Colourways, type scale and canvas sizes.
+   Every template reads these variables; nothing here is ad specific. */
+
+@font-face { font-family: 'EB Garamond'; font-weight: 400; font-style: normal; src: url(fonts/eb-garamond-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family: 'EB Garamond'; font-weight: 500; font-style: normal; src: url(fonts/eb-garamond-latin-500-normal.woff2) format('woff2'); }
+@font-face { font-family: 'EB Garamond'; font-weight: 400; font-style: italic; src: url(fonts/eb-garamond-latin-400-italic.woff2) format('woff2'); }
+@font-face { font-family: 'EB Garamond'; font-weight: 500; font-style: italic; src: url(fonts/eb-garamond-latin-500-italic.woff2) format('woff2'); }
+@font-face { font-family: Roboto; font-weight: 400; src: url(fonts/roboto-latin-400-normal.woff2) format('woff2'); }
+@font-face { font-family: Roboto; font-weight: 500; src: url(fonts/roboto-latin-500-normal.woff2) format('woff2'); }
+@font-face { font-family: Roboto; font-weight: 700; src: url(fonts/roboto-latin-700-normal.woff2) format('woff2'); }
+@font-face { font-family: Montserrat; font-weight: 700; src: url(fonts/montserrat-latin-700-normal.woff2) format('woff2'); }
+
+:root {
+  /* brand base */
+  --black: #000000;
+  --cream: #fdfcfa;
+  --beige: #f5f0e8;
+  --linen: #f6f2ea;
+
+  /* signature colours */
+  --forest: #1c3a2a;
+  --terracotta: #b4553a;
+  --espresso: #2a1c14;
+  --stone: #979695;
+  --sage: #aab8a3;
+  --gold: #c8a96b;
+  --pink: #f02d9b;
+
+  --serif: 'EB Garamond', Georgia, serif;
+  --sans: Roboto, Arial, sans-serif;
+  --mark: Montserrat, Arial, sans-serif;
+}
+
+/* ---------- colourways ----------
+   --bg       flat backdrop
+   --ink      primary text
+   --ink-2    secondary text (still AA on --bg)
+   --accent   rules, icons, small highlights
+   --panel    glass panel fill, --panel-line its border
+   --plinth   stone platform faces
+   --glow     the single soft radial glow behind the bottle
+   --shadow   contact shadow colour
+   --grain    grain opacity, calibrated per backdrop to about 2.5% luminance noise (overlay blend is weaker on light grounds) */
+body[data-cw="forest"] {
+  --grain: 0.36;
+  --bg: var(--forest); --ink: var(--cream); --ink-2: rgba(253,252,250,.82); --head: var(--cream);
+  --accent: var(--gold); --panel: rgba(253,252,250,.07); --panel-line: rgba(253,252,250,.16);
+  --plinth-top: #2b4d3a; --plinth-face: #234333; --glow: rgba(200,169,107,.20); --shadow: rgba(0,0,0,.55);
+}
+body[data-cw="terracotta"] {
+  --grain: 0.22;
+  /* cream on terracotta is 4.7:1, so secondary text stays at full cream */
+  --bg: var(--terracotta); --ink: var(--cream); --ink-2: var(--cream); --head: var(--cream);
+  --accent: var(--cream); --panel: rgba(42,28,20,.16); --panel-line: rgba(253,252,250,.22);
+  --plinth-top: #c46a50; --plinth-face: #a34a31; --glow: rgba(253,236,214,.22); --shadow: rgba(60,20,8,.55);
+}
+body[data-cw="espresso"] {
+  --grain: 0.56;
+  --bg: var(--espresso); --ink: var(--cream); --ink-2: rgba(253,252,250,.78); --head: var(--cream);
+  --accent: var(--gold); --panel: rgba(253,252,250,.06); --panel-line: rgba(253,252,250,.14);
+  --plinth-top: #4d372a; --plinth-face: #3e2b20; --glow: rgba(200,169,107,.18); --shadow: rgba(0,0,0,.6);
+}
+body[data-cw="stone"] {
+  --grain: 0.16;
+  --bg: var(--stone); --ink: var(--black); --ink-2: #141414; --head: var(--black);
+  --accent: var(--black); --panel: rgba(253,252,250,.16); --panel-line: rgba(0,0,0,.14);
+  --plinth-top: #b3b0ab; --plinth-face: #a19f9b; --glow: rgba(253,252,250,.26); --shadow: rgba(30,28,25,.45);
+}
+body[data-cw="sage"] {
+  --grain: 0.22;
+  --bg: var(--sage); --ink: var(--black); --ink-2: #1b2118; --head: var(--black);
+  --accent: var(--black); --panel: rgba(253,252,250,.22); --panel-line: rgba(0,0,0,.12);
+  --plinth-top: #bcc8b6; --plinth-face: #9eac97; --glow: rgba(253,252,250,.32); --shadow: rgba(30,40,28,.42);
+}
+body[data-cw="cream"] {
+  --grain: 1;
+  --bg: var(--linen); --ink: var(--black); --ink-2: #4a443d; --head: var(--black);
+  --accent: var(--product, var(--espresso)); --panel: rgba(255,255,255,.55); --panel-line: rgba(0,0,0,.09);
+  --plinth-top: #ebe4d8; --plinth-face: #ddd4c5; --glow: rgba(200,169,107,.16); --shadow: rgba(60,45,30,.32);
+}
+body[data-cw="pink"] {
+  --grain: 0.41;
+  /* white on hot pink is 3.5:1: large type only. Small type switches to black (7:1). */
+  --bg: var(--pink); --ink: var(--black); --ink-2: var(--black); --head: #ffffff;
+  --accent: #ffffff; --panel: rgba(255,255,255,.14); --panel-line: rgba(255,255,255,.4);
+  --plinth-top: #f45aae; --plinth-face: #d9218a; --glow: rgba(255,255,255,.22); --shadow: rgba(90,0,45,.45);
+}
+body[data-cw="forest"], body[data-cw="terracotta"], body[data-cw="espresso"] { --dark: 1; }
+
+/* product signature colour, used as the accent on the cream control */
+body[data-product="purus"] { --product: var(--forest); }
+body[data-product="motus"] { --product: var(--terracotta); }
+body[data-product="range"] { --product: var(--espresso); }
+
+/* ---------- sizes ----------
+   --safe-top / --safe-bottom keep text out of Meta's UI zones on 1920
+   (top 14% = 269px, bottom 20% = 384px). */
+body[data-size="1350"] {
+  --W: 1080px; --H: 1350px; --pad: 76px; --safe-top: 76px; --safe-bottom: 64px;
+  --h1: 86px; --h2: 52px; --lead: 36px; --body: 27px; --small: 22px; --legal: 20px; --mark-size: 34px;
+}
+body[data-size="1080"] {
+  --W: 1080px; --H: 1080px; --pad: 64px; --safe-top: 60px; --safe-bottom: 52px;
+  --h1: 70px; --h2: 44px; --lead: 30px; --body: 24px; --small: 21px; --legal: 20px; --mark-size: 30px;
+}
+body[data-size="1920"] {
+  --W: 1080px; --H: 1920px; --pad: 76px; --safe-top: 292px; --safe-bottom: 408px;
+  --h1: 92px; --h2: 56px; --lead: 38px; --body: 29px; --small: 23px; --legal: 21px; --mark-size: 36px;
+}

@@ -1,0 +1,41 @@
+<style>
+/* Ad 4: Motus ingredient callouts. Two mineral chips with approved wording, botanicals as name-only tags. */
+.safe { display: flex; flex-direction: column; }
+.h1 { margin-top: 44px; max-width: var(--hw); }
+.chips { display: flex; flex-direction: column; gap: 16px; width: var(--col); margin-top: var(--chips-top); }
+.also { margin-top: 30px; width: var(--col); }
+.also .source { margin-bottom: 14px; }
+.tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.end { margin-top: auto; display: flex; flex-direction: column; gap: 16px; width: var(--end-w); }
+.b-main { height: var(--bh); right: var(--br); bottom: var(--bb); }
+
+body[data-size="1350"] { --hw: 900px; --col: 540px; --chips-top: 56px; --end-w: 540px; --bh: 700px; --br: 64px; --bb: 150px; }
+body[data-size="1080"] { --hw: 940px; --col: 540px; --chips-top: 34px; --end-w: 540px; --bh: 560px; --br: 70px; --bb: 90px; }
+body[data-size="1080"] .h1 { margin-top: 30px; }
+body[data-size="1080"] .chip { padding: 14px 20px 14px 14px; }
+body[data-size="1080"] .chip .ico { width: 58px; height: 58px; }
+body[data-size="1080"] .also { margin-top: 20px; }
+body[data-size="1080"] .tag { padding: 9px 16px; }
+body[data-size="1920"] { --hw: 860px; --col: 560px; --chips-top: 64px; --end-w: 500px; --bh: 860px; --br: 50px; --bb: 110px; }
+</style>
+<div class="safe">
+  <div class="mark">{{g.wordmark}}</div>
+  <h1 class="h1">{{copy.headline}}</h1>
+  <div class="chips">
+    {{#each copy.chips}}
+    <div class="chip glass">
+      <div class="ico"><svg viewBox="0 0 72 72"><path d="M36 4l27.7 16v32L36 68 8.3 52V20z" fill="none" stroke="currentColor" stroke-width="2"/><text x="36" y="44" text-anchor="middle" font-size="22">{{.icon}}</text></svg></div>
+      <div><div class="name">{{.name}}</div><div class="line">{{.line}}</div></div>
+    </div>
+    {{/each}}
+  </div>
+  <div class="also">
+    <p class="source">{{copy.alsoLabel}}</p>
+    <div class="tags">{{#each copy.tags}}<span class="tag">{{.}}</span>{{/each}}</div>
+  </div>
+  <div class="end">
+    <p class="foot">{{copy.footer}}</p>
+    <p class="legal">{{g.legal}}</p>
+  </div>
+</div>
+{{bottle bottle main}}

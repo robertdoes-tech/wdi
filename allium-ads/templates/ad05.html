@@ -1,0 +1,41 @@
+<style>
+/* Ad 5: quality against typical. Muted "typical" column, allium column, both bottles on the right half. */
+.safe { display: flex; flex-direction: column; }
+.h1 { margin-top: 44px; max-width: var(--hw); }
+.cmp { width: var(--col); margin-top: var(--cmp-top); display: grid; grid-template-columns: 1fr 1.15fr; column-gap: 28px; }
+.cmp .hd { padding-bottom: 14px; border-bottom: 1.5px solid var(--panel-line); }
+.cmp .hd.typ { font-size: var(--small); color: var(--ink-2); align-self: end; }
+.cmp .hd.al { font-family: var(--mark); font-weight: 700; letter-spacing: -.045em; font-size: calc(var(--mark-size) * .95); color: var(--ink); align-self: end; }
+.cmp .lbl { grid-column: 1 / -1; padding-top: 20px; font-size: calc(var(--small) * .95); font-weight: 500; color: var(--accent); letter-spacing: .04em; }
+.cmp .typ-v, .cmp .al-v { padding: 8px 0 20px; border-bottom: 1.5px solid var(--panel-line); display: flex; gap: 12px; align-items: flex-start; }
+.cmp .typ-v { font-size: var(--body); line-height: 1.3; color: var(--ink-2); }
+.cmp .al-v { font-size: var(--body); line-height: 1.3; color: var(--ink); font-weight: 500; }
+.cmp svg { flex: none; width: 22px; height: 22px; margin-top: 4px; }
+.end { margin-top: auto; display: flex; flex-direction: column; gap: 16px; width: var(--end-w); }
+.b-main { height: var(--bh); right: var(--br); bottom: var(--bb); }
+
+body[data-size="1350"] { --hw: 800px; --col: 520px; --cmp-top: 52px; --end-w: 500px; --bh: 520px; --br: 40px; --bb: 150px; }
+body[data-size="1080"] { --hw: 940px; --col: 500px; --cmp-top: 30px; --end-w: 470px; --bh: 470px; --br: 50px; --bb: 70px; }
+body[data-size="1080"] .h1 { margin-top: 30px; }
+body[data-size="1080"] .cmp .lbl { padding-top: 12px; }
+body[data-size="1080"] .cmp .typ-v, body[data-size="1080"] .cmp .al-v { padding: 6px 0 12px; }
+body[data-size="1920"] { --hw: 800px; --col: 928px; --cmp-top: 60px; --end-w: 400px; --bh: 600px; --br: 40px; --bb: 140px; }
+</style>
+<div class="safe">
+  <div class="mark">{{g.wordmark}}</div>
+  <h1 class="h1">{{copy.headline}}</h1>
+  <div class="cmp">
+    <div class="hd typ">{{copy.typicalLabel}}</div>
+    <div class="hd al">{{g.wordmark}}</div>
+    {{#each copy.rows}}
+    <div class="lbl">{{.label}}</div>
+    <div class="typ-v"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="9.5" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".6"/><path d="M7 11h8" stroke="currentColor" stroke-width="1.5" opacity=".6"/></svg><span>{{.typical}}</span></div>
+    <div class="al-v"><svg viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="9.5" fill="none" stroke="var(--accent)" stroke-width="1.5"/><path d="M6.5 11.3l3 3 6-6.3" fill="none" stroke="var(--accent)" stroke-width="1.8"/></svg><span>{{.allium}}</span></div>
+    {{/each}}
+  </div>
+  <div class="end">
+    <p class="foot">{{copy.footer}}</p>
+    <p class="legal">{{g.legal}}</p>
+  </div>
+</div>
+{{bottle bottle main}}

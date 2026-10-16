@@ -1,0 +1,37 @@
+<style>
+/* Ad 1: Purus stat hook. Headline, stat proof, bottle cropped at the bottom edge. */
+.safe { display: flex; flex-direction: column; }
+.h1 { margin-top: 44px; max-width: 900px; }
+.col { width: var(--col); display: flex; flex-direction: column; flex: 1; padding-top: 48px; }
+.col .rule { margin-bottom: 30px; }
+.col .lead { font-size: var(--h2); line-height: 1.06; margin-bottom: 24px; }
+.col .source { margin-top: 18px; }
+.col .end { margin-top: auto; display: flex; flex-direction: column; gap: 22px; }
+.b-main { height: var(--bh); right: var(--br); bottom: calc(var(--bh) * -0.17); }
+
+body[data-size="1350"] { --col: 520px; --bh: 940px; --br: 44px; }
+body[data-size="1080"] { --col: 560px; --bh: 760px; --br: 64px; }
+body[data-size="1080"] .h1 { margin-top: 32px; max-width: 950px; }
+body[data-size="1080"] .col { padding-top: 36px; }
+body[data-size="1080"] .col .end { gap: 16px; }
+body[data-size="1920"] { --col: 470px; --bh: 1100px; --br: 36px; }
+body[data-size="1920"] .h1 { margin-top: 40px; }
+body[data-size="1920"] .col { padding-top: 64px; }
+/* pink test: the white headline is large type (3.5:1 passes 3:1); all small type is black */
+</style>
+<div class="safe">
+  <div class="mark">{{g.wordmark}}</div>
+  <h1 class="h1">{{copy.headline}}</h1>
+  <div class="col">
+    <div class="rule"></div>
+    <p class="lead">{{copy.stat}}</p>
+    <p class="body">{{copy.sub}}</p>
+    <p class="source">{{g.sourcePrefix}}{{copy.source}}</p>
+    <div class="end">
+      <p class="foot">{{copy.footer}}</p>
+      {{trustpilot}}
+      <p class="legal">{{g.legal}}</p>
+    </div>
+  </div>
+</div>
+{{bottle bottle main}}

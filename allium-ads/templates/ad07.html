@@ -1,0 +1,37 @@
+<style>
+/* Ad 7: Nourish Fund. Typographic statement, both bottles on warm stone. No photos, no partner logo. */
+.safe { display: flex; flex-direction: column; }
+.h1 { margin-top: 52px; max-width: var(--hw); font-size: var(--big); line-height: 1; }
+.rule { margin-top: 40px; }
+.sub { margin-top: 28px; width: var(--col); }
+.sub .lead { font-size: var(--lead); }
+.sub .source { margin-top: 16px; }
+.end { margin-top: auto; width: var(--end-w); }
+.stage { position: absolute; z-index: 2; right: var(--sr); bottom: var(--sb); width: var(--pw); display: flex; flex-direction: column; align-items: center; }
+.stage .bottle { position: relative; height: var(--bh); z-index: 3; }
+.stage .plinth { position: relative; width: 100%; height: var(--ph); margin-top: -34px; }
+/* warm stone, not the cool backdrop stone */
+body[data-cw="stone"] .plinth { --plinth-top: #c2b8aa; --plinth-face: #ada293; }
+body[data-cw="cream"] .plinth { --plinth-top: #e4d9c7; --plinth-face: #d3c5b0; }
+
+body[data-size="1350"] { --hw: 860px; --big: 104px; --col: 560px; --end-w: 400px; --sr: 60px; --sb: 70px; --pw: 560px; --ph: 150px; --bh: 520px; }
+body[data-size="1080"] { --hw: 940px; --big: 82px; --col: 520px; --end-w: 400px; --sr: 64px; --sb: 40px; --pw: 460px; --ph: 110px; --bh: 410px; }
+body[data-size="1080"] .h1 { margin-top: 32px; }
+body[data-size="1080"] .rule { margin-top: 28px; }
+body[data-size="1080"] .sub { margin-top: 20px; }
+body[data-size="1920"] { --hw: 900px; --big: 116px; --col: 640px; --end-w: 400px; --sr: 60px; --sb: 70px; --pw: 520px; --ph: 220px; --bh: 580px; }
+</style>
+<div class="safe">
+  <div class="mark">{{g.wordmark}}</div>
+  <h1 class="h1">{{copy.headline}}</h1>
+  <div class="rule"></div>
+  <div class="sub">
+    <p class="lead">{{copy.sub}}</p>
+    <p class="source">{{copy.source}}</p>
+  </div>
+  <div class="end"><p class="legal">{{g.legal}}</p></div>
+</div>
+<div class="stage">
+  {{bottle bottle main}}
+  <div class="plinth" data-visual><div class="top"></div><div class="face"></div></div>
+</div>
