@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Portal stills</title>
+<!--
+  Stand-in for a live portal the build machine can't reach. Copy this file to assets/<slug>/stills/index.html,
+  next to the screenshots and a pages.json:
+    { "<route>": { "img": "home.png", "bg": "#fff", "card": false, "scale": 1,
+                   "hs": { "<id>": [x0, y0, x1, y1] | { "box": [...], "input": true } } } }
+  Each route (#/<route>) shows one real screenshot at 1920 wide ("card": true centres it at "scale" instead),
+  with invisible hotspots over the real buttons, in the screenshot's own pixels, for record.mjs to point at.
+-->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;min-height:1080px;overflow:hidden;font-family:system-ui,sans-serif}
+#page{position:relative;width:1920px;min-height:1080px}
+.hs{position:absolute;cursor:pointer}
+input.hs{border:0;outline:0;background:transparent;color:#1b2b3a;font:400 19px/1 system-ui,sans-serif;padding:0 0 0 4px}
+input.hs:focus{background:#fff}
+.card{position:absolute;left:50%;top:60px;transform:translateX(-50%);box-shadow:0 30px 70px -25px rgba(20,40,50,.35);border-radius:10px;overflow:hidden}
+.card img{display:block;width:100%}
+</style>
+</head>
+<body>
+<div id="page"></div>
+<script>
+let PAGES = {};
+async function show() {
+  const name = location.hash.replace('#/', '') || Object.keys(PAGES)[0], P = PAGES[name], page = document.getElementById('page');
+  document.body.style.background = P.bg || '#fff';
+  const img = new Image(); img.src = P.img || name + '.png';
+  await img.decode();
+  const k = P.card ? (P.scale || 1) : 1920 / img.naturalWidth;
+  page.innerHTML = P.card ? `<div class="card" style="width:${img.naturalWidth * k}px"><img src="${img.src}"></div>`
+                          : `<img src="${img.src}" style="position:absolute;left:0;top:0;width:1920px">`;
+  const host = P.card ? page.querySelector('.card') : page;
+  for (const [id, spec] of Object.entries(P.hs || {})) {
+    const [x0, y0, x1, y1] = Array.isArray(spec) ? spec : spec.box;
+    const el = document.createElement(spec.input ? 'input' : 'div');
+    el.className = 'hs'; el.id = id;
+    Object.assign(el.style, { left: x0 * k + 'px', top: y0 * k + 'px', width: (x1 - x0) * k + 'px', height: (y1 - y0) * k + 'px' });
+    host.appendChild(el);
+  }
+  document.body.dataset.ready = name;
+}
+fetch('pages.json').then(r => r.json()).then(p => { PAGES = p; addEventListener('hashchange', show); show(); });
+</script>
+</body>
+</html>

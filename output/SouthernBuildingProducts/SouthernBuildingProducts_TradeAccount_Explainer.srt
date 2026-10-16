@@ -1,0 +1,63 @@
+1
+00:00:00,550 --> 00:00:02,987
+Hi, it's Joe from WDI.
+
+2
+00:00:02,987 --> 00:00:04,642
+We built a demo trade account
+
+3
+00:00:04,642 --> 00:00:07,048
+for Southern Building Products.
+
+4
+00:00:07,306 --> 00:00:10,402
+Your contractors and builders are busy people.
+
+5
+00:00:10,402 --> 00:00:12,135
+They don't want to wait on the phone
+
+6
+00:00:12,135 --> 00:00:14,575
+to check a price or place an order.
+
+7
+00:00:14,872 --> 00:00:15,689
+With this,
+
+8
+00:00:15,689 --> 00:00:19,249
+they log in and see their trade pricing straight away.
+
+9
+00:00:21,567 --> 00:00:23,434
+They can search your full range,
+
+10
+00:00:23,434 --> 00:00:27,466
+over three hundred products, by code or name.
+
+11
+00:00:27,774 --> 00:00:29,946
+Every line shows the product code,
+
+12
+00:00:29,946 --> 00:00:33,416
+pack size and their price, ex VAT.
+
+13
+00:00:33,720 --> 00:00:36,991
+Fewer calls for your counter staff, faster answers,
+
+14
+00:00:36,991 --> 00:00:39,324
+and customers who keep coming back.
+
+15
+00:00:39,324 --> 00:00:41,497
+It's built and ready.
+
+16
+00:00:41,606 --> 00:00:45,147
+Reply here and I'll show you how we'd get it live.

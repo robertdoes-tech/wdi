@@ -1,52 +1,72 @@
 {
-  "_status": "URL from Marc. Blocked from the build machine: needs thisiswdi.com allowed, or screenshots (home, sign-in/demo counter, catalogue, product, basket/orders if any, staff orders) + logo.",
+  "_status": "Recorded from stills of the real portal (Marc's screenshots + recording) because sbp.thisiswdi.com is blocked from the build machine; remove record_url to record live. Logo recreated from the portal header. Customer side seen: magic-link sign-in, product catalogue with search, code, pack, demo price ex VAT. Not seen: basket, delivery/collection, orders, reorder, invoices.",
   "company_name": "Southern Building Products",
   "slug": "southern-building-products",
   "live_url": "https://sbp.thisiswdi.com/",
   "demo_login": {
-    "user": "[login]",
-    "password": "[password]"
+    "user": "Demo Dublin Buyer",
+    "password": "magic link (no password)",
+    "method": "demo_counter"
   },
   "logo_path": "assets/southern-building-products/logo.png",
-  "brand_colour": "#1f6feb",
+  "brand_colour": "#1E6B4B",
   "voice_id": "yWs0htDxddBoX2qwSDfZ",
   "pronunciations": {},
   "audit": {
-    "approved": false,
-    "confirmed": [],
-    "dropped_steps": []
+    "approved": true,
+    "confirmed": [
+      "login",
+      "pricing",
+      "search_browse"
+    ],
+    "dropped_steps": [],
+    "notes": "From Marc's screenshots/recording, 16 Oct 2026. Sidebar also lists Accounts and branches, Demo settings, Purchase order review, Sage CSV import and export (not seen)."
   },
   "_portal_name": "SBP Trade Portal",
   "audit_search_term": "plasterboard",
   "script": [
     "Hi, it's Joe from WDI. We built a demo trade account for Southern Building Products.",
     "Your contractors and builders are busy people. They don't want to wait on the phone to check a price or place an order.",
-    "With this, they log in, see their trade pricing,",
-    "search your full range and order in a couple of clicks,",
+    "With this, they log in and see their trade pricing straight away.",
+    "They can search your full range, over three hundred products, by code or name.",
+    "Every line shows the product code, pack size and their price, ex VAT.",
     "whether that's delivery to site or collection from the yard.",
     "Repeat orders take seconds",
     "and they can see every past order and invoice in one place.",
-    "Fewer calls for your counter staff, faster orders, and customers who keep coming back. It's built and ready."
+    "Fewer calls for your counter staff, faster answers, and customers who keep coming back. It's built and ready."
   ],
   "steps": [
     {
       "name": "welcome",
       "requires": [],
+      "start_url": "#/home",
       "actions": [
         {
           "wait": 400
+        },
+        {
+          "hover": "#hero"
         }
-      ]
+      ],
+      "zoom_target": "#hero",
+      "zoom": 1.3
     },
     {
       "name": "the-problem",
       "requires": [],
+      "start_url": "#/why",
       "actions": [
         {
-          "wait": 400
+          "hover": "#headline"
+        },
+        {
+          "wait": 1200
+        },
+        {
+          "hover": "#sku"
         }
       ],
-      "zoom_target": "form"
+      "zoom_target": "#sku"
     },
     {
       "name": "login-pricing",
@@ -55,57 +75,75 @@
         "pricing"
       ],
       "thumbnail": true,
+      "start_url": "#/signin",
       "actions": [
         {
-          "login": true
+          "type": "#email",
+          "text": "buyer@dublinbuilders.ie",
+          "zoom": 1.5
         },
         {
-          "focus": ":text-matches('£\\\\s?\\\\d', 'i') >> nth=0"
+          "click": "#send"
+        },
+        {
+          "goto": "#/catalogue"
+        },
+        {
+          "wait": 300
+        },
+        {
+          "hover": "#price1",
+          "zoom": 1.7
         }
       ]
     },
     {
-      "name": "search-order",
+      "name": "search",
       "requires": [
-        "search_browse",
-        "basket",
-        "submit_order"
+        "search_browse"
       ],
+      "start_url": "#/catalogue",
       "actions": [
         {
-          "type": "input[type=search], input[placeholder*=earch]",
-          "text": "plasterboard"
+          "type": "#search",
+          "text": "airbrick",
+          "zoom": 1.5
         },
         {
-          "press": "Enter"
+          "wait": 500
         },
         {
-          "click": "button:has-text('Add to basket'), button:has-text('Add to cart'), button:has-text('Add')",
-          "zoom": true
-        },
-        {
-          "click": "a:has-text('Basket'), a:has-text('Cart'), button:has-text('Basket')"
+          "hover": "#row1"
         }
       ]
+    },
+    {
+      "name": "product-lines",
+      "requires": [
+        "pricing"
+      ],
+      "start_url": "#/catalogue",
+      "actions": [
+        {
+          "hover": "#code1",
+          "zoom": 1.6
+        },
+        {
+          "hover": "#pack1"
+        },
+        {
+          "hover": "#price1"
+        }
+      ],
+      "zoom_target": "#row1",
+      "zoom": 1.45
     },
     {
       "name": "delivery-collection",
       "requires": [
         "delivery_collection"
       ],
-      "actions": [
-        {
-          "hover": "label:has-text('Delivery'), button:has-text('Delivery')",
-          "zoom": true
-        },
-        {
-          "click": "label:has-text('Collection'), button:has-text('Collection'), :text('Collect')"
-        },
-        {
-          "click": "button:has-text('Place order'), button:has-text('Submit order'), button:has-text('Send order')",
-          "zoom": true
-        }
-      ]
+      "actions": []
     },
     {
       "name": "reorder",
@@ -113,15 +151,7 @@
         "reorder",
         "past_orders"
       ],
-      "actions": [
-        {
-          "click": "a:has-text('Orders'), a:has-text('Order history'), a:has-text('My orders')"
-        },
-        {
-          "click": "button:has-text('Reorder'), button:has-text('Order again'), a:has-text('Reorder')",
-          "zoom": true
-        }
-      ]
+      "actions": []
     },
     {
       "name": "history-invoices",
@@ -129,25 +159,27 @@
         "past_orders",
         "invoices_balance"
       ],
-      "actions": [
-        {
-          "click": "a:has-text('Invoices'), a:has-text('Account'), a:has-text('Statement')"
-        }
-      ]
+      "actions": []
     },
     {
       "name": "wrap-up",
       "requires": [],
-      "start_url": "/",
+      "start_url": "#/home",
       "actions": [
         {
-          "scroll": 300
+          "hover": "#header"
         },
         {
-          "scroll": -300
+          "wait": 800
+        },
+        {
+          "hover": "#explore"
         }
-      ]
+      ],
+      "zoom_target": "#header",
+      "zoom": 1.5
     }
   ],
-  "outro_script": "Reply here and I'll show you how we'd get it live."
+  "outro_script": "Reply here and I'll show you how we'd get it live.",
+  "record_url": "http://127.0.0.1:8767/"
 }
