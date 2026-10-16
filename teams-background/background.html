@@ -1,0 +1,123 @@
+<!doctype html><html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Inter;font-weight:500;src:url(../showreel/public/fonts/inter-latin-500-normal.woff2)}
+html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:#fff}
+.v{position:absolute;inset:0;overflow:hidden;display:none}
+.grain{position:absolute;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:multiply}
+img{display:block}
+
+/* ---------- A: Office wall ---------- */
+#office{background:#ece9e4}
+#office .wall{position:absolute;inset:0;
+  background:
+   radial-gradient(ellipse 900px 520px at 1430px 120px,rgba(255,250,240,.95),rgba(255,250,240,0) 70%),
+   radial-gradient(ellipse 1400px 900px at 1300px 500px,#f4f2ee 0%,#e7e3dd 60%,#d6d1ca 100%)}
+#office .slats{position:absolute;left:0;top:0;bottom:0;width:690px;filter:blur(1.4px);
+  background:
+   linear-gradient(90deg,rgba(0,0,0,.0) 0%,rgba(0,0,0,0) 80%,rgba(0,0,0,.18) 100%),
+   linear-gradient(180deg,rgba(255,240,215,.25),rgba(0,0,0,.25)),
+   repeating-linear-gradient(90deg,#b98a5a 0 30px,#c8996a 30px 36px,#a87a4c 36px 46px,#2a2622 46px 58px)}
+#office .slats:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 3px,transparent 3px 58px)}
+#office .edge{position:absolute;left:700px;top:0;bottom:0;width:90px;background:linear-gradient(90deg,rgba(60,45,30,.28),rgba(60,45,30,.08) 30%,rgba(60,45,30,0))}
+#office .floorshade{position:absolute;left:0;right:0;bottom:0;height:300px;background:linear-gradient(0deg,rgba(80,70,60,.18),rgba(80,70,60,0))}
+#office .sign{position:absolute;right:150px;top:150px;width:520px;
+  filter:drop-shadow(0 1px 0 rgba(255,255,255,.6)) drop-shadow(6px 14px 10px rgba(40,30,20,.28)) drop-shadow(14px 30px 30px rgba(40,30,20,.16))}
+#office .halo{position:absolute;right:60px;top:40px;width:700px;height:420px;
+  background:radial-gradient(ellipse at 50% 40%,rgba(255,252,245,.9),rgba(255,252,245,0) 65%)}
+#office .plant{position:absolute;right:-40px;bottom:-30px;filter:blur(3px);opacity:.9}
+
+/* ---------- B: Navy premium ---------- */
+#navy{background:radial-gradient(ellipse 1300px 900px at 55% 60%,#123b7a 0%,#0a2554 45%,#061633 80%,#040e22 100%)}
+#navy .mark{position:absolute;left:-180px;bottom:-260px;width:1000px;opacity:.07;filter:blur(2px) grayscale(.2)}
+#navy .beam{position:absolute;width:1700px;height:420px;border-radius:50%;filter:blur(140px)}
+#navy .logo{position:absolute;right:96px;top:84px;width:340px;filter:drop-shadow(0 8px 24px rgba(0,0,0,.35))}
+#navy .bar{position:absolute;left:0;right:0;bottom:0;height:8px;background:linear-gradient(90deg,#0a8fe8,#1f63e0 50%,#4c46d8)}
+#navy svg{position:absolute;inset:0}
+
+/* ---------- C: Light ribbons ---------- */
+#ribbon{background:radial-gradient(ellipse 1200px 800px at 45% 40%,#ffffff 0%,#f7f9fd 50%,#eaf0f9 100%)}
+#ribbon svg{position:absolute;inset:0}
+#ribbon .logo{position:absolute;right:96px;top:84px;width:340px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1 0"/></filter></svg>
+
+<!-- A -->
+<div class="v" id="office">
+  <div class="wall"></div>
+  <div class="halo"></div>
+  <svg class="slatsvg" width="700" height="1080" style="position:absolute;left:0;top:0;filter:blur(.8px)">
+    <defs>
+      <linearGradient id="slat" x1="0" x2="1"><stop offset="0" stop-color="#d7ad7c"/><stop offset=".25" stop-color="#c79a69"/><stop offset=".8" stop-color="#a97d50"/><stop offset="1" stop-color="#8a6440"/></linearGradient>
+      <linearGradient id="light" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3e0" stop-opacity=".28"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#1e140a" stop-opacity=".38"/></linearGradient>
+      <linearGradient id="side" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".25"/><stop offset=".25" stop-color="#000" stop-opacity="0"/><stop offset=".85" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient>
+      <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9 .006" numOctaves="3" seed="4"/><feColorMatrix values="0 0 0 0 .32  0 0 0 0 .2  0 0 0 0 .1  0 0 0 .55 0"/></filter>
+    </defs>
+    <rect width="700" height="1080" fill="#2b2420"/>
+    <g id="slatg"></g>
+    <rect width="700" height="1080" filter="url(#grain)" style="mix-blend-mode:multiply" clip-path="url(#slatclip)"/>
+    <clipPath id="slatclip"></clipPath>
+    <rect width="700" height="1080" fill="url(#light)"/>
+    <rect width="700" height="1080" fill="url(#side)"/>
+  </svg><div class="edge"></div>
+  <div class="floorshade"></div>
+  <img class="sign" src="assets/logo.png">
+  <svg class="grain" width="1920" height="1080"><rect width="100%" height="100%" filter="url(#n)"/></svg>
+</div>
+
+<!-- B -->
+<div class="v" id="navy">
+  <div class="beam" style="left:-300px;top:-80px;background:rgba(40,130,255,.22);transform:rotate(-12deg)"></div>
+  <div class="beam" style="right:-500px;bottom:-60px;background:rgba(100,80,255,.26);transform:rotate(-12deg)"></div>
+  <img class="mark" src="assets/icon.png">
+  <svg width="1920" height="1080" id="dots"></svg>
+  <img class="logo" src="assets/logo_white.png">
+  <div class="bar"></div>
+  <svg class="grain" width="1920" height="1080" style="mix-blend-mode:overlay;opacity:.08"><rect width="100%" height="100%" filter="url(#n)"/></svg>
+</div>
+
+<!-- C -->
+<div class="v" id="ribbon">
+  <svg width="1920" height="1080" viewBox="0 0 1920 1080">
+    <defs>
+      <linearGradient id="g1" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#0a8fe8"/><stop offset="1" stop-color="#2b6ff0"/></linearGradient>
+      <linearGradient id="g2" x1="0" x2="1"><stop offset="0" stop-color="#2b6ff0"/><stop offset="1" stop-color="#3d55e4"/></linearGradient>
+      <linearGradient id="g3" x1="0" x2="1"><stop offset="0" stop-color="#3d55e4"/><stop offset="1" stop-color="#4c46d8"/></linearGradient>
+      <linearGradient id="f1" x1="0" x2="1"><stop offset="0" stop-color="#0a8fe8" stop-opacity="0"/><stop offset=".5" stop-color="#0a8fe8" stop-opacity=".45"/><stop offset="1" stop-color="#0a8fe8"/></linearGradient>
+      <linearGradient id="f2" x1="0" x2="1"><stop offset="0" stop-color="#2b6ff0" stop-opacity="0"/><stop offset=".5" stop-color="#2b6ff0" stop-opacity=".5"/><stop offset="1" stop-color="#2b6ff0"/></linearGradient>
+      <linearGradient id="f3" x1="0" x2="1"><stop offset="0" stop-color="#4c46d8" stop-opacity="0"/><stop offset=".5" stop-color="#4c46d8" stop-opacity=".55"/><stop offset="1" stop-color="#4c46d8"/></linearGradient>
+      <linearGradient id="f4" x1="0" x2="1"><stop offset="0" stop-color="#0a8fe8" stop-opacity="0"/><stop offset="1" stop-color="#0a8fe8" stop-opacity=".6"/></linearGradient>
+      <filter id="soft"><feGaussianBlur stdDeviation="1.2"/></filter>
+      <filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#1b3a8a" flood-opacity=".18"/></filter>
+    </defs>
+    <!-- three ribbons echoing the logo stripes, sweeping up toward the logo -->
+    <g fill="none" stroke-linecap="round">
+      <path d="M-40 940 C 520 960, 900 900, 1240 760 S 1720 520, 1980 470" stroke="url(#f3)" stroke-width="26"/>
+      <path d="M-40 900 C 500 918, 880 860, 1220 722 S 1710 482, 1980 430" stroke="url(#f2)" stroke-width="14"/>
+      <path d="M-40 868 C 480 884, 860 830, 1200 692 S 1700 452, 1980 400" stroke="url(#f1)" stroke-width="7"/>
+      <path d="M-40 1010 C 560 1030, 940 975, 1270 835 S 1740 600, 1980 555" stroke="url(#f4)" stroke-width="2"/>
+    </g>
+    <g id="rdots"></g>
+  </svg>
+  <img class="logo" src="assets/logo.png">
+  <svg class="grain" width="1920" height="1080" style="opacity:.035"><rect width="100%" height="100%" filter="url(#n)"/></svg>
+</div>
+
+<script>
+const v=location.hash.slice(1)||'office';document.getElementById(v).style.display='block';
+const NS='http://www.w3.org/2000/svg';
+{const g=document.getElementById('slatg'),cp=document.getElementById('slatclip');
+ for(let x=8;x<700;x+=58){const w=44;
+  for(const [el,par] of [['rect',g],['rect',cp]]){const r=document.createElementNS(NS,el);r.setAttribute('x',x);r.setAttribute('y',-5);r.setAttribute('width',w);r.setAttribute('height',1090);
+   if(par===g){r.setAttribute('fill','url(#slat)');r.setAttribute('rx',1.5)} par.appendChild(r)}}}
+// navy: fine dot grid fading from edges, plus a few brand dots
+{const g=document.getElementById('dots');
+ for(let x=40;x<1920;x+=40)for(let y=40;y<1080;y+=40){
+  const dx=(x-960)/960,dy=(y-560)/560,e=Math.sqrt(dx*dx+dy*dy);
+  const o=Math.max(0,(e-.55))*.22; if(o<.01)continue;
+  const c=document.createElementNS(NS,'circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',1.6);
+  c.setAttribute('fill',`rgba(160,195,255,${o.toFixed(3)})`);g.appendChild(c);}
+ [[96,992,'#0a8fe8'],[128,992,'#3f73ea'],[160,992,'#86a6f2']].forEach(([x,y,f])=>{const c=document.createElementNS(NS,'circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',9);c.setAttribute('fill',f);g.appendChild(c)});}
+// ribbon: brand dots top-left
+{const g=document.getElementById('rdots');
+ [[96,96,'#0a4fe0'],[128,96,'#3f73ea'],[160,96,'#86a6f2']].forEach(([x,y,f])=>{const c=document.createElementNS(NS,'circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',9);c.setAttribute('fill',f);g.appendChild(c)});}
+</script></body></html>

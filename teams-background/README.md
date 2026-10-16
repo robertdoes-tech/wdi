@@ -1,15 +1,15 @@
-# WDI Microsoft Teams background
+# WDI Microsoft Teams backgrounds
 
-1920 × 1080 (16:9) branded backgrounds for Teams meetings.
+1920 × 1080 (16:9) PNGs.
 
-| File | Use |
+| File | Look |
 |---|---|
-| `WDI-Teams-Background-light.png` | Default — white/light-blue, navy WDI logo |
-| `WDI-Teams-Background-dark.png` | Navy alternative, white WDI wordmark |
+| `WDI-Teams-Office.png` | Oak slat feature wall + WDI logo as a lit 3D wall sign. Reads like a real office. |
+| `WDI-Teams-Navy.png` | Deep navy with soft brand-colour light, large faint WDI arrow mark, white logo. |
+| `WDI-Teams-Light.png` | Clean light background with slim brand-gradient ribbons rising toward the logo. |
 
-Logo sits top-right and the centre is kept clear for the person on camera.
-Teams mirrors your *own* preview, so the logo looks reversed to you only; everyone else sees it correctly.
+The logo sits top-right and the centre stays clear for you on camera. Teams mirrors only *your own* preview; everyone else sees the logo the right way round.
 
-**Add in Teams:** Meeting → More (…) → Video effects → Backgrounds → Add new → pick the PNG.
+**Add in Teams:** Meeting → More (…) → Video effects → Backgrounds → Add new → choose the PNG.
 
-Source: `bg.html` (logo from the WDI LinkedIn banner in Drive › WDI ASSETS). Re-render with `node shot.mjs "$PWD"`.
+Source: `background.html` (`#office`, `#navy`, `#ribbon`). Logo from Drive › WDI ASSETS. Re-render: `node render.mjs "$PWD"`.
