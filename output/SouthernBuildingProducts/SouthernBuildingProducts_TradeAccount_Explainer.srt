@@ -1,63 +1,63 @@
 1
-00:00:00,550 --> 00:00:02,987
+00:00:00,550 --> 00:00:03,021
 Hi, it's Joe from WDI.
 
 2
-00:00:02,987 --> 00:00:04,642
+00:00:03,021 --> 00:00:04,448
 We built a demo trade account
 
 3
-00:00:04,642 --> 00:00:07,048
+00:00:04,448 --> 00:00:06,626
 for Southern Building Products.
 
 4
-00:00:07,306 --> 00:00:10,402
+00:00:06,914 --> 00:00:09,656
 Your contractors and builders are busy people.
 
 5
-00:00:10,402 --> 00:00:12,135
+00:00:09,656 --> 00:00:11,195
 They don't want to wait on the phone
 
 6
-00:00:12,135 --> 00:00:14,575
+00:00:11,195 --> 00:00:13,445
 to check a price or place an order.
 
 7
-00:00:14,872 --> 00:00:15,689
+00:00:13,670 --> 00:00:14,212
 With this,
 
 8
-00:00:15,689 --> 00:00:19,249
+00:00:14,212 --> 00:00:17,867
 they log in and see their trade pricing straight away.
 
 9
-00:00:21,567 --> 00:00:23,434
+00:00:20,560 --> 00:00:22,392
 They can search your full range,
 
 10
-00:00:23,434 --> 00:00:27,466
+00:00:22,392 --> 00:00:25,906
 over three hundred products, by code or name.
 
 11
-00:00:27,774 --> 00:00:29,946
+00:00:26,193 --> 00:00:28,016
 Every line shows the product code,
 
 12
-00:00:29,946 --> 00:00:33,416
+00:00:28,016 --> 00:00:31,407
 pack size and their price, ex VAT.
 
 13
-00:00:33,720 --> 00:00:36,991
+00:00:31,669 --> 00:00:34,457
 Fewer calls for your counter staff, faster answers,
 
 14
-00:00:36,991 --> 00:00:39,324
+00:00:34,457 --> 00:00:36,886
 and customers who keep coming back.
 
 15
-00:00:39,324 --> 00:00:41,497
+00:00:36,886 --> 00:00:38,868
 It's built and ready.
 
 16
-00:00:41,606 --> 00:00:45,147
+00:00:39,006 --> 00:00:42,315
 Reply here and I'll show you how we'd get it live.

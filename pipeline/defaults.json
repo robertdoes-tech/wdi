@@ -3,7 +3,7 @@
   "viewport": { "width": 1920, "height": 1080 },
   "record_scale": 2,
   "voice": {
-    "voice_id": "yWs0htDxddBoX2qwSDfZ",
+    "voice_id": "03c4meZbMVP5yQvg3Jha",
     "model_id": "eleven_v4",
     "stability": 0.5,
     "similarity_boost": 0.75,
