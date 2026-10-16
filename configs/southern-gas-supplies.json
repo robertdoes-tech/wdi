@@ -1,14 +1,14 @@
 {
-  "_status": "PLACEHOLDER: fill live_url, demo_login, logo_path, brand_colour. Step selectors are first guesses; fix them after the audit (see NOTES.md).",
+  "_status": "Needs: demo_login, and confirm the name (sign says \"Southern Gas Installations\"). Logo recreated from the sign photo. Step selectors are first guesses; fix after the audit.",
   "company_name": "Southern Gas Supplies",
   "slug": "southern-gas-supplies",
-  "live_url": "[live URL]",
+  "live_url": "https://sgs.thisiswdi.com/",
   "demo_login": {
     "user": "[login]",
     "password": "[password]"
   },
   "logo_path": "assets/southern-gas-supplies/logo.png",
-  "brand_colour": "#1f6feb",
+  "brand_colour": "#2E8FD6",
   "voice_id": "yWs0htDxddBoX2qwSDfZ",
   "pronunciations": {},
   "audit": {
