@@ -1,5 +1,5 @@
 {
-  "_status": "Needs: demo_login, and confirm the name (sign says \"Southern Gas Installations\"). Logo recreated from the sign photo. Step selectors are first guesses; fix after the audit.",
+  "_status": "Name confirmed by the portal: Southern Gas Supplies (logo is the related Southern Gas Installations group mark, provisional). Needs: demo_login + network access. Audit from screen recording: output/SouthernGasSupplies/audit/AUDIT.md.",
   "company_name": "Southern Gas Supplies",
   "slug": "southern-gas-supplies",
   "live_url": "https://sgs.thisiswdi.com/",
@@ -14,7 +14,8 @@
   "audit": {
     "approved": false,
     "confirmed": [],
-    "dropped_steps": []
+    "dropped_steps": [],
+    "notes": "Partial audit from a 22s recording of public pages only; logged-in screens unseen. SAMPLE DATA banner on every page."
   },
   "audit_search_term": "propane",
   "script": [
