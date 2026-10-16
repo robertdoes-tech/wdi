@@ -1,8 +1,8 @@
 {
-  "_status": "PLACEHOLDER: fill live_url, demo_login, logo_path, brand_colour. Step selectors are first guesses; fix them after the audit (see NOTES.md).",
+  "_status": "URL from Marc. Blocked from the build machine: needs thisiswdi.com allowed, or screenshots (home, sign-in/demo counter, catalogue, product, basket/orders if any, staff orders) + logo.",
   "company_name": "Southern Building Products",
   "slug": "southern-building-products",
-  "live_url": "[live URL]",
+  "live_url": "https://sbp.thisiswdi.com/",
   "demo_login": {
     "user": "[login]",
     "password": "[password]"
