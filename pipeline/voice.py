@@ -99,6 +99,57 @@ def estimate_words(line):
     return out, t + 0.1
 
 
+def words_from_audio(path, line):
+    """Word timings for audio that came without them (made in the ElevenLabs app or connector).
+    Pauses in the audio (ffmpeg silencedetect) are matched to the script's punctuation, then words are
+    spread across each phrase by length. Close enough for captions; the API path gives exact timings."""
+    import itertools
+    r = subprocess.run(["ffmpeg", "-i", str(path), "-af", "silencedetect=noise=-35dB:d=0.08", "-f", "null", "-"],
+                       capture_output=True, text=True)
+    dur = probe_duration(str(path))
+    starts = [float(x) for x in re.findall(r"silence_start: (-?[0-9.]+)", r.stderr)]
+    ends = [float(x) for x in re.findall(r"silence_end: ([0-9.]+)", r.stderr)]
+    sil = []
+    for a, b in zip(starts, ends):          # merge pauses split by a click or breath
+        if sil and a - sil[-1][1] < 0.06:
+            sil[-1] = (sil[-1][0], b)
+        else:
+            sil.append((a, b))
+    lead = sil[0][1] if sil and sil[0][0] <= 0.05 else 0.0
+    tail = sil[-1][0] if sil and sil[-1][1] >= dur - 0.05 else dur
+    gaps = [(a, b) for a, b in sil if a > lead + 0.05 and b < tail - 0.05]
+
+    real = line.split()
+    weight = [len(re.sub(r"\W", "", w)) + 1.5 for w in real]
+    breaks = [i + 1 for i, w in enumerate(real[:-1]) if re.search(r"[.!?,;:]$", w)]   # word index after each pause
+    # choose which detected gaps are the punctuation pauses: in order, near where length predicts, longer preferred
+    tot, cum = sum(weight), [sum(weight[:i]) for i in range(len(real) + 1)]
+    expect = [lead + (tail - lead) * cum[i] / tot for i in breaks]
+    best, chosen = 1e9, []
+    for k in range(min(len(breaks), len(gaps)), -1, -1):
+        for bsel in itertools.combinations(range(len(breaks)), k):
+            for gsel in itertools.combinations(range(len(gaps)), k):
+                cost = sum((expect[bi] - (gaps[gi][0] + gaps[gi][1]) / 2) ** 2 - 0.5 * (gaps[gi][1] - gaps[gi][0])
+                           for bi, gi in zip(bsel, gsel)) + 2.0 * (len(breaks) - k)
+                if cost < best:
+                    best, chosen = cost, [(breaks[bi], gaps[gi]) for bi, gi in zip(bsel, gsel)]
+        if len(breaks) * len(gaps) > 60:
+            break   # long lines: keep it quick
+    # phrases between the chosen pauses, each spread by word length
+    bounds = [(0, lead)] + [(i, g) for i, g in chosen] + [(len(real), (tail, tail))]
+    out = []
+    for (i0, g0), (i1, g1) in zip(bounds, bounds[1:]):
+        t0 = g0 if isinstance(g0, float) else g0[1]
+        t1 = g1[0]
+        w = weight[i0:i1]
+        acc = 0.0
+        for j, word in enumerate(real[i0:i1]):
+            a = t0 + (t1 - t0) * acc / sum(w)
+            acc += w[j]
+            out.append({"w": word, "start": round(a, 3), "end": round(t0 + (t1 - t0) * acc / sum(w), 3)})
+    return out
+
+
 def probe_duration(path):
     r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", path], capture_output=True, text=True)
     return float(r.stdout.strip())
@@ -110,12 +161,13 @@ def main():
     ap.add_argument("--line", type=int, help="1-based step number to (re)generate")
     ap.add_argument("--force", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--import", dest="import_dir", help="folder of <line-id>.mp3 files made elsewhere (ElevenLabs app/connector): use them instead of calling the API")
     ap.add_argument("--names", help="comma-separated names: write a test clip to check pronunciation")
     a = ap.parse_args()
     cfg = load_config(a.slug)
     voice, table = cfg["voice"], cfg.get("pronunciations") or {}
     key = os.environ.get("ELEVENLABS_API_KEY") or os.environ.get("XI_API_KEY")
-    if not key and not a.dry_run:
+    if not key and not a.dry_run and not a.import_dir:
         raise SystemExit("Set ELEVENLABS_API_KEY (or use --dry-run for a silent test build).")
     vo_dir = cfg["build_dir"] / "vo"
     vo_dir.mkdir(parents=True, exist_ok=True)
@@ -133,12 +185,19 @@ def main():
         if a.line and not lid.startswith(f"{a.line:02d}-"):
             continue
         said = respell(line, table)
-        sig = hashlib.sha1(json.dumps([said, voice, a.dry_run], sort_keys=True).encode()).hexdigest()[:12]
+        sig = hashlib.sha1(json.dumps([said, voice, a.dry_run, bool(a.import_dir)], sort_keys=True).encode()).hexdigest()[:12]
         meta_path, mp3 = vo_dir / f"{lid}.json", vo_dir / f"{lid}.mp3"
         if meta_path.exists() and mp3.exists() and not a.force and json.loads(meta_path.read_text()).get("sig") == sig:
             print(f"  = {lid} (cached)")
             continue
-        if a.dry_run:
+        if a.import_dir:
+            src = os.path.join(a.import_dir, f"{lid}.mp3")
+            if not os.path.exists(src):
+                print(f"  ! {lid}: no {src}, skipped")
+                continue
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", src, "-c", "copy", str(mp3)], check=True)
+            words = words_from_audio(mp3, line)
+        elif a.dry_run:
             words, dur = estimate_words(line)
             subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "lavfi", "-i", "anullsrc=r=44100:cl=mono", "-t", f"{dur:.3f}", "-q:a", "9", str(mp3)], check=True)
         else:
@@ -151,7 +210,7 @@ def main():
                 print("  ! no alignment returned; caption timings estimated")
                 words = estimate_words(line)[0]
         dur = probe_duration(str(mp3))
-        meta = {"id": lid, "text": line, "tts_text": said, "words": words, "duration": dur, "sig": sig, "dry_run": a.dry_run, "voice": voice}
+        meta = {"id": lid, "text": line, "tts_text": said, "words": words, "duration": dur, "sig": sig, "dry_run": a.dry_run, "source": "import" if a.import_dir else "dry-run" if a.dry_run else "api", "voice": voice}
         meta_path.write_text(json.dumps(meta, indent=1))
         print(f"  + {lid} {dur:5.2f}s  {line[:70]}{'…' if len(line) > 70 else ''}")
 

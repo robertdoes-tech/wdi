@@ -36,6 +36,16 @@ Put the WDI logo at `assets/wdi/wdi-logo.png`. Until it's there, the outro shows
 6. **Build.** Run `node pipeline/demo.mjs <slug> build`. This does voice, then record, then assemble, then QA, and takes about 6 minutes. Add `--preview` for a fast encode while you iterate.
 7. **QA.** Read `output/<Co>/QA.md`, watch both MP4s and send the folder.
 
+### No API key? Use audio from the ElevenLabs app or connector
+
+Generate each line in Joe's voice (one take per line), save them as `<line-id>.mp3` (e.g. `01-welcome.mp3`, `99-outro.mp3`; the ids are printed by `voice.py`) in one folder, then:
+
+```sh
+python3 pipeline/voice.py <slug> --import path/to/folder --force
+```
+
+Word timings are worked out from the pauses in the audio, which is close enough for captions. The API path gives exact timings. This is how the test video got Joe's voice in the cloud session, where the API host was blocked.
+
 ### Fixing one thing without redoing everything
 
 - **One voice line:** `python3 pipeline/voice.py <slug> --line 4 --force`, then `node pipeline/demo.mjs <slug> assemble`. Lines are cached by text and settings, so editing a line's text and rerunning `voice` only regenerates that line.
