@@ -32,7 +32,8 @@ export function placeholderFields(cfg) {
   if (!/^https?:\/\//.test(cfg.live_url || '') || PLACEHOLDER.test(cfg.live_url)) bad.push('live_url');
   const u = resolveSecret(cfg.demo_login?.user), p = resolveSecret(cfg.demo_login?.password);
   if (!u || PLACEHOLDER.test(u)) bad.push('demo_login.user');
-  if (!p || PLACEHOLDER.test(p)) bad.push('demo_login.password');
+  // demo-counter portals sign in with one click, so there's no password to check
+  if (cfg.demo_login?.method !== 'demo_counter' && (!p || PLACEHOLDER.test(p))) bad.push('demo_login.password');
   if (!cfg.logo_path || PLACEHOLDER.test(cfg.logo_path) || !fs.existsSync(path.resolve(ROOT, cfg.logo_path))) bad.push('logo_path');
   return bad;
 }

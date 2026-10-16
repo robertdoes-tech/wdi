@@ -1,11 +1,12 @@
 {
-  "_status": "Name confirmed by the portal: Southern Gas Supplies (logo is the related Southern Gas Installations group mark, provisional). Needs: demo_login + network access. Audit from screen recording: output/SouthernGasSupplies/audit/AUDIT.md.",
+  "_status": "Log in as trade customer via the demo counter button \"Demo Heating Buyer\" (Demo Heating & Plumbing Ltd). Staff side (Overview/Products/Orders) seen via Marc's screenshots. Needs network access to thisiswdi.com, or a customer-side screen recording.",
   "company_name": "Southern Gas Supplies",
   "slug": "southern-gas-supplies",
   "live_url": "https://sgs.thisiswdi.com/",
   "demo_login": {
-    "user": "[login]",
-    "password": "[password]"
+    "user": "Demo Heating Buyer",
+    "password": "demo-counter (no password)",
+    "method": "demo_counter"
   },
   "logo_path": "assets/southern-gas-supplies/logo.png",
   "brand_colour": "#2E8FD6",
@@ -55,7 +56,8 @@
       ],
       "actions": [
         {
-          "login": true
+          "click": "button:has-text('Demo Heating Buyer'), a:has-text('Demo Heating Buyer'), :text('Demo Heating Buyer')",
+          "zoom": true
         }
       ]
     },
