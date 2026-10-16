@@ -15,6 +15,8 @@ if (!args.test) {
   if (missing.length) { console.log(`SKIP ${cfg.company_name}: placeholder ${missing.join(', ')}`); process.exit(2); }
   if (!cfg.audit?.approved) { console.log(`STOP ${cfg.company_name}: audit not approved yet. Run audit.mjs, review AUDIT.md, set audit.approved=true.`); process.exit(3); }
 }
+// record_url: a stand-in to record instead of live_url (e.g. stills of the portal when the live site can't be reached)
+if (cfg.record_url) { console.log(`Recording from stand-in ${cfg.record_url} (live site: ${cfg.live_url})`); cfg.live_url = cfg.record_url; }
 const steps = activeSteps(cfg);
 const clipDir = path.join(cfg.buildDir, 'clips');
 const voDir = path.join(cfg.buildDir, 'vo');

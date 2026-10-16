@@ -146,7 +146,9 @@ export class Actor {
       } else if (a.click) {
         const loc = await this.pointAt(a.click, a.zoom);
         await sleep(120);
-        await loc.click({ position: undefined, timeout: 10000 }).catch(async () => this.page.mouse.click(...this.pos));
+        // click where the cursor is resting (it's already on the target), like a person would
+        void loc;
+        await this.page.mouse.click(...this.pos);
         await this.page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
       } else if (a.hover) {
         await this.pointAt(a.hover, a.zoom);

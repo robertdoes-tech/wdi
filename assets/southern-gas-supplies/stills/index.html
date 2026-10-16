@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Southern Gas Supplies · stills</title>
+<!--
+  Stand-in for the live portal while sgs.thisiswdi.com can't be reached from the build machine.
+  Each route shows one real screenshot of the portal (from Marc's recording / screenshots) at 1920 wide,
+  with invisible hotspots over the real buttons so the recorder can point, click and zoom on them.
+  Hotspot coordinates are in the screenshot's own pixels.
+-->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;min-height:1080px;overflow:hidden;font-family:system-ui,sans-serif}
+#page{position:relative;width:1920px;min-height:1080px}
+#shot{position:absolute;left:0;top:0;display:block}
+.hs{position:absolute;cursor:pointer}
+input.hs{border:0;outline:0;background:#fff;color:#1b2b3a;font:400 17.5px/1 system-ui,sans-serif;padding:0 0 0 2px}
+.card{position:absolute;left:50%;top:60px;transform:translateX(-50%);box-shadow:0 30px 70px -25px rgba(20,40,50,.35);border-radius:10px;overflow:hidden}
+.card img{display:block;width:100%}
+</style>
+</head>
+<body>
+<div id="page"></div>
+<script>
+const PAGES = {
+  home: { bg: '#f4f0e8', hs: { logo: [348, 12, 650, 64], header: [348, 0, 1545, 70], hero: [350, 190, 850, 345], apply: [356, 481, 585, 527], signin: [597, 481, 806, 527] } },
+  why: { bg: '#1d3842', hs: { headline: [350, 505, 830, 615], cards: [350, 640, 1540, 850], 'search-card': [356, 642, 740, 847] } },
+  counter: { bg: '#f4f0e8', card: true, scale: 1.12, hs: { 'heating-buyer': [28, 330, 508, 385], 'counter-list': [28, 100, 508, 520] } },
+  catalogue: { bg: '#f6f9fc', hs: { search: [398, 290, 1430, 328], 'search-box': [356, 285, 1440, 333], chips: [356, 353, 1450, 437], regulators: [466, 353, 571, 391], card2: [753, 493, 1137, 752], price2: [995, 708, 1125, 738], account: [1365, 15, 1545, 58] } },
+  product: { bg: '#f6f9fc', hs: { pricebox: [981, 224, 1510, 540], price: [1000, 285, 1170, 330], tiers: [1000, 392, 1490, 482], title: [330, 85, 975, 135] } },
+  orders: { bg: '#f3f5f8', hs: { title: [400, 115, 1040, 195], rows: [403, 477, 1730, 800], row1: [403, 477, 1730, 541] } },
+  overview: { bg: '#f3f5f8', hs: { kpis: [407, 291, 1735, 425], headline: [400, 120, 950, 200] } },
+};
+function show() {
+  const name = location.hash.replace('#/', '') || 'home', P = PAGES[name], page = document.getElementById('page');
+  document.body.style.background = P.bg;
+  const img = new Image(); img.src = name + '.png';
+  img.onload = () => {
+    const k = P.card ? P.scale : 1920 / img.naturalWidth;
+    const w = img.naturalWidth * k, h = img.naturalHeight * k;
+    page.innerHTML = P.card
+      ? `<div class="card" style="width:${w}px"><img id="shot" style="position:static" src="${img.src}"></div>`
+      : `<img id="shot" src="${img.src}" style="width:${w}px">`;
+    const host = P.card ? page.querySelector('.card') : page;
+    if (P.card) host.style.position = 'absolute';
+    for (const [id, [x0, y0, x1, y1]] of Object.entries(P.hs)) {
+      const el = document.createElement(id === 'search' ? 'input' : 'div');
+      el.className = 'hs'; el.id = id;
+      Object.assign(el.style, { left: x0 * k + 'px', top: y0 * k + 'px', width: (x1 - x0) * k + 'px', height: (y1 - y0) * k + 'px' });
+      if (id === 'search') el.style.background = 'transparent';
+      if (id === 'search') el.addEventListener('focus', () => { el.style.background = '#fff'; });
+      host.appendChild(el);
+    }
+    document.body.dataset.ready = name;
+  };
+}
+addEventListener('hashchange', show); show();
+</script>
+</body>
+</html>

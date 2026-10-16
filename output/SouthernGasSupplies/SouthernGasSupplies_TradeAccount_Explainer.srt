@@ -1,0 +1,75 @@
+1
+00:00:00,550 --> 00:00:03,144
+Hi, it's Joe from WDI.
+
+2
+00:00:03,144 --> 00:00:05,564
+We put together something for Southern Gas Supplies
+
+3
+00:00:05,564 --> 00:00:07,460
+that I think you'll like.
+
+4
+00:00:07,698 --> 00:00:10,372
+Right now your trade customers are probably ringing
+
+5
+00:00:10,372 --> 00:00:12,732
+or texting to check prices and stock codes.
+
+6
+00:00:12,732 --> 00:00:14,127
+Here's what it looks like
+
+7
+00:00:14,127 --> 00:00:16,881
+when they can look it up themselves.
+
+8
+00:00:17,170 --> 00:00:20,725
+Your customer logs in to their own trade account.
+
+9
+00:00:20,974 --> 00:00:23,939
+They see their own pricing straight away.
+
+10
+00:00:24,282 --> 00:00:27,377
+They can search your full range by product name,
+
+11
+00:00:27,377 --> 00:00:29,470
+stock code or category.
+
+12
+00:00:29,758 --> 00:00:32,214
+Every product shows their trade price,
+
+13
+00:00:32,214 --> 00:00:35,052
+with better rates when they buy in quantity.
+
+14
+00:00:35,312 --> 00:00:37,210
+And your team gets a staff desk
+
+15
+00:00:37,210 --> 00:00:39,363
+where every order lands clean.
+
+16
+00:00:39,363 --> 00:00:42,439
+No missed calls, no scribbled notes.
+
+17
+00:00:42,721 --> 00:00:47,099
+This is your portal, with your branding, ready to go live.
+
+18
+00:00:47,159 --> 00:00:49,866
+If you want to see it working for your customers,
+
+19
+00:00:49,866 --> 00:00:52,017
+just reply to this message.

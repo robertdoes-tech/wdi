@@ -1,5 +1,5 @@
 {
-  "_status": "Log in as trade customer via the demo counter button \"Demo Heating Buyer\" (Demo Heating & Plumbing Ltd). Staff side (Overview/Products/Orders) seen via Marc's screenshots. Needs network access to thisiswdi.com, or a customer-side screen recording.",
+  "_status": "Recorded from stills of the real portal (assets/southern-gas-supplies/stills, from Marc's recording and screenshots) because sgs.thisiswdi.com is blocked from the build machine. Remove record_url to record the live site. Customer side has no basket/orders/reorder, so those steps are dropped.",
   "company_name": "Southern Gas Supplies",
   "slug": "southern-gas-supplies",
   "live_url": "https://sgs.thisiswdi.com/",
@@ -13,50 +13,73 @@
   "voice_id": "yWs0htDxddBoX2qwSDfZ",
   "pronunciations": {},
   "audit": {
-    "approved": false,
-    "confirmed": [],
+    "approved": true,
+    "confirmed": [
+      "login",
+      "pricing",
+      "search_browse"
+    ],
     "dropped_steps": [],
-    "notes": "Partial audit from a 22s recording of public pages only; logged-in screens unseen. SAMPLE DATA banner on every page."
+    "notes": "From Marc's recording + screenshots, 16 Oct 2026. Customer side: demo-counter sign-in, trade catalogue with search/categories, product page with trade account price and quantity tiers. Not built: basket, delivery/collection, submit order, customer past orders, reorder, invoices. Staff desk has Overview, Products, Orders."
   },
   "audit_search_term": "propane",
   "script": [
     "Hi, it's Joe from WDI. We put together something for Southern Gas Supplies that I think you'll like.",
-    "Right now your trade customers are probably ringing or texting in orders for cylinders and supplies. Here's what it looks like when they can do it themselves.",
+    "Right now your trade customers are probably ringing or texting to check prices and stock codes. Here's what it looks like when they can look it up themselves.",
     "Your customer logs in to their own trade account.",
     "They see their own pricing straight away.",
+    "They can search your full range by product name, stock code or category.",
+    "Every product shows their trade price, with better rates when they buy in quantity.",
     "They pick what they need, choose delivery or collection, and send the order.",
     "Next week, they hit reorder and it's done in seconds.",
-    "Every order lands with you clean. No missed calls, no scribbled notes.",
+    "And your team gets a staff desk where every order lands clean. No missed calls, no scribbled notes.",
     "This is your portal, with your branding, ready to go live."
   ],
   "steps": [
     {
       "name": "welcome",
       "requires": [],
+      "start_url": "#/home",
       "actions": [
         {
-          "wait": 400
+          "wait": 500
+        },
+        {
+          "hover": "#hero"
         }
-      ]
+      ],
+      "zoom_target": "#hero",
+      "zoom": 1.35
     },
     {
       "name": "the-problem",
       "requires": [],
+      "start_url": "#/why",
       "actions": [
         {
-          "wait": 400
+          "hover": "#headline"
+        },
+        {
+          "wait": 1500
+        },
+        {
+          "hover": "#search-card"
         }
       ],
-      "zoom_target": "form"
+      "zoom_target": "#cards"
     },
     {
       "name": "login",
       "requires": [
         "login"
       ],
+      "start_url": "#/counter",
       "actions": [
         {
-          "click": "button:has-text('Demo Heating Buyer'), a:has-text('Demo Heating Buyer'), :text('Demo Heating Buyer')",
+          "hover": "#counter-list"
+        },
+        {
+          "click": "#heating-buyer",
           "zoom": true
         }
       ]
@@ -67,12 +90,51 @@
         "pricing"
       ],
       "thumbnail": true,
+      "start_url": "#/catalogue",
       "actions": [
         {
-          "hover": ":text-matches('£\\\\s?\\\\d', 'i') >> nth=0"
+          "hover": "#card2"
         }
       ],
-      "zoom_target": ":text-matches('£\\\\s?\\\\d', 'i') >> nth=0"
+      "zoom_target": "#price2"
+    },
+    {
+      "name": "search",
+      "requires": [
+        "search_browse"
+      ],
+      "start_url": "#/catalogue",
+      "actions": [
+        {
+          "type": "#search",
+          "text": "regulator",
+          "zoom": true
+        },
+        {
+          "hover": "#regulators",
+          "zoom": true
+        }
+      ]
+    },
+    {
+      "name": "trade-price",
+      "requires": [
+        "pricing"
+      ],
+      "start_url": "#/product",
+      "actions": [
+        {
+          "hover": "#price",
+          "zoom": 1.7
+        },
+        {
+          "wait": 900
+        },
+        {
+          "hover": "#tiers",
+          "zoom": 1.7
+        }
+      ]
     },
     {
       "name": "order",
@@ -81,22 +143,7 @@
         "delivery_collection",
         "submit_order"
       ],
-      "actions": [
-        {
-          "click": "button:has-text('Add to basket'), button:has-text('Add to cart'), button:has-text('Add')"
-        },
-        {
-          "click": "a:has-text('Basket'), a:has-text('Cart'), button:has-text('Basket')"
-        },
-        {
-          "click": "label:has-text('Collection'), button:has-text('Collection'), :text('Collect')",
-          "zoom": true
-        },
-        {
-          "click": "button:has-text('Place order'), button:has-text('Submit order'), button:has-text('Send order')",
-          "zoom": true
-        }
-      ]
+      "actions": []
     },
     {
       "name": "reorder",
@@ -104,41 +151,35 @@
         "reorder",
         "past_orders"
       ],
-      "actions": [
-        {
-          "click": "a:has-text('Orders'), a:has-text('Order history'), a:has-text('My orders')"
-        },
-        {
-          "click": "button:has-text('Reorder'), button:has-text('Order again'), a:has-text('Reorder')",
-          "zoom": true
-        }
-      ]
+      "actions": []
     },
     {
-      "name": "orders-land-clean",
-      "requires": [
-        "past_orders"
-      ],
+      "name": "staff-orders",
+      "requires": [],
+      "start_url": "#/orders",
       "actions": [
         {
-          "click": "a:has-text('Orders'), a:has-text('Order history'), a:has-text('My orders')"
+          "hover": "#title"
+        },
+        {
+          "hover": "#row1"
         }
       ],
-      "zoom_target": "table, [role=table], main"
+      "zoom_target": "#rows"
     },
     {
       "name": "your-portal",
       "requires": [],
-      "start_url": "/",
+      "start_url": "#/home",
       "actions": [
         {
-          "scroll": 300
-        },
-        {
-          "scroll": -300
+          "hover": "#logo"
         }
-      ]
+      ],
+      "zoom_target": "#header",
+      "zoom": 1.5
     }
   ],
-  "outro_script": "If you want to see it working for your customers, just reply to this message."
+  "outro_script": "If you want to see it working for your customers, just reply to this message.",
+  "record_url": "http://127.0.0.1:8766/"
 }
