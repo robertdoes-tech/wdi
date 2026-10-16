@@ -38,6 +38,32 @@ img{display:block}
 #ribbon{background:radial-gradient(ellipse 1200px 800px at 45% 40%,#ffffff 0%,#f7f9fd 50%,#eaf0f9 100%)}
 #ribbon svg{position:absolute;inset:0}
 #ribbon .logo{position:absolute;right:96px;top:84px;width:340px}
+
+/* ---------- D: Glass office ---------- */
+#glass{background:linear-gradient(180deg,#d9dde3 0%,#cfd3d8 55%,#b9b3aa 100%)}
+#glass .scene{position:absolute;inset:-80px;filter:blur(46px) saturate(.75);opacity:.9}
+#glass .scene div{position:absolute}
+#glass .strip{position:absolute;left:0;right:0;top:110px;height:190px;
+  background:linear-gradient(180deg,rgba(255,255,255,.62),rgba(250,252,255,.55));backdrop-filter:blur(18px) saturate(1.1);
+  border-top:1px solid rgba(255,255,255,.8);border-bottom:1px solid rgba(255,255,255,.5);box-shadow:0 10px 40px rgba(30,40,60,.08)}
+#glass .strip .logo{position:absolute;right:120px;top:36px;width:310px}
+#glass .lines{position:absolute;left:0;right:0;top:318px;height:4px;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.55) 0 60px,transparent 60px 74px)}
+#glass .mullion{position:absolute;top:0;bottom:0;width:8px;background:linear-gradient(90deg,rgba(255,255,255,.5),rgba(180,190,200,.35) 40%,rgba(90,100,110,.25));box-shadow:1px 0 0 rgba(255,255,255,.35)}
+#glass .refl{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,0) 30%,rgba(255,255,255,.18) 42%,rgba(255,255,255,0) 50%,rgba(255,255,255,0) 64%,rgba(255,255,255,.10) 70%,rgba(255,255,255,0) 76%)}
+
+/* ---------- E: Reception (dark wall, backlit logo) ---------- */
+#reception{background:#1b1d21}
+#reception .wall{position:absolute;inset:0;background:
+  radial-gradient(ellipse 1100px 700px at 1500px 0px,rgba(255,236,210,.20),rgba(255,236,210,0) 60%),
+  radial-gradient(ellipse 1500px 1000px at 50% 50%,#2a2d32 0%,#1d1f23 60%,#121316 100%)}
+#reception .tex{position:absolute;inset:0;opacity:.35;mix-blend-mode:overlay}
+#reception .glow{position:absolute;right:20px;top:20px;width:820px;height:380px;
+  background:radial-gradient(ellipse at 55% 50%,rgba(40,120,255,.55),rgba(76,70,216,.25) 40%,rgba(0,0,0,0) 70%);filter:blur(10px)}
+#reception .logo{position:absolute;right:150px;top:110px;width:500px;
+  filter:drop-shadow(0 0 18px rgba(50,120,255,.35)) drop-shadow(0 0 60px rgba(70,90,255,.30)) drop-shadow(0 0 120px rgba(40,110,255,.22))}
+#reception .floor{position:absolute;left:0;right:0;bottom:0;height:260px;background:linear-gradient(0deg,rgba(0,0,0,.45),rgba(0,0,0,0))}
+#reception .shelf{position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,#0a8fe8,#1f63e0 50%,#4c46d8);opacity:.9;box-shadow:0 -6px 30px rgba(40,110,255,.5)}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  0 0 0 1 0"/></filter></svg>
 
@@ -102,6 +128,37 @@ img{display:block}
   <svg class="grain" width="1920" height="1080" style="opacity:.035"><rect width="100%" height="100%" filter="url(#n)"/></svg>
 </div>
 
+
+<!-- D -->
+<div class="v" id="glass">
+  <div class="scene">
+    <div style="left:0;right:0;top:0;height:120px;background:#eef0f2"></div>
+    <div style="left:160px;top:180px;width:260px;height:900px;background:#a8977f"></div>
+    <div style="left:470px;top:260px;width:520px;height:340px;background:#e9ecef"></div>
+    <div style="left:1100px;top:220px;width:180px;height:860px;background:#8b919a"></div>
+    <div style="left:1340px;top:300px;width:600px;height:420px;background:#c9d1da"></div>
+    <div style="left:0;right:0;top:760px;height:400px;background:#a79d91"></div>
+    <div style="left:600px;top:700px;width:700px;height:120px;background:#7b7066"></div>
+    <div style="left:1500px;top:480px;width:260px;height:300px;background:#6d8a62;border-radius:45%;opacity:.55"></div>
+    <div id="bokeh" style="inset:0"></div>
+  </div>
+  <div class="refl"></div>
+  <div class="mullion" style="left:610px"></div>
+  <div class="strip"><img class="logo" src="assets/logo.png"></div>
+  <div class="lines"></div>
+  <svg class="grain" width="1920" height="1080" style="opacity:.04"><rect width="100%" height="100%" filter="url(#n)"/></svg>
+</div>
+
+<!-- E -->
+<div class="v" id="reception">
+  <div class="wall"></div>
+  <svg class="tex" width="1920" height="1080"><filter id="plaster"><feTurbulence type="fractalNoise" baseFrequency=".012 .02" numOctaves="4" seed="9"/><feColorMatrix values="0 0 0 0 .5  0 0 0 0 .5  0 0 0 0 .5  1.4 0 0 0 -.25"/></filter><rect width="100%" height="100%" filter="url(#plaster)"/></svg>
+  
+  <img class="logo" src="assets/logo_white.png">
+  <div class="floor"></div>
+  <div class="shelf"></div>
+  <svg class="grain" width="1920" height="1080" style="mix-blend-mode:overlay;opacity:.10"><rect width="100%" height="100%" filter="url(#n)"/></svg>
+</div>
 <script>
 const v=location.hash.slice(1)||'office';document.getElementById(v).style.display='block';
 const NS='http://www.w3.org/2000/svg';
@@ -109,6 +166,8 @@ const NS='http://www.w3.org/2000/svg';
  for(let x=8;x<700;x+=58){const w=44;
   for(const [el,par] of [['rect',g],['rect',cp]]){const r=document.createElementNS(NS,el);r.setAttribute('x',x);r.setAttribute('y',-5);r.setAttribute('width',w);r.setAttribute('height',1090);
    if(par===g){r.setAttribute('fill','url(#slat)');r.setAttribute('rx',1.5)} par.appendChild(r)}}}
+{const b=document.getElementById('bokeh');if(b){for(let i=0;i<9;i++){const d=document.createElement('div');
+  Object.assign(d.style,{left:(140+i*210)+'px',top:(40+(i%2)*18)+'px',width:'90px',height:'40px',borderRadius:'50%',background:'#fffaf0',opacity:'.95'});b.appendChild(d)}}}
 // navy: fine dot grid fading from edges, plus a few brand dots
 {const g=document.getElementById('dots');
  for(let x=40;x<1920;x+=40)for(let y=40;y<1080;y+=40){
