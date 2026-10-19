@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import { chromium } from 'playwright';
 const [fontFile, outBase] = process.argv.slice(2);
 const font = fs.readFileSync(fontFile).toString('base64');
-const GREEN = '#1E6B4B', RED = '#C1212B';
+const GREEN = '#1F674D', RED = '#B61F27';  // SBP brand colours from Joe's demo script
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 500" width="640" height="500">
   <defs><style>@font-face{font-family:SBPLogo;src:url(data:font/woff2;base64,${font}) format("woff2")}</style>
     <clipPath id="band"><rect x="70" y="40" width="500" height="92"/></clipPath></defs>
