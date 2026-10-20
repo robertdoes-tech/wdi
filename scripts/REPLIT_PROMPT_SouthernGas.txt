@@ -1,0 +1,48 @@
+This is the Southern Gas Supplies trade portal demo. Keep everything that already works: the public site, the "Or enter the demo counter" sign-in, the trade catalogue, search and categories, product pages with tiered "From 10 units" pricing, the DEMO PRICE badges, and the staff desk (Overview, Applications, Accounts, Products, Price lists, Orders). Do not remove or restyle existing pages. Add the features below so a trade customer can place an order end to end and staff can approve it. All data stays fictional demo data.
+
+1. BASKET
+- "Add to basket" button with a quantity stepper on every catalogue card and on the product page.
+- Basket icon with a live item count in the customer header.
+- Basket page: lines with product name, stock code, quantity (editable), unit price (using the customer's own price list and quantity tiers), line total, remove button, then subtotal, VAT and total.
+
+2. CHECKOUT
+- Required "Your PO number" field at the top.
+- Delivery or Collection choice (collection from Powerstown, Clonmel); delivery uses the account's address.
+- Optional requested date and notes.
+- Payment is "On account" only. No card payments.
+- "Place order" button.
+- If the same PO number was already used by this account, show a clear warning before placing: "PO 4471 was already used on order SGS-2026-1045. Place anyway?"
+
+3. ORDER CONFIRMATION PAGE
+- Shows the order number, PO number, delivery or collection, lines and totals, status "Awaiting approval", plus "View my orders" and "Back to catalogue" buttons.
+
+4. MY ORDERS AND BUY AGAIN (customer side)
+- "My orders" page in the customer header listing past orders: order number, date, PO, status, total.
+- A "Buy again" button on every past order. One tap puts all its lines in the basket at today's prices and opens checkout.
+- On the customer home or catalogue page, a "Your last order" card with its own "Buy again" button.
+
+5. STAFF ORDER DESK APPROVAL
+- New customer orders arrive in staff Orders with status "Awaiting approval".
+- Opening an order shows: customer, PO number, lines, totals, delivery or collection, plus "Approve" and "Query" buttons.
+- Approve changes the status to "Approved" and creates an invoice record (INV-xxxxx) with the customer's PO number printed in the reference field. Add a simple invoice view page that shows the PO on it.
+
+6. NORTHERN IRELAND PRICING
+- Accounts have a region: ROI or NI.
+- ROI accounts see euro (€) prices with 23% VAT. NI accounts see sterling (£) prices with 20% VAT, everywhere: catalogue, product page, basket, checkout, invoice.
+- Use a separate demo GBP price list. Show a small label: "Prices in GBP · 20% VAT".
+- Add a demo counter login "Demo Belfast Buyer" (Demo Belfast Heating Ltd, NI, customer buyer).
+
+7. DEMO DATA
+- Demo Heating Buyer (Gold pricing) has 3 past orders using real catalogue items, so Buy Again works straight away.
+- The staff order desk has 2 orders "Awaiting approval".
+- Add a "Reset demo data" button in staff Demo settings that restores all of this.
+
+8. VIDEO RECORDING MODE
+- When the URL has ?video=1 (remember it for the session), hide the yellow "SAMPLE DATA NOTICE" banner and the "Demo environment" strips.
+- Keep the DEMO PRICE badges.
+
+9. QUALITY
+- Everything above works on a phone (390px wide) as well as desktop.
+- No dead buttons, empty pages or console errors anywhere in the flow: sign in, catalogue, add to basket, checkout with PO, confirmation, my orders, buy again, then staff approve and invoice.
+- Keep the existing look; use deep navy with flame orange for primary buttons.
+- The logo in the header is loaded from one file (public/logo.png) so it can be swapped for the real Southern Gas logo.
