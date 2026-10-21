@@ -59,29 +59,29 @@ Your team approves it in one click,
 and the PO goes straight onto the invoice.
 
 16
-00:00:43,613 --> 00:00:46,446
+00:00:43,491 --> 00:00:46,324
 Customers in Northern Ireland see sterling prices
 
 17
-00:00:46,446 --> 00:00:49,537
+00:00:46,324 --> 00:00:49,415
 and twenty per cent VAT, automatically.
 
 18
-00:00:49,821 --> 00:00:51,096
+00:00:49,699 --> 00:00:50,974
 Fewer calls.
 
 19
-00:00:51,096 --> 00:00:52,777
+00:00:50,974 --> 00:00:52,655
 Fewer keying errors.
 
 20
-00:00:52,777 --> 00:00:54,931
+00:00:52,655 --> 00:00:54,809
 Orders around the clock.
 
 21
-00:00:54,990 --> 00:00:58,255
+00:00:54,868 --> 00:00:58,133
 Your own trade portal, built and ready to see.
 
 22
-00:00:58,255 --> 00:01:01,072
+00:00:58,133 --> 00:01:00,950
 Reply here to book a twenty-minute walkthrough.

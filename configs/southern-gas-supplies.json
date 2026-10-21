@@ -188,13 +188,24 @@
       "start_url": "index.html#/staff-orders",
       "actions": [
         {
-          "hover": "#belfast",
-          "zoom": 1.6
+          "hover": "#belfast-account",
+          "pause": 300
         },
         {
-          "hover": "#belfast-total"
+          "focus": "#belfast-total",
+          "zoom": 2.4,
+          "pause": 1300
+        },
+        {
+          "goto": "index.html#/belfast-vat",
+          "pause": 0
+        },
+        {
+          "focus": "#gbp-badge",
+          "zoom": 3.0
         }
-      ]
+      ],
+      "idle_drift": false
     },
     {
       "name": "summary",

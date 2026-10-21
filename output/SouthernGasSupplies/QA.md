@@ -1,6 +1,6 @@
 # QA: Southern Gas Supplies
 
-**READY** · 62.0s · 10 voice lines
+**READY** · 61.9s · 10 voice lines
 
 | | Check | Detail |
 |---|---|---|
@@ -16,9 +16,9 @@
 | PASS | Captions: max 2 lines | 22 captions |
 | PASS | No test data / broken pages on screen | text scan clean on every step |
 | PASS | No Replit editor on screen | only the published app was recorded |
-| PASS | Length under 90s | 62.0s |
-| PASS | landscape export | 1920x1080, 62.0s, audio yes |
-| PASS | square export | 1080x1080, 62.0s, audio yes |
+| PASS | Length under 90s | 61.9s |
+| PASS | landscape export | 1920x1080, 61.9s, audio yes |
+| PASS | square export | 1080x1080, 61.9s, audio yes |
 | PASS | Thumbnail | SouthernGasSupplies_Thumbnail.png |
 | PASS | Real voiceover (not dry run) | 03c4meZbMVP5yQvg3Jha |
 
