@@ -141,6 +141,9 @@ export class Actor {
       this.log(`  · ${JSON.stringify(a.secret ? { ...a, text: '•••' } : a)}`);
       if (a.goto !== undefined) {
         await this.page.goto(this.url(a.goto), { waitUntil: 'networkidle' }).catch(() => {});
+        // stills pages redraw on hashchange: wait until the new route is drawn, not the old one still on screen
+        await this.page.waitForFunction(() => !('ready' in document.body.dataset) || document.body.dataset.ready === location.hash.replace('#/', ''),
+          null, { timeout: 5000 }).catch(() => {});
       } else if (a.login) {
         await this.login({ recorded: a.login !== 'instant' });
       } else if (a.click) {
