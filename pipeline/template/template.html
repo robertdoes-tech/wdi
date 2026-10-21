@@ -13,7 +13,7 @@
 @font-face{font-family:Inter;font-weight:600;src:url(fonts/inter-latin-600-normal.woff2) format("woff2")}
 @font-face{font-family:Inter;font-weight:700;src:url(fonts/inter-latin-700-normal.woff2) format("woff2")}
 @font-face{font-family:Inter;font-weight:800;src:url(fonts/inter-latin-800-normal.woff2) format("woff2")}
-:root{--brand:#1f6feb;--ink:#0d1117;--on-brand:#fff}
+:root{--brand:#1f6feb;--accent:#1f6feb;--ink:#0d1117;--on-brand:#fff;--on-accent:#fff}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{overflow:hidden;background:transparent;font-family:Inter,system-ui,sans-serif}
 #stage{position:absolute;left:0;top:0;overflow:hidden}
@@ -36,8 +36,10 @@ html,body{overflow:hidden;background:transparent;font-family:Inter,system-ui,san
 #outro{background:var(--ink);color:#fff}
 #outro .glow{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 35%,color-mix(in srgb,var(--brand) 40%,transparent) 0%,transparent 60%)}
 #outro .h{position:absolute;left:0;right:0;text-align:center;font-weight:800;letter-spacing:-.015em;line-height:1.05}
-#outro .pill{position:absolute;left:50%;transform:translateX(-50%);background:var(--brand);color:var(--on-brand);font-weight:700;border-radius:999px;white-space:nowrap;display:flex;align-items:center;gap:.6em;box-shadow:0 20px 50px -14px color-mix(in srgb,var(--brand) 70%,transparent)}
+#outro .pill{position:absolute;left:50%;transform:translateX(-50%);background:var(--accent);color:var(--on-accent);font-weight:700;border-radius:999px;white-space:nowrap;display:flex;align-items:center;gap:.6em;box-shadow:0 20px 50px -14px color-mix(in srgb,var(--accent) 70%,transparent)}
 #outro .pill svg{width:1.1em;height:1.1em}
+#outro .clogo{position:absolute;left:50%;background:#fff;border-radius:24px;display:none;align-items:center;justify-content:center;box-shadow:0 30px 70px -24px rgba(0,0,0,.6)}
+#outro .clogo img{max-width:100%;max-height:100%;object-fit:contain}
 #outro .sign{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:28px}
 #outro .sign .who{font-weight:700;color:#e6e9ee}
 #outro .sign .sep{width:2px;background:rgba(255,255,255,.25);align-self:stretch}
@@ -66,7 +68,7 @@ html,body{overflow:hidden;background:transparent;font-family:Inter,system-ui,san
 <body>
 <div id="stage">
   <div class="scene" id="intro"><div class="bg"></div><div class="lines"></div><div class="card"></div><div class="bar"></div><div class="line"></div></div>
-  <div class="scene" id="outro"><div class="glow"></div><div class="h"></div>
+  <div class="scene" id="outro"><div class="glow"></div><div class="clogo"></div><div class="h"></div>
     <div class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg><span></span></div>
     <div class="sign"></div></div>
   <div class="scene" id="thumbnail"><div class="shot"></div><div class="shade"></div><div class="card"></div><div class="k"></div><div class="t"></div><div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="#111"/></svg></div></div>
@@ -97,6 +99,9 @@ window.setup = async (data) => {
   const brand = data.brand || '#1f6feb';
   document.documentElement.style.setProperty('--brand', brand);
   document.documentElement.style.setProperty('--on-brand', luminance(brand) > .55 ? '#0d1117' : '#fff');
+  const accent = data.accent || brand;
+  document.documentElement.style.setProperty('--accent', accent);
+  document.documentElement.style.setProperty('--on-accent', luminance(accent) > .55 ? '#0d1117' : '#fff');
   document.querySelectorAll('.scene').forEach(s => s.style.display = 'none');
   const sc = $('#' + data.mode); sc.style.display = 'block';
   $('.dry').style.display = data.dry && data.mode !== 'caption' ? 'block' : 'none';
@@ -119,13 +124,23 @@ window.setup = async (data) => {
   }
 
   if (data.mode === 'outro') {
+    // optional client logo card above the headline (e.g. Joe's "Your own trade portal" close)
+    const withLogo = !!(data.outro.client_logo && data.logo), cl = $('.clogo', sc);
+    cl.style.display = withLogo ? 'flex' : 'none';
+    if (withLogo) {
+      const cw = sq ? 300 : 300, ch = sq ? 200 : 200;
+      Object.assign(cl.style, { width: cw + 'px', height: ch + 'px', marginLeft: -cw / 2 + 'px', top: (sq ? 60 : 50) + 'px', padding: '22px 34px' });
+      cl.innerHTML = `<img src="${esc(data.logo)}" alt="">`;
+    }
+    const off = withLogo ? (sq ? 120 : 110) : 0;
     const h = $('.h', sc);
-    h.textContent = data.outro.headline; h.style.top = (sq ? 170 : 190) + 'px'; h.style.fontSize = (sq ? 76 : 92) + 'px'; h.style.padding = '0 80px';
+    h.textContent = data.outro.headline; h.style.top = ((sq ? 170 : 190) + off) + 'px'; h.style.fontSize = (withLogo ? (sq ? 64 : 76) : (sq ? 76 : 92)) + 'px'; h.style.padding = '0 80px';
     const pill = $('.pill', sc); $('span', pill).textContent = data.outro.subline;
-    Object.assign(pill.style, { top: (sq ? 450 : 400) + 'px', fontSize: (sq ? 40 : 44) + 'px', padding: '26px 48px' });
-    const sign = $('.sign', sc); sign.style.top = (sq ? 630 : 590) + 'px';
+    Object.assign(pill.style, { top: ((sq ? 450 : 400) + off) + 'px', fontSize: (sq ? 40 : 44) + 'px', padding: '26px 48px' });
+    const sign = $('.sign', sc); sign.style.top = ((sq ? 630 : 590) + (withLogo ? (sq ? 90 : 60) : 0)) + 'px';
     sign.innerHTML = `<div class="who" style="font-size:${sq ? 40 : 44}px">${esc(data.outro.signoff)}</div><div class="sep"></div>` +
       (data.wdi_logo ? `<img src="${esc(data.wdi_logo)}" style="height:${sq ? 90 : 96}px;max-width:360px">` : `<div class="wdi" style="font-size:${sq ? 64 : 70}px">WDI</div>`);
+    if (withLogo) tl.fromTo(cl, { scale: .9, opacity: 0 }, { scale: 1, opacity: 1, duration: .6, ease: 'power3.out' }, 0);
     tl.fromTo(h, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: 'power3.out' }, .1)
       .fromTo(pill, { scale: .85, opacity: 0 }, { scale: 1, opacity: 1, duration: .6, ease: 'back.out(1.8)' }, .45)
       .fromTo(sign, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .6, ease: 'power2.out' }, .8)

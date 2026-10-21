@@ -26,7 +26,7 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 const browser = await chromium.launch({ executablePath: chromeExe(), args: ['--force-color-profile=srgb', '--hide-scrollbars'] });
 const ctx = await browser.newContext({ viewport: cfg.viewport, deviceScaleFactor: cfg.record_scale, locale: 'en-GB', timezoneId: 'Europe/London' });
-await ctx.addInitScript(CURSOR_SCRIPT(cfg.brand_colour || '#2B7FFF'));
+await ctx.addInitScript(CURSOR_SCRIPT(cfg.accent_colour || cfg.brand_colour || '#2B7FFF'));
 const page = await ctx.newPage();
 const pageErrors = [];
 page.on('response', r => r.status() >= 400 && r.request().resourceType() === 'document' && pageErrors.push(`${r.status()} ${r.url()}`));

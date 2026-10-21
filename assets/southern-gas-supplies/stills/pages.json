@@ -1,0 +1,12 @@
+{
+  "home": { "bg": "#f4f0e8", "hs": { "logo": [348, 12, 650, 64], "header": [348, 0, 1545, 70], "hero": [350, 190, 850, 345] } },
+  "counter": { "bg": "#f4f0e8", "card": true, "scale": 1.12, "hs": { "heating-buyer": [28, 330, 508, 385], "counter-list": [28, 100, 508, 520] } },
+  "catalogue": { "bg": "#f6f9fc", "hs": { "card2": [753, 493, 1137, 752], "price2": [995, 708, 1125, 738] } },
+  "product": { "bg": "#f6f9fc", "hs": { "pricebox": [981, 224, 1510, 540], "price": [1000, 285, 1170, 330], "tiers": [1000, 392, 1490, 482] } },
+  "applications": { "bg": "#f3f5f8", "hs": { "card": [408, 281, 1735, 513], "approved": [1308, 383, 1378, 413] } },
+  "lastorder": { "img": "v2-catalogue-lastorder.png", "bg": "#f6f9fc", "hs": { "card": [299, 210, 1597, 312], "buyagain": [1439, 235, 1577, 287], "price2": [1000, 800, 1062, 828], "card2": [737, 568, 1159, 908] } },
+  "bacheckout": { "img": "v2-buyagain-checkout.png", "bg": "#f6f9fc", "hs": { "po": { "box": [326, 352, 1080, 398], "input": true }, "pobox": [312, 330, 1085, 402], "summary": [1131, 227, 1585, 750], "place": [1155, 640, 1559, 692], "lines": [1155, 340, 1559, 410] } },
+  "confirmation": { "img": "v2-confirmation.png", "bg": "#f6f9fc", "hs": { "head": [485, 255, 1180, 330], "status": [929, 424, 1340, 452], "po": [503, 404, 700, 445], "summary": [485, 383, 1358, 527] } },
+  "staff-orders": { "img": "v2-staff-orders.png", "bg": "#f3f5f8", "hs": { "row1": [353, 524, 1813, 598], "belfast": [353, 598, 1813, 672], "belfast-total": [1236, 618, 1305, 650], "awaiting": [1636, 413, 1789, 449], "title": [352, 110, 920, 215] } },
+  "review": { "img": "v2-order-review.png", "bg": "#f3f5f8", "hs": { "approve": [1389, 496, 1796, 537], "decision": [1369, 233, 1817, 636], "po": [377, 372, 620, 415], "note": [1389, 590, 1796, 620] } }
+}

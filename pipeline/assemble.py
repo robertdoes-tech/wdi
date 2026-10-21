@@ -276,7 +276,7 @@ def main():
     logo = str(logo) if logo and logo.exists() else None
     wdi_logo = str(wdi_logo) if wdi_logo and wdi_logo.exists() else None
     home = build / "home.png"
-    base = {"fps": fps, "brand": cfg.get("brand_colour"), "company": cfg["company_name"], "intro_line": cfg["intro_line"],
+    base = {"fps": fps, "brand": cfg.get("brand_colour"), "accent": cfg.get("accent_colour"), "company": cfg["company_name"], "intro_line": cfg["intro_line"],
             "logo": logo, "wdi_logo": wdi_logo, "outro": cfg["outro"], "dry": dry}
     R = build / "render"
     jobs = []

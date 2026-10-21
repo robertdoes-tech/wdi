@@ -9,7 +9,7 @@
     "method": "demo_counter"
   },
   "logo_path": "assets/southern-gas-supplies/logo.png",
-  "brand_colour": "#2E8FD6",
+  "brand_colour": "#173a5e",
   "voice_id": "03c4meZbMVP5yQvg3Jha",
   "pronunciations": {},
   "audit": {
@@ -17,169 +17,206 @@
     "confirmed": [
       "login",
       "pricing",
-      "search_browse"
+      "search_browse",
+      "basket",
+      "delivery_collection",
+      "submit_order",
+      "past_orders",
+      "reorder",
+      "approve_order",
+      "ni_pricing"
     ],
     "dropped_steps": [],
-    "notes": "From Marc's recording + screenshots, 16 Oct 2026. Customer side: demo-counter sign-in, trade catalogue with search/categories, product page with trade account price and quantity tiers. Not built: basket, delivery/collection, submit order, customer past orders, reorder, invoices. Staff desk has Overview, Products, Orders."
+    "notes": "v2 from Replit build (20 Oct 2026). Belfast checkout shows £0.00 for UPSO valve (missing NI price) - NI shown via staff Orders list instead."
   },
   "audit_search_term": "propane",
   "script": [
-    "Hi, it's Joe from WDI. We put together something for Southern Gas Supplies that I think you'll like.",
-    "Right now your trade customers are probably ringing or texting to check prices and stock codes. Here's what it looks like when they can look it up themselves.",
-    "Your customer logs in to their own trade account.",
-    "They see their own pricing straight away.",
-    "They can search your full range by product name, stock code or category.",
-    "Every product shows their trade price, with better rates when they buy in quantity.",
-    "They pick what they need, choose delivery or collection, and send the order.",
-    "Next week, they hit reorder and it's done in seconds.",
-    "And your team gets a staff desk where every order lands clean. No missed calls, no scribbled notes.",
-    "This is your portal, with your branding, ready to go live."
+    "Every morning the phones start early. Orders come in by phone and email, and every one gets keyed in by hand.",
+    "Then it's looking up each customer's price, and chasing PO numbers at the end of the month.",
+    "So what if your trade customers could order for themselves, at their own prices, any time?",
+    "Your customer logs in and sees their own agreed trade price. Never a public one.",
+    "One tap on Buy Again repeats last week's order,",
+    "they add their PO number, and send it. From the van, at six in the morning if they need to.",
+    "It lands on your order desk. Your team approves it in one click, and the PO goes straight onto the invoice.",
+    "Customers in Northern Ireland see sterling prices and twenty per cent VAT, automatically.",
+    "Fewer calls. Fewer keying errors. Orders around the clock."
   ],
   "steps": [
     {
-      "name": "welcome",
+      "name": "problem",
       "requires": [],
-      "start_url": "#/home",
+      "start_url": "scenes.html#/problem-a",
       "actions": [
         {
-          "wait": 500
-        },
-        {
-          "hover": "#hero"
+          "eval": "window.play()",
+          "pause": 0
         }
       ],
-      "zoom_target": "#hero",
-      "zoom": 1.35
+      "idle_drift": false
     },
     {
-      "name": "the-problem",
+      "name": "admin",
       "requires": [],
-      "start_url": "#/why",
+      "start_url": "scenes.html#/problem-b",
       "actions": [
         {
-          "hover": "#headline"
-        },
-        {
-          "wait": 1500
-        },
-        {
-          "hover": "#search-card"
+          "eval": "window.play()",
+          "pause": 0
         }
       ],
-      "zoom_target": "#cards"
+      "idle_drift": false
     },
     {
-      "name": "login",
-      "requires": [
-        "login"
-      ],
-      "start_url": "#/counter",
+      "name": "portal",
+      "requires": [],
+      "start_url": "scenes.html#/devices",
       "actions": [
         {
-          "hover": "#counter-list"
-        },
-        {
-          "click": "#heating-buyer",
-          "zoom": true
+          "eval": "window.play()",
+          "pause": 0
         }
-      ]
+      ],
+      "idle_drift": false
     },
     {
-      "name": "pricing",
+      "name": "login-price",
       "requires": [
+        "login",
         "pricing"
       ],
       "thumbnail": true,
-      "start_url": "#/catalogue",
+      "start_url": "index.html#/counter",
       "actions": [
         {
-          "hover": "#card2"
-        }
-      ],
-      "zoom_target": "#price2"
-    },
-    {
-      "name": "search",
-      "requires": [
-        "search_browse"
-      ],
-      "start_url": "#/catalogue",
-      "actions": [
-        {
-          "type": "#search",
-          "text": "regulator",
+          "click": "#heating-buyer",
           "zoom": true
         },
         {
-          "hover": "#regulators",
-          "zoom": true
+          "goto": "index.html#/lastorder"
+        },
+        {
+          "wait": 300
+        },
+        {
+          "hover": "#price2",
+          "zoom": 1.8
         }
       ]
     },
     {
-      "name": "trade-price",
+      "name": "buy-again",
       "requires": [
-        "pricing"
+        "reorder"
       ],
-      "start_url": "#/product",
+      "start_url": "index.html#/lastorder",
       "actions": [
         {
-          "hover": "#price",
-          "zoom": 1.7
+          "hover": "#card"
         },
         {
-          "wait": 900
-        },
-        {
-          "hover": "#tiers",
+          "click": "#buyagain",
           "zoom": 1.7
         }
       ]
     },
     {
-      "name": "order",
+      "name": "po-send",
       "requires": [
-        "basket",
-        "delivery_collection",
         "submit_order"
       ],
-      "actions": []
-    },
-    {
-      "name": "reorder",
-      "requires": [
-        "reorder",
-        "past_orders"
-      ],
-      "actions": []
-    },
-    {
-      "name": "staff-orders",
-      "requires": [],
-      "start_url": "#/orders",
+      "start_url": "index.html#/bacheckout",
       "actions": [
         {
-          "hover": "#title"
+          "type": "#po",
+          "text": "4471",
+          "zoom": 1.6
         },
         {
-          "hover": "#row1"
+          "click": "#place",
+          "zoom": 1.5
+        },
+        {
+          "goto": "index.html#/confirmation"
+        },
+        {
+          "wait": 200
+        },
+        {
+          "focus": "#summary",
+          "zoom": 1.5
         }
-      ],
-      "zoom_target": "#rows"
+      ]
     },
     {
-      "name": "your-portal",
-      "requires": [],
-      "start_url": "#/home",
+      "name": "order-desk",
+      "requires": [
+        "approve_order"
+      ],
+      "start_url": "index.html#/staff-orders",
       "actions": [
         {
-          "hover": "#logo"
+          "hover": "#row1",
+          "zoom": 1.4
+        },
+        {
+          "click": "#row1"
+        },
+        {
+          "goto": "index.html#/review"
+        },
+        {
+          "wait": 200
+        },
+        {
+          "hover": "#po",
+          "zoom": 1.6
+        },
+        {
+          "click": "#approve",
+          "zoom": 1.6
+        },
+        {
+          "hover": "#note"
+        }
+      ]
+    },
+    {
+      "name": "northern-ireland",
+      "requires": [
+        "ni_pricing"
+      ],
+      "start_url": "index.html#/staff-orders",
+      "actions": [
+        {
+          "hover": "#belfast",
+          "zoom": 1.6
+        },
+        {
+          "hover": "#belfast-total"
+        }
+      ]
+    },
+    {
+      "name": "summary",
+      "requires": [],
+      "start_url": "scenes.html#/summary",
+      "actions": [
+        {
+          "eval": "window.play()",
+          "pause": 0
         }
       ],
-      "zoom_target": "#header",
-      "zoom": 1.5
+      "idle_drift": false
     }
   ],
-  "outro_script": "If you want to see it working for your customers, just reply to this message.",
-  "record_url": "http://127.0.0.1:8766/"
+  "outro_script": "Your own trade portal, built and ready to see. Reply here to book a twenty-minute walkthrough.",
+  "record_url": "http://127.0.0.1:8766/",
+  "accent_colour": "#e0602f",
+  "outro": {
+    "min_seconds": 5,
+    "headline": "Your own trade portal. Built and ready to see.",
+    "subline": "Book a 20-minute walkthrough with WDI",
+    "signoff": "Joe, WDI",
+    "client_logo": true
+  }
 }

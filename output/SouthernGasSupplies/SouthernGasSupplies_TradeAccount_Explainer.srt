@@ -1,75 +1,87 @@
 1
-00:00:00,550 --> 00:00:02,912
-Hi, it's Joe from WDI.
+00:00:00,550 --> 00:00:02,839
+Every morning the phones start early.
 
 2
-00:00:02,912 --> 00:00:05,139
-We put together something for Southern Gas Supplies
+00:00:02,839 --> 00:00:04,891
+Orders come in by phone and email,
 
 3
-00:00:05,139 --> 00:00:06,943
-that I think you'll like.
+00:00:04,891 --> 00:00:07,831
+and every one gets keyed in by hand.
 
 4
-00:00:07,149 --> 00:00:09,867
-Right now your trade customers are probably ringing
+00:00:07,881 --> 00:00:10,053
+Then it's looking up each customer's price,
 
 5
-00:00:09,867 --> 00:00:12,633
-or texting to check prices and stock codes.
+00:00:10,053 --> 00:00:13,341
+and chasing PO numbers at the end of the month.
 
 6
-00:00:12,633 --> 00:00:13,579
-Here's what it looks like
+00:00:13,592 --> 00:00:15,795
+So what if your trade customers could order
 
 7
-00:00:13,579 --> 00:00:15,686
-when they can look it up themselves.
+00:00:15,795 --> 00:00:19,498
+for themselves, at their own prices, any time?
 
 8
-00:00:15,917 --> 00:00:19,224
-Your customer logs in to their own trade account.
+00:00:19,799 --> 00:00:23,337
+Your customer logs in and sees their own agreed trade price.
 
 9
-00:00:19,486 --> 00:00:22,335
-They see their own pricing straight away.
+00:00:23,337 --> 00:00:25,221
+Never a public one.
 
 10
-00:00:22,637 --> 00:00:25,362
-They can search your full range by product name,
+00:00:25,510 --> 00:00:29,123
+One tap on Buy Again repeats last week's order,
 
 11
-00:00:25,362 --> 00:00:27,409
-stock code or category.
+00:00:29,392 --> 00:00:31,957
+they add their PO number, and send it.
 
 12
-00:00:27,642 --> 00:00:29,799
-Every product shows their trade price,
+00:00:31,957 --> 00:00:35,305
+From the van, at six in the morning if they need to.
 
 13
-00:00:29,799 --> 00:00:32,429
-with better rates when they buy in quantity.
+00:00:35,521 --> 00:00:37,148
+It lands on your order desk.
 
 14
-00:00:32,726 --> 00:00:34,469
-And your team gets a staff desk
+00:00:37,148 --> 00:00:38,981
+Your team approves it in one click,
 
 15
-00:00:34,469 --> 00:00:36,428
-where every order lands clean.
+00:00:38,981 --> 00:00:41,858
+and the PO goes straight onto the invoice.
 
 16
-00:00:36,428 --> 00:00:39,278
-No missed calls, no scribbled notes.
+00:00:43,613 --> 00:00:46,446
+Customers in Northern Ireland see sterling prices
 
 17
-00:00:39,482 --> 00:00:43,620
-This is your portal, with your branding, ready to go live.
+00:00:46,446 --> 00:00:49,537
+and twenty per cent VAT, automatically.
 
 18
-00:00:43,685 --> 00:00:46,073
-If you want to see it working for your customers,
+00:00:49,821 --> 00:00:51,096
+Fewer calls.
 
 19
-00:00:46,073 --> 00:00:48,147
-just reply to this message.
+00:00:51,096 --> 00:00:52,777
+Fewer keying errors.
+
+20
+00:00:52,777 --> 00:00:54,931
+Orders around the clock.
+
+21
+00:00:54,990 --> 00:00:58,255
+Your own trade portal, built and ready to see.
+
+22
+00:00:58,255 --> 00:01:01,072
+Reply here to book a twenty-minute walkthrough.
