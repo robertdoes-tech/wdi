@@ -5,8 +5,9 @@ plan.json:
   {"target": 9.0,
    "ads": {"1": {"clips": ["18 58 20", ...],          # in order
                  "transition": "fade", "xfade": 0.35,  # ffmpeg xfade type / seconds
-                 "center": {"18 58 20": 3.1}}}}        # optional: centre (s) of the window to use;
+                 "center": {"18 58 20": 3.1},          # optional: centre (s) of the window to use;
                                                        # defaults to analysis.json's best window
+                 "length": {"19 02 32": 1.6}}}}        # optional: fixed segment length (s)
 Segment lengths are solved so the cut lands on `target` seconds:
   sum(segments) - (n-1) * xfade = target
 Short clips give their whole usable length; the rest is shared across the longer ones.
@@ -53,7 +54,12 @@ def windows(ad):
     info = [analysis[c] for c in clips]
     avail = [i["duration"] - 2 * EDGE for i in info]
     need = TARGET + (len(clips) - 1) * d
-    lens = solve_lengths(avail, need)
+    fixed = ad.get("length", {})
+    free = [i for i, c in enumerate(clips) if c not in fixed]
+    part = solve_lengths([avail[i] for i in free], need - sum(fixed.values()))
+    lens = [fixed.get(c, 0.0) for c in clips]
+    for i, L in zip(free, part):
+        lens[i] = L
     if sum(lens) + 1e-6 < need:
         raise SystemExit(f"clips too short: {sum(lens):.2f}s available, need {need:.2f}s")
     out = []
